@@ -1,6 +1,8 @@
 package com.employee.management.schedulers;
 
 import ch.qos.logback.core.util.FixedDelay;
+import com.employee.management.exception.CompanyException;
+import com.employee.management.exception.ResCodes;
 import com.employee.management.models.Employee;
 import com.employee.management.models.Payroll;
 import com.employee.management.repository.AttendanceRepository;
@@ -15,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Component
@@ -37,26 +40,33 @@ public class PayrollUpdater {
     }
 
     Payroll generatePayRoll(Employee employee){
-
-        Payroll payroll=new Payroll();
-        payroll.setBasic(16000D);
-        payroll.setEmployee(employee);
-        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("MMMM yyyy");
-        String payPeriod=simpleDateFormat.format(Calendar.getInstance().getTime());
-        payroll.setPayPeriod(payPeriod);
-        Date payDate=new Date();
-        payroll.setPayDate(payDate);
-        payroll.setHouseRentAllowance(payroll.getBasic()*0.1);
-        payroll.setMedicalAllowance(payroll.getBasic()*0.05);
-        payroll.setOtherAllowance(payroll.getBasic()*0.1);
-        Double grossSalary= payroll.getBasic()+payroll.getHouseRentAllowance()+payroll.getMedicalAllowance()+payroll.getOtherAllowance();
-        payroll.setGrossEarnings(grossSalary);
-        payroll.setProvidentFund(payroll.getBasic()*0.1);
-        Double leaveDeduction=getLeaveDeduction(employee.getEmployeeID(),payroll.getBasic(),payroll);
-        payroll.setLeaveDeduction(leaveDeduction);
-        payroll.setTotalDeductions(payroll.getProvidentFund()+leaveDeduction);
-        payroll.setTotalNetPayable(grossSalary-payroll.getTotalDeductions());
-        return payroll;
+        String previousMonth=getPreviousMonth();
+       Optional<Payroll>previousMonthPayRollDetails= payrollRepository.getPayPeriodDetails(previousMonth,employee);
+        if(previousMonthPayRollDetails.isPresent()) {
+            Payroll previousPay= previousMonthPayRollDetails.get();
+            Payroll payroll = new Payroll();
+            payroll.setBasic(previousPay.getBasic());
+            payroll.setEmployee(employee);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMMM yyyy");
+            String payPeriod = simpleDateFormat.format(Calendar.getInstance().getTime());
+            payroll.setPayPeriod(payPeriod);
+            Date payDate = new Date();
+            payroll.setPayDate(payDate);
+            payroll.setHouseRentAllowance(previousPay.getHouseRentAllowance());
+            payroll.setMedicalAllowance(previousPay.getMedicalAllowance());
+            payroll.setOtherAllowance(previousPay.getOtherAllowance());
+            Double grossSalary =previousPay.getGrossEarnings();
+            payroll.setGrossEarnings(grossSalary);
+            payroll.setProvidentFund(previousPay.getProvidentFund());
+            payroll.setProfessionalTax(previousPay.getProfessionalTax());
+            Double leaveDeduction = getLeaveDeduction(employee.getEmployeeID(), payroll.getBasic(), payroll);
+            payroll.setLeaveDeduction(leaveDeduction);
+            Double totalDeduction=payroll.getProfessionalTax()+payroll.getProvidentFund()+payroll.getLeaveDeduction();
+            payroll.setTotalDeductions(totalDeduction);
+            payroll.setTotalNetPayable(grossSalary - payroll.getTotalDeductions());
+            return payroll;
+        }
+        return null;
     }
 
     private Double getLeaveDeduction(String employeeID,Double basicSalary,Payroll payroll) {
@@ -65,19 +75,30 @@ public class PayrollUpdater {
         LocalDate firstDateOfMonth = date.withDayOfMonth(1);
         java.sql.Date firstDay = java.sql.Date.valueOf(firstDateOfMonth);
         Integer totalLeaves= attendanceRepository.getNoOfAbsence(employeeID, firstDay,currentDate );
-        if(totalLeaves==0.0)
-            return 0.0;
         YearMonth currentYearMonth = YearMonth.now();
         Integer numberOfDaysInMonth = currentYearMonth.lengthOfMonth();
 //        YearMonth december2023 = YearMonth.of(2024, Month.JANUARY);
 //        int numberOfDaysInMonth = december2023.lengthOfMonth();
+        if(totalLeaves==0){
+            payroll.setTotalPaidDays(numberOfDaysInMonth-totalLeaves);
+            payroll.setTotalLopDays(totalLeaves);
+            return 0.0;
+        }
 
         payroll.setTotalPaidDays(numberOfDaysInMonth-totalLeaves);
         payroll.setTotalLopDays(totalLeaves);
         Double payPerDay=basicSalary/numberOfDaysInMonth;
         return  Math.round(payPerDay * totalLeaves * 100.0) / 100.0;
     }
+    private String getPreviousMonth(){
+        LocalDate currentDate = LocalDate.now();
+        LocalDate previousMonth = currentDate.minusMonths(1);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy");
+        return previousMonth.format(formatter);
+
+    }
     void savePayRoll(Payroll payroll){
+     if(payroll!=null)
         payrollRepository.save(payroll);
     }
 }

@@ -13,7 +13,8 @@ public enum ResCodes {
     INVALID_ROLE("1005","Role details not found"),
     INACTIVE_EMPLOYEE("1006","Inactive Employee"),
     INVALID_STATUS("1007","Status not found"),
-    NOT_AUTHORIZED("1008","Employee not permitted")
+    NOT_AUTHORIZED("1008","Employee not permitted"),
+    PREVIOUS_PAYROLL_DETAILS_NOT_FOUND("1009","Previous month payroll details not found")
     ;
     private final String errorCode;
     private final String errorMsg;

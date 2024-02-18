@@ -14,8 +14,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorDetails>companyExceptionHandler(CompanyException companyException){
         ResCodes resCodes=companyException.getResCodes();
         ErrorDetails errorDetails=new ErrorDetails();
+        if(!companyException.getEmpId().isEmpty()){
+            errorDetails.setErrorDesc(resCodes.getErrorMsg()+"--"+companyException.getEmpId());
+        }else{
+            errorDetails.setErrorDesc(resCodes.getErrorMsg());
+        }
         errorDetails.setErrorCode(resCodes.getErrorCode());
-        errorDetails.setErrorDesc(resCodes.getErrorMsg());
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
 }
