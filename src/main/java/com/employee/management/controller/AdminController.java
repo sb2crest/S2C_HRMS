@@ -86,7 +86,7 @@ public class AdminController {
             return ResponseEntity.status(HttpStatus.CREATED).body(payroll);
 
     }
-    @GetMapping("/get-salary-for-6-months")
+    @GetMapping("/salary-graph")
     public ResponseEntity<List<AvgSalaryGraph>> fetchSixMonthData(){
         return new ResponseEntity<>(adminService.getSalaryGraphDataForPastSixMonths(),HttpStatus.OK);
     }
