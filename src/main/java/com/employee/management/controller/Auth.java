@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,10 +22,14 @@ public class Auth {
     JWTService jwtService;
     @PostMapping("/login")
     public String login(@RequestBody AuthRequest authRequest){
-        Authentication authenticate = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmpId(), authRequest.getPassword()));
-        if(authenticate.isAuthenticated())
-            return jwtService.generateToken(authRequest.getEmpId());
-        else throw new CompanyException(ResCodes.INVALID_ID_AND_PASSWORD);
+        try {
+            Authentication authenticate = authenticationManager
+                    .authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmpId(), authRequest.getPassword()));
+            if (authenticate.isAuthenticated())
+                return jwtService.generateToken(authRequest.getEmpId());
+            else throw new CompanyException(ResCodes.INVALID_ID_AND_PASSWORD);
+        }catch (AuthenticationException e){
+            throw new CompanyException(ResCodes.INVALID_ID_AND_PASSWORD);
+        }
     }
 }

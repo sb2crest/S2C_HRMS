@@ -15,16 +15,5 @@ import java.time.format.DateTimeFormatter;
 public class ManagementApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ManagementApplication.class, args);
-		// Get the current date
-		LocalDate currentDate = LocalDate.now();
-
-		// Get the previous month
-		LocalDate previousMonth = currentDate.minusMonths(1);
-
-		// Format the previous month as "Month Year" (e.g., "January 2024")
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy");
-		String previousMonthFormatted = previousMonth.format(formatter);
-
-		System.out.println("Previous month: " + previousMonthFormatted);
 	}
 }

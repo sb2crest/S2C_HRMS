@@ -38,11 +38,10 @@ public class SecurityConfig{
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/auth/**","/admin/view").permitAll()
+                .requestMatchers("/auth/**","/admin/add").permitAll()
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/admin/**", "/employee/**","/salary/**" +
-                        "").authenticated()
+                .requestMatchers("/admin/**", "/employee/**","/salary/**","/offer-letter/**").authenticated()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

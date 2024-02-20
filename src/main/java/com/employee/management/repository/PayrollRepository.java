@@ -14,4 +14,8 @@ public interface PayrollRepository extends JpaRepository<Payroll,Long> {
    Optional<Payroll> getPayPeriodDetails(String payPeriod,Employee employee);
    @Query("select a from Payroll a where a.payPeriod=:payPeriod ")
    Optional<List<Payroll>>getPayDetails(String payPeriod);
+   @Query(value = "select * from Payroll WHERE STR_TO_DATE(CONCAT('01 ',pay_period), '%d %M %Y') " +
+           "BETWEEN :fromDate AND DATE_ADD(:fromDate, INTERVAL 5 MONTH)", nativeQuery = true)
+   List<Payroll> findByPayPeriodRange(String fromDate);
+
 }

@@ -1,9 +1,6 @@
 package com.employee.management.controller;
 
-import com.employee.management.DTO.AdminDashBoardData;
-import com.employee.management.DTO.EmployeeDTO;
-import com.employee.management.DTO.PaySlip;
-import com.employee.management.DTO.PayrollDTO;
+import com.employee.management.DTO.*;
 import com.employee.management.converters.AmountToWordsConverter;
 import com.employee.management.converters.Mapper;
 import com.employee.management.converters.PDFGeneratorForPaySlip;
@@ -34,7 +31,7 @@ public class AdminController {
     @Autowired
     private AmountToWordsConverter amountToWordsConverter;
     @PostMapping("/add")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+//    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<EmployeeDTO> addEmployee(@RequestBody EmployeeDTO employeeDTO){
         return new ResponseEntity<>(adminService.addNewEmployee(employeeDTO), HttpStatus.CREATED);
     }
@@ -58,12 +55,14 @@ public class AdminController {
     public ResponseEntity<EmployeeDTO>getEmployee(@RequestParam("empId")String empId){
         return new ResponseEntity<>(employeeService.getEmployee(empId),HttpStatus.FOUND);
     }
+
     @PutMapping("/change-status")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<String>changeStatusOfEmployee(@RequestParam("empId")String empId,
                                                         @RequestParam("status")String status){
         return new ResponseEntity<>(adminService.changeEmployeeStatus(empId,status),HttpStatus.OK);
     }
+
     @GetMapping("/view")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<String> viewPaySlip(@RequestParam("employeeId") String empId, @RequestParam("payPeriod") String payPeriod) {
@@ -80,12 +79,16 @@ public class AdminController {
         }
     }
     @PostMapping("/add-payroll/{empId}")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+//    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<PayrollDTO> addNewPayRoll(@RequestBody PayrollDTO payrollDTO, @PathVariable("empId") String empId) {
             PayrollDTO payroll = adminService.addPayroll(payrollDTO, empId);
         System.out.println(payroll);
             return ResponseEntity.status(HttpStatus.CREATED).body(payroll);
 
+    }
+    @GetMapping("/get-salary-for-6-months")
+    public ResponseEntity<List<AvgSalaryGraph>> fetchSixMonthData(){
+        return new ResponseEntity<>(adminService.getSalaryGraphDataForPastSixMonths(),HttpStatus.OK);
     }
 
 

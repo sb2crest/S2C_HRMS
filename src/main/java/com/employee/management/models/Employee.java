@@ -50,7 +50,7 @@ public class Employee {
 
     @Column(name = "Password")
     private String password;
-    @Column(name="email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @Override

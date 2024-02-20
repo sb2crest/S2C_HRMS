@@ -6,5 +6,4 @@ import lombok.Data;
 public class PayrollRequest {
     private String employeeId;
     private String payPeriod;
-    private String password;
 }
