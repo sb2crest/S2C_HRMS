@@ -142,10 +142,15 @@ public class AdminServiceImpl implements AdminService {
     public PayrollDTO addPayroll(PayrollDTO payrollDTO,String empId){
       Employee employee=employeeRepository.findById(empId)
               .orElseThrow(()->new CompanyException(ResCodes.EMPLOYEE_NOT_FOUND));
-      Payroll payroll=mapper.convertToPayroll(payrollDTO);
-      payroll.setEmployee(employee);
-      Payroll savedPayroll=payrollRepository.save(payroll);
-      return mapper.convertToPayRollDTO(savedPayroll);
+      Payroll a=payrollRepository.getPayPeriodDetails(payrollDTO.getPayPeriod(),employee).orElse(null);
+      if(a==null) {
+          Payroll payroll = mapper.convertToPayroll(payrollDTO);
+          payroll.setEmployee(employee);
+          Payroll savedPayroll = payrollRepository.save(payroll);
+          return mapper.convertToPayRollDTO(savedPayroll);
+      }else{
+          throw new CompanyException(ResCodes.DUPLICATE_PAYROLL_DETAILS);
+      }
     }
     @Override
     public List<AvgSalaryGraph> getSalaryGraphDataForPastSixMonths(){

@@ -1,23 +1,62 @@
 package com.employee.management.controller;
 
+import com.employee.management.DTO.CtcData;
 import com.employee.management.DTO.OfferLetterDTO;
+import com.employee.management.service.EmailSenderService;
 import com.employee.management.service.OfferLetterService;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/offer-letter")
 public class OfferLetterController {
     @Autowired
     OfferLetterService offerLetterService;
-    @PostMapping("/new")
-    public ResponseEntity<OfferLetterDTO> issueOfferLetter(@RequestBody OfferLetterDTO offerLetterDTO){
-        return new ResponseEntity<>(offerLetterService.issueNewOfferLetter(offerLetterDTO), HttpStatus.OK);
+    @Autowired
+    EmailSenderService emailSenderService;
+    @PostMapping("/send")
+    public ResponseEntity<String> issueOfferLetter(@RequestBody OfferLetterDTO offerLetterDTO) throws JRException, IOException {
+        OfferLetterDTO letterDTO=offerLetterService.issueNewOfferLetter(offerLetterDTO);
+        try {
+            byte[] pdfBytes = offerLetterService.getMergedOfferReport(letterDTO);
+            emailSenderService.sendEmailWithAttachment(letterDTO.getEmail(),"Offer and Appointment Letter ","Congratulations",pdfBytes);
+
+            return new ResponseEntity<>("Email sent successfully",HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
+
+    @PostMapping("/preview")
+    public ResponseEntity<CtcData> preview(@RequestBody OfferLetterDTO offerLetterDTO){
+        return new ResponseEntity<>(offerLetterService.preview(offerLetterDTO.getCtc()),HttpStatus.OK);
+    }
+    @GetMapping("/download/{id}")
+    public ResponseEntity<byte[]> download(@PathVariable("id") Long id) throws JRException, IOException {
+//        return new ResponseEntity<>(offerLetterService.issueNewOfferLetter(offerLetterDTO), HttpStatus.OK);
+        OfferLetterDTO letterDTO=offerLetterService.get(id);
+        try {
+            byte[] pdfBytes = offerLetterService.getMergedOfferReport(letterDTO);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_PDF);
+            headers.setContentDispositionFormData("filename", "offerLetter.pdf");
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .body(pdfBytes);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
 
 }

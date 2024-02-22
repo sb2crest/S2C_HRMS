@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="page_one" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dfb105d7-9961-40bd-91b1-b6f705cf21e1">
+    <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (2)"/>
+    <property name="com.jaspersoft.studio.unit." value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+    <parameter name="offer" class="com.employee.management.DTO.OfferLetterDTO"/>
+
+    <queryString language="SQL">
+        <![CDATA[select * from offer_letter]]>
+    </queryString>
+    <field name="offer_letter_id" class="java.lang.Long">
+        <property name="com.jaspersoft.studio.field.label" value="offer_letter_id"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="offer_letter"/>
+    </field>
+    <field name="package" class="java.lang.Double">
+        <property name="com.jaspersoft.studio.field.label" value="package"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="offer_letter"/>
+    </field>
+    <field name="department" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="department"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="offer_letter"/>
+    </field>
+    <field name="designation" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="designation"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="offer_letter"/>
+    </field>
+    <field name="email" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="email"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="offer_letter"/>
+    </field>
+    <field name="full_name" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="full_name"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="offer_letter"/>
+    </field>
+    <field name="issued_date" class="java.time.LocalDateTime">
+        <property name="com.jaspersoft.studio.field.label" value="issued_date"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="offer_letter"/>
+    </field>
+    <field name="joining_date" class="java.time.LocalDateTime">
+        <property name="com.jaspersoft.studio.field.label" value="joining_date"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="offer_letter"/>
+    </field>
+    <field name="phone_number" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="phone_number"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="offer_letter"/>
+    </field>
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+    <title>
+        <band height="73" splitType="Stretch">
+            <property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+            <frame>
+                <reportElement x="0" y="0" width="555" height="73" uuid="dd02d450-fcb7-4f2d-93e2-6cf16bb5db44"/>
+                <image>
+                    <reportElement x="10" y="-7" width="80" height="68" uuid="2c82e2b9-f385-4d8c-94ef-bd273fdc9d8d"/>
+                    <imageExpression><![CDATA["C:/Users/hp/Downloads/seabed2crest-logo.png"]]></imageExpression>
+                </image>
+                <staticText>
+                    <reportElement x="110" y="3" width="389" height="42" uuid="6416d8a4-003f-42a8-82e8-8042fee1a5e4"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle">
+                        <font fontName="Arial" size="20" isBold="true"/>
+                    </textElement>
+                    <text><![CDATA[Seabed2Crest Technologies Pvt Ltd]]></text>
+                </staticText>
+                <line>
+                    <reportElement x="2" y="64" width="545" height="1" forecolor="#4271C2" uuid="40dd2ad4-977e-40e7-9fc1-50b88c805f39"/>
+                </line>
+                <line>
+                    <reportElement x="2" y="66" width="545" height="1" forecolor="#EBC107" uuid="a4c38261-fb33-431d-b7b1-0602d9a794aa"/>
+                </line>
+            </frame>
+        </band>
+    </title>
+    <detail>
+        <band height="670" splitType="Stretch">
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+            <staticText>
+                <reportElement x="210" y="4" width="138" height="20" uuid="96c1fa24-a81a-4bf0-b48b-c138f4bf9fbb"/>
+                <textElement textAlignment="Center">
+                    <font size="14" isBold="true" isUnderline="true"/>
+                </textElement>
+                <text><![CDATA[Appointment Letter
+]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="14" y="53" width="26" height="20" uuid="dd0a313b-c9b3-4f22-b900-b83efbee3008"/>
+                <textElement textAlignment="Left">
+                    <font size="14" isBold="true" isUnderline="false"/>
+                </textElement>
+                <text><![CDATA[To]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="12" y="100" width="66" height="20" forecolor="#635E5D" uuid="946debf2-c486-489b-84d9-6cd3aaeaa705"/>
+                <textElement textAlignment="Left">
+                    <font fontName="Arial" size="14" isBold="false" isUnderline="false"/>
+                </textElement>
+                <text><![CDATA[Bangalore]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="13" y="76" width="267" height="24" uuid="699f1964-5371-48b3-9042-da2b2b6e0e91"/>
+                <textElement verticalAlignment="Middle" markup="html">
+                    <font fontName="Arial" size="14" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{offer}.getFullName()]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="420" y="50" width="40" height="20" uuid="14f70361-d3bc-4362-b62e-5e45babe9469"/>
+                <textElement textAlignment="Left">
+                    <font size="14" isBold="true" isUnderline="false"/>
+                </textElement>
+                <text><![CDATA[Date:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="13" y="138" width="36" height="20" forecolor="#635E5D" uuid="c313a2cf-cf14-4503-b36a-75dd0aa4a410"/>
+                <textElement textAlignment="Left">
+                    <font fontName="Arial" size="14" isBold="false" isUnderline="false"/>
+                </textElement>
+                <text><![CDATA[Dear ]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="48" y="134" width="242" height="24" uuid="2e431626-0dfa-4670-9b17-a3310a8d5bd7"/>
+                <textElement verticalAlignment="Middle">
+                    <font size="14" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{offer}.getFullName()]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="12" y="175" width="530" height="40" forecolor="#635E5D" uuid="59406384-b347-43b2-970c-9277230629c3"/>
+                <textElement textAlignment="Justified">
+                    <font fontName="Arial" size="13" isBold="false" isUnderline="false"/>
+                </textElement>
+                <text><![CDATA[This is with reference to the selection process undergone by you for appointment in the service of the company. We are pleased to appoint you as ]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="373" y="185" width="145" height="24" uuid="92a1db88-5580-4b0c-8f91-c263859274fe"/>
+                <textElement verticalAlignment="Middle" markup="html">
+                    <font fontName="Arial" size="14" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{offer}.getDesignation()]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="13" y="211" width="529" height="40" forecolor="#635E5D" uuid="29319c4a-7f7d-4f0b-b525-fcc4a4485c0c"/>
+                <textElement textAlignment="Left">
+                    <font fontName="Arial" size="13" isBold="false" isUnderline="false"/>
+                </textElement>
+                <text><![CDATA[in                                                         , with effect from                       on the following terms and conditions.]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="28" y="211" width="223" height="20" uuid="dc50b9f1-2eb7-49a6-b0e8-0e73a4413529"/>
+                <textElement textAlignment="Left">
+                    <font fontName="Arial" size="14" isBold="true" isUnderline="false"/>
+                </textElement>
+                <text><![CDATA[Seabed2Crest Technologies Pvt Ltd]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="329" y="206" width="100" height="24" uuid="bb4c06c7-2c0b-4b1e-8fc8-b62b07f4e54e"/>
+                <textElement verticalAlignment="Middle" markup="html">
+                    <font fontName="Arial" size="13" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{offer}.getIssuedDate()]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="457" y="48" width="100" height="24" uuid="03b40497-afca-49cc-a8ac-3af06b6a91de"/>
+                <textElement verticalAlignment="Middle" markup="html">
+                    <font size="13" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{offer}.getJoiningDate()]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="14" y="256" width="529" height="61" forecolor="#635E5D" uuid="79e0ab11-15c4-425c-881d-f921edeae494"/>
+                <textElement textAlignment="Justified">
+                    <font fontName="Arial" size="13" isBold="false" isUnderline="false"/>
+                </textElement>
+                <text><![CDATA[We congratulate you on your appointment and wish you a long and successful career with us. We are confident that your contribution will take us further in our journey towardsbecoming world leaders.]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="16" y="321" width="204" height="20" uuid="0b676251-ec06-4d1b-b6f7-e0f05f98d27b"/>
+                <textElement textAlignment="Left">
+                    <font fontName="Arial" size="14" isBold="true" isUnderline="false"/>
+                </textElement>
+                <text><![CDATA[COMPENSATION PACKAGE]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="15" y="347" width="529" height="61" forecolor="#635E5D" uuid="c59ced25-39a8-40d6-ab16-01bcf336b4ed"/>
+                <textElement textAlignment="Justified">
+                    <font fontName="Arial" size="13" isBold="false" isUnderline="false"/>
+                </textElement>
+                <text><![CDATA[Your total Annual CTC will be Rs.               and will be reviewed based on the policy of the company as and when it is applicable. The details of CTC breakup (Statement of Remuneration and Benefits) are stated in the Appendix attached.]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="213" y="342" width="82" height="24" uuid="59e9ec4c-c81a-44fe-8009-c4e08c897869"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="Arial" size="13" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{offer}.getCtc()]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="17" y="414" width="131" height="20" uuid="23376990-536a-49c0-8045-797fa6697c52"/>
+                <textElement textAlignment="Left">
+                    <font fontName="Arial" size="14" isBold="true" isUnderline="false"/>
+                </textElement>
+                <text><![CDATA[WORKING HOURS]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="16" y="440" width="528" height="96" forecolor="#635E5D" uuid="129f59a0-69d2-45ab-a38b-7f7d9a334767"/>
+                <textElement textAlignment="Justified">
+                    <font fontName="Arial" size="13" isBold="false" isUnderline="false"/>
+                </textElement>
+                <text><![CDATA[You shall work a 5-day week of forty-five hours per week. Your normal hours of work are from 10.00 am to 7.00 pm Monday to Friday inclusive, with an hour lunch break. Depending on project contingencies, working hours for specific employees or groups of employees may be modified from time to time. Further you should be prepared to work in any shift, as may be warranted by the company’s/Client’s work requirement.]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="17" y="548" width="131" height="20" uuid="afda5627-a3c6-421d-84f8-7fd06f974a35"/>
+                <textElement textAlignment="Left">
+                    <font fontName="Arial" size="14" isBold="true" isUnderline="false"/>
+                </textElement>
+                <text><![CDATA[ANNUAL LEAVES]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="18" y="572" width="528" height="95" forecolor="#635E5D" uuid="be38a24f-6df0-4309-96ed-b0fee9fd8644"/>
+                <textElement textAlignment="Justified">
+                    <font fontName="Arial" size="13" isBold="false" isUnderline="false"/>
+                </textElement>
+                <text><![CDATA[Employees are entitled to 12 working day’s total leave exclusive of Casual leave, Sick leave and Public Holiday as mentioned by the company, to be taken at such times agreed with the company. In case of sick leave, the employee will have to furnish medical certificate in case of continuous leave in excess of 2 days. Refer our Leave Policy for more detail.]]></text>
+            </staticText>
+        </band>
+    </detail>
+    <pageFooter>
+        <band height="52" splitType="Stretch">
+            <frame>
+                <reportElement x="3" y="2" width="550" height="50" uuid="43602ea4-6a78-4d21-8c69-30199a330845"/>
+                <staticText>
+                    <reportElement x="0" y="9" width="550" height="20" forecolor="#4271C2" uuid="f4265d4d-e3a7-4a89-a09d-c5d60d471ff8"/>
+                    <textElement textAlignment="Center">
+                        <font size="11"/>
+                    </textElement>
+                    <text><![CDATA[# 584, Near Suryodaya School, Hesaraghatta Hobli, Rajanukunte, Yelahanka Taluk, Bangalore North - 560064.]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement x="28" y="26" width="40" height="20" forecolor="#EBC107" uuid="bbd1e5fd-55b0-4f65-a787-67491c9cad21"/>
+                    <textElement verticalAlignment="Middle">
+                        <font size="11"/>
+                    </textElement>
+                    <text><![CDATA[Phone :]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement x="70" y="27" width="90" height="20" forecolor="#4271C2" uuid="2f1a1c5f-4e31-4e82-b1b1-806004ca08e1"/>
+                    <textElement verticalAlignment="Middle">
+                        <font size="11"/>
+                    </textElement>
+                    <text><![CDATA[+91 7349368311]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement x="407" y="27" width="124" height="20" forecolor="#4271C2" uuid="8f8dc9c3-bb2c-4aeb-b1f3-d16bdd2dca25"/>
+                    <textElement verticalAlignment="Middle">
+                        <font size="11"/>
+                    </textElement>
+                    <text><![CDATA[www.seabed2crest.com]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement x="358" y="27" width="52" height="20" forecolor="#EBC107" uuid="49403768-3cb6-40b5-9f4f-ed93d1e3d2f0"/>
+                    <textElement verticalAlignment="Middle">
+                        <font size="11"/>
+                    </textElement>
+                    <text><![CDATA[Website :]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement x="218" y="26" width="122" height="20" forecolor="#500E87" uuid="286860a5-f9d1-45c5-9cee-25e07ab30ee3"/>
+                    <textElement verticalAlignment="Middle">
+                        <font size="11" isUnderline="true"/>
+                    </textElement>
+                    <text><![CDATA[info@seabed2crest.com]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement x="180" y="27" width="40" height="20" forecolor="#EBC107" uuid="e1a102c3-b460-452e-8db0-00cb51353a30"/>
+                    <textElement verticalAlignment="Middle">
+                        <font size="11"/>
+                    </textElement>
+                    <text><![CDATA[Email :]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement x="346" y="30" width="4" height="14" forecolor="#4271C2" uuid="8006a9e3-8f1a-45c8-a397-73d770a037c5"/>
+                    <textElement verticalAlignment="Middle">
+                        <font size="11"/>
+                    </textElement>
+                    <text><![CDATA[|]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement x="168" y="29" width="4" height="14" forecolor="#4271C2" uuid="fad5479d-5b66-4970-b06a-507f3d6ae02f"/>
+                    <textElement verticalAlignment="Middle">
+                        <font size="11"/>
+                    </textElement>
+                    <text><![CDATA[|]]></text>
+                </staticText>
+                <line>
+                    <reportElement x="2" y="3" width="545" height="1" forecolor="#EBC107" uuid="0b4c05f3-d3aa-48b3-9c41-83d6605fa109"/>
+                </line>
+                <line>
+                    <reportElement x="2" y="1" width="545" height="1" forecolor="#4271C2" uuid="546d922a-7ae4-422b-9450-82fc8d35dbae"/>
+                </line>
+            </frame>
+        </band>
+    </pageFooter>
+</jasperReport>

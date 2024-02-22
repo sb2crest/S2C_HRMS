@@ -137,7 +137,7 @@ public class Mapper {
                 .stream()
                 .allMatch(field -> field != null && !field.isEmpty());
     }
-    private Double convertStringToDoubleAmount(String amount){
+    public Double convertStringToDoubleAmount(String amount){
         amount=amount.replace(",","");
        return Double.parseDouble(amount);
     }
