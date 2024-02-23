@@ -77,94 +77,97 @@
                 <imageExpression><![CDATA["images/seabed_transparent.jpeg"]]></imageExpression>
             </image>
             <staticText>
-                <reportElement x="13" y="23" width="170" height="20" uuid="f784a429-cd38-4935-9a21-ff85874ac8f5">
+                <reportElement x="15" y="17" width="197" height="20" uuid="a729a50e-2cad-4a6b-bf85-22c9ed13b23e">
                     <property name="com.jaspersoft.studio.unit.x" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Left">
-                    <font fontName="Arial" size="14" isBold="true" isUnderline="false"/>
-                </textElement>
-                <text><![CDATA[CONDITION OF HIRE]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="13" y="49" width="528" height="71" forecolor="#635E5D" uuid="126c95d1-50fb-47c5-9962-3f16701ec5a9"/>
-                <textElement textAlignment="Justified">
-                    <font fontName="Arial" size="13" isBold="false" isUnderline="false"/>
-                </textElement>
-                <text><![CDATA[All appointments are based on the information furnished in the course of applying for the post with the company. Hence any false statement or information furnished during the course of application might lead to dismissal without notice. All appointments are subject to the receipt of satisfactory references.]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="13" y="129" width="197" height="20" uuid="a729a50e-2cad-4a6b-bf85-22c9ed13b23e">
-                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
-                </reportElement>
-                <textElement textAlignment="Left">
-                    <font fontName="Arial" size="14" isBold="true" isUnderline="false"/>
+                    <font fontName="Times New Roman" size="14" isBold="true" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[TERMS & CONDITIONS]]></text>
             </staticText>
             <staticText>
-                <reportElement x="13" y="155" width="528" height="95" forecolor="#635E5D" uuid="4e9e8b3b-63fd-4a08-a995-868e669c5731">
+                <reportElement x="15" y="47" width="528" height="95" forecolor="#635E5D" uuid="4e9e8b3b-63fd-4a08-a995-868e669c5731">
                     <property name="com.jaspersoft.studio.unit.x" value="px"/>
                 </reportElement>
-                <textElement textAlignment="Justified">
-                    <font fontName="Arial" size="13" isBold="false" isUnderline="false"/>
+                <textElement textAlignment="Left">
+                    <font fontName="Times New Roman" size="12" isBold="false" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[This letter contains broad terms and conditions of service governing this appointment which are subject to change from time to time and subject to the Company's employment rules. You are requested to contact the Human Resources for policies/rules/regulations, which are applicable to you. We expect you to keep the salary details confidential at all times. In addition to the terms contained herein, you will at all times during your employment with the company be bound by the policies/rules/regulations of the company.]]></text>
             </staticText>
             <staticText>
-                <reportElement x="13" y="294" width="528" height="60" forecolor="#635E5D" uuid="38736bdc-621a-4713-af08-03edb383a8e1">
+                <reportElement x="15" y="170" width="528" height="60" forecolor="#635E5D" uuid="38736bdc-621a-4713-af08-03edb383a8e1">
                     <property name="com.jaspersoft.studio.unit.x" value="px"/>
                 </reportElement>
-                <textElement textAlignment="Justified">
-                    <font fontName="Arial" size="13" isBold="false" isUnderline="false"/>
+                <textElement textAlignment="Left">
+                    <font fontName="Times New Roman" size="12" isBold="false" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[This offer is made on the clear understanding that your employment is on whole time basis and that you will not undertake any other part time/full-time work/or independent assignments, without the written consent of the company.]]></text>
             </staticText>
             <staticText>
-                <reportElement x="13" y="266" width="186" height="20" uuid="6560ce56-14ec-47df-b10a-d8d9908a9b18">
+                <reportElement x="15" y="139" width="208" height="20" uuid="6560ce56-14ec-47df-b10a-d8d9908a9b18">
                     <property name="com.jaspersoft.studio.unit.x" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Left">
-                    <font fontName="Arial" size="14" isBold="true" isUnderline="false"/>
+                    <font fontName="Times New Roman" size="14" isBold="true" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[NATURE OF EMPLOYMENT]]></text>
             </staticText>
             <staticText>
-                <reportElement x="13" y="365" width="186" height="20" uuid="566ee7b6-847e-4669-80ea-9b8c197ec2b2">
+                <reportElement x="15" y="239" width="186" height="20" uuid="566ee7b6-847e-4669-80ea-9b8c197ec2b2">
                     <property name="com.jaspersoft.studio.unit.x" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Left">
-                    <font fontName="Arial" size="14" isBold="true" isUnderline="false"/>
+                    <font fontName="Times New Roman" size="14" isBold="true" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[BACKGROUND CHECK]]></text>
             </staticText>
             <staticText>
-                <reportElement x="13" y="395" width="528" height="71" forecolor="#635E5D" uuid="afdd5b87-b647-4f7a-ba8b-fb90b74bd870">
+                <reportElement x="15" y="270" width="528" height="71" forecolor="#635E5D" uuid="afdd5b87-b647-4f7a-ba8b-fb90b74bd870">
                     <property name="com.jaspersoft.studio.unit.x" value="px"/>
                 </reportElement>
-                <textElement textAlignment="Justified">
-                    <font fontName="Arial" size="13" isBold="false" isUnderline="false"/>
+                <textElement textAlignment="Left">
+                    <font fontName="Times New Roman" size="12" isBold="false" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[The company conducts background checks of its candidates / employees by an authorized agency as a normal procedure. By accepting this offer, you acknowledge that you have no objection in the company conducting such background checks. Further this offer is valid subject to successful completion of background check and reference check, if any.]]></text>
             </staticText>
             <staticText>
-                <reportElement x="13" y="505" width="528" height="115" forecolor="#635E5D" uuid="4b5dabe5-bebf-47cf-9afa-f52146510751">
+                <reportElement x="15" y="388" width="528" height="115" forecolor="#635E5D" uuid="4b5dabe5-bebf-47cf-9afa-f52146510751">
                     <property name="com.jaspersoft.studio.unit.x" value="px"/>
                 </reportElement>
-                <textElement textAlignment="Justified">
-                    <font fontName="Arial" size="13" isBold="false" isUnderline="false"/>
+                <textElement textAlignment="Left">
+                    <font fontName="Times New Roman" size="12" isBold="false" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[You will undergo a (6) months probation period from your date of joining, subject to possible extension by the company if your performance falls below expected standards. At the end of this period, your services will be confirmed unless the company provides a written extension within the initial six-month timeframe.
 
 During the probation period, either party may terminate your services with fifteen (15) days' written notice or payment equivalent to your salary for the notice period.]]></text>
             </staticText>
             <staticText>
-                <reportElement x="13" y="475" width="186" height="20" uuid="fef83784-fabc-4306-9ef5-c5375168c19e">
+                <reportElement x="15" y="354" width="186" height="20" uuid="fef83784-fabc-4306-9ef5-c5375168c19e">
                     <property name="com.jaspersoft.studio.unit.x" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Left">
-                    <font fontName="Arial" size="14" isBold="true" isUnderline="false"/>
+                    <font fontName="Times New Roman" size="14" isBold="true" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[PROBATION]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="15" y="533" width="528" height="86" forecolor="#635E5D" uuid="214e97ff-0dda-498a-af6f-94fa8e0f95db">
+                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Left">
+                    <font fontName="Times New Roman" size="12" isBold="false" isUnderline="false"/>
+                </textElement>
+                <text><![CDATA[You will be undergoing both external and in-house professional enhancement training that would include on job development program from time to time. In order to help you to acquire specialized skills and enhanced technical knowledge, the company may, at the company's sole discretion, offer to finance the cost of such specialized courses and training at the company's own training establishments or at the training facilities of third parties, within India, from time to time during the term of your employment.]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="15" y="500" width="225" height="20" uuid="80511808-b610-4c26-b215-a8c6c3d2b38f">
+                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Left">
+                    <font fontName="Times New Roman" size="14" isBold="true" isUnderline="false"/>
+                </textElement>
+                <text><![CDATA[TRAINING & DEVELOPMENT
+]]></text>
             </staticText>
         </band>
     </detail>

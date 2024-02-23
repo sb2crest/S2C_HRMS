@@ -74,10 +74,10 @@ public class AdminController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
-    @PostMapping("/add-payroll/{empId}")
+    @PostMapping("/add-payroll")
 //    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public ResponseEntity<PayrollDTO> addNewPayRoll(@RequestBody PayrollDTO payrollDTO, @PathVariable("empId") String empId) {
-            PayrollDTO payroll = adminService.addPayroll(payrollDTO, empId);
+    public ResponseEntity<PayrollDTO> addNewPayRoll(@RequestBody PayrollDTO payrollDTO) {
+            PayrollDTO payroll = adminService.addPayroll(payrollDTO, payrollDTO.getEmployeeId());
         System.out.println(payroll);
             return ResponseEntity.status(HttpStatus.CREATED).body(payroll);
 

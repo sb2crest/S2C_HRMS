@@ -5,6 +5,7 @@
     <property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (2)"/>
     <parameter name="offer" class="com.employee.management.DTO.OfferLetterDTO"/>
     <parameter name="ctc" class="com.employee.management.DTO.CtcData"/>
+
     <queryString language="SQL">
         <![CDATA[select * from offer_letter]]>
     </queryString>
@@ -76,51 +77,51 @@
         <band height="670" splitType="Stretch">
             <property name="com.jaspersoft.studio.unit.height" value="px"/>
             <staticText>
-                <reportElement x="171" y="13" width="219" height="20" uuid="c7e5d19a-fdfa-464a-b26d-244610de516f"/>
+                <reportElement x="143" y="13" width="275" height="20" uuid="c7e5d19a-fdfa-464a-b26d-244610de516f"/>
                 <textElement textAlignment="Center">
-                    <font fontName="Arial" size="14" isBold="true" isUnderline="true"/>
+                    <font fontName="Times New Roman" size="16" isBold="true" isUnderline="true"/>
                 </textElement>
                 <text><![CDATA[Annexure-Compensation Details]]></text>
             </staticText>
             <staticText>
-                <reportElement x="21" y="64" width="89" height="25" uuid="4f5a6652-12e7-41dc-b8f3-2a2f4892f2b7"/>
+                <reportElement x="15" y="64" width="89" height="25" uuid="4f5a6652-12e7-41dc-b8f3-2a2f4892f2b7"/>
                 <textElement>
-                    <font fontName="Arial" size="13" isBold="true"/>
+                    <font fontName="Times New Roman" size="13" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Name           :]]></text>
             </staticText>
             <staticText>
-                <reportElement x="21" y="84" width="89" height="25" uuid="5d1d5721-8821-44cd-9eb1-002e3cc8b05a"/>
+                <reportElement x="15" y="84" width="89" height="25" uuid="5d1d5721-8821-44cd-9eb1-002e3cc8b05a"/>
                 <textElement>
-                    <font fontName="Arial" size="13" isBold="true"/>
+                    <font fontName="Times New Roman" size="13" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Role             :]]></text>
             </staticText>
             <staticText>
-                <reportElement x="21" y="103" width="89" height="25" uuid="c4c3d986-c486-4423-9e07-5e16d355723c"/>
+                <reportElement x="15" y="103" width="89" height="25" uuid="c4c3d986-c486-4423-9e07-5e16d355723c"/>
                 <textElement>
-                    <font fontName="Arial" size="13" isBold="true"/>
+                    <font fontName="Times New Roman" size="13" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Department :]]></text>
             </staticText>
             <textField>
-                <reportElement x="104" y="61" width="160" height="24" uuid="95e9d729-6dc0-4a6b-b4c3-b0395bc359e3"/>
+                <reportElement x="98" y="61" width="160" height="24" uuid="95e9d729-6dc0-4a6b-b4c3-b0395bc359e3"/>
                 <textElement verticalAlignment="Middle" markup="html">
-                    <font fontName="Arial" size="14" isBold="true"/>
+                    <font fontName="Times New Roman" size="14" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{offer}.getFullName()]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="104" y="80" width="160" height="24" uuid="f3d3b4e9-ba34-456c-9771-987e47f33837"/>
+                <reportElement x="98" y="80" width="160" height="24" uuid="f3d3b4e9-ba34-456c-9771-987e47f33837"/>
                 <textElement verticalAlignment="Middle" markup="html">
-                    <font fontName="Arial" size="14" isBold="true"/>
+                    <font fontName="Times New Roman" size="14" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{offer}.getDesignation()]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="105" y="100" width="158" height="24" uuid="0776213c-61a1-445b-a634-4b23c8d4da9c"/>
+                <reportElement x="99" y="100" width="158" height="24" uuid="0776213c-61a1-445b-a634-4b23c8d4da9c"/>
                 <textElement verticalAlignment="Middle" markup="html">
-                    <font fontName="Arial" size="14" isBold="true"/>
+                    <font fontName="Times New Roman" size="14" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{offer}.getDepartment()]]></textFieldExpression>
             </textField>
@@ -190,7 +191,7 @@
                 <staticText>
                     <reportElement x="40" y="46" width="178" height="24" uuid="d2d3463c-f22e-469c-9678-41f87296ede5"/>
                     <textElement textAlignment="Left" verticalAlignment="Middle">
-                        <font size="14" isBold="false"/>
+                        <font fontName="Tahoma" size="14" isBold="false"/>
                     </textElement>
                     <text><![CDATA[Basic]]></text>
                 </staticText>
@@ -294,66 +295,55 @@
                 </textField>
             </frame>
             <staticText>
-                <reportElement x="13" y="363" width="528" height="36" uuid="711abe57-10be-474e-97ec-b954a9418603">
+                <reportElement x="15" y="363" width="528" height="36" uuid="711abe57-10be-474e-97ec-b954a9418603">
                     <property name="com.jaspersoft.studio.unit.y" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Justified">
-                    <font fontName="Arial" size="14" isBold="true" isItalic="true" isUnderline="false"/>
+                    <font fontName="Times New Roman" size="13" isBold="true" isItalic="true" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[This is a highly confidential document hence you are requested not to disclose it to anyone else.]]></text>
             </staticText>
             <staticText>
-                <reportElement x="18" y="414" width="115" height="30" uuid="133acf83-fbc6-44d4-848a-f41f0e893890"/>
+                <reportElement x="15" y="414" width="115" height="30" uuid="133acf83-fbc6-44d4-848a-f41f0e893890"/>
                 <textElement>
-                    <font fontName="Arial" size="13"/>
+                    <font fontName="Times New Roman" size="13"/>
                 </textElement>
                 <text><![CDATA[Yours Sincerely,
 For and on behalf of]]></text>
             </staticText>
             <textField>
-                <reportElement x="183" y="592" width="198" height="20" uuid="e571b11c-c51d-406d-a7e7-3ba09b7d4c86"/>
+                <reportElement x="354" y="498" width="198" height="20" uuid="e571b11c-c51d-406d-a7e7-3ba09b7d4c86"/>
                 <textElement textAlignment="Center">
-                    <font fontName="Arial" size="14"/>
+                    <font fontName="Times New Roman" size="14" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{offer}.getFullName()]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="183" y="609" width="198" height="20" uuid="b4b53dc9-6415-4fe9-b6f6-418aae33690a"/>
+                <reportElement x="354" y="513" width="198" height="20" uuid="b4b53dc9-6415-4fe9-b6f6-418aae33690a"/>
                 <textElement textAlignment="Center">
-                    <font fontName="Arial" size="14"/>
+                    <font fontName="Times New Roman" size="14" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{offer}.getDesignation()]]></textFieldExpression>
             </textField>
             <image>
-                <reportElement x="17" y="454" width="220" height="89" uuid="b981635f-fde7-4f1e-b897-c9621c4c7c04"/>
+                <reportElement x="10" y="454" width="220" height="89" uuid="b981635f-fde7-4f1e-b897-c9621c4c7c04"/>
                 <imageExpression><![CDATA["images/ceo_sign.jpg"]]></imageExpression>
             </image>
             <staticText>
                 <reportElement x="80" y="638" width="400" height="19" uuid="9a6729d4-59da-4143-be2a-584a21f852e1"/>
                 <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font fontName="Arial" size="12"/>
+                    <font fontName="Times New Roman" size="12"/>
                 </textElement>
                 <text><![CDATA[Please sign and return the duplicate copy of this letter for our records.]]></text>
             </staticText>
             <staticText>
-                <reportElement x="19" y="498" width="127" height="40" uuid="54cc4436-62c2-4c4b-be77-4f9c985fb3bc"/>
+                <reportElement x="15" y="498" width="127" height="32" uuid="54cc4436-62c2-4c4b-be77-4f9c985fb3bc"/>
                 <textElement textAlignment="Center">
-                    <font fontName="Arial" size="13" isBold="true"/>
+                    <font fontName="Times New Roman" size="13" isBold="true"/>
                 </textElement>
                 <text><![CDATA[NANDU KASARAM
 Founder & CEO]]></text>
-            </staticText>
-            <image>
-                <reportElement x="390" y="458" width="180" height="77" uuid="a065d30f-b8c4-462f-bb4d-b15273fdfd53"/>
-                <imageExpression><![CDATA["images/project_manager_sign.jpg"]]></imageExpression>
-            </image>
-            <staticText>
-                <reportElement x="406" y="498" width="130" height="40" uuid="aa55b1ae-b5b0-42dc-b25b-28b988c8af52"/>
-                <textElement textAlignment="Center">
-                    <font fontName="Arial" size="13" isBold="true"/>
-                </textElement>
-                <text><![CDATA[JEEVAN P
-Project Manager]]></text>
             </staticText>
         </band>
     </detail>

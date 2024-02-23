@@ -6,10 +6,7 @@ import com.employee.management.service.EmailSenderService;
 import com.employee.management.service.OfferLetterService;
 import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -46,7 +43,24 @@ public class OfferLetterController {
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_PDF);
-            headers.setContentDispositionFormData("filename", "offerLetter.pdf");
+            headers.setContentDisposition(ContentDisposition.builder("inline").build());
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .body(pdfBytes);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+    @GetMapping("/preview-letter-by-id/{id}")
+    public ResponseEntity<byte[]> previewLetterById(@PathVariable("id") Long id) throws JRException, IOException {
+        OfferLetterDTO offerLetterDTO=offerLetterService.get(id);
+        try {
+            byte[] pdfBytes = offerLetterService.getMergedOfferReport(offerLetterDTO);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_PDF);
+            headers.setContentDisposition(ContentDisposition.builder("inline").build());
             return ResponseEntity.ok()
                     .headers(headers)
                     .body(pdfBytes);
