@@ -36,7 +36,12 @@ public class PayrollUpdater {
         employees.stream()
                 .filter(Objects::nonNull)
                 .map(this::generatePayRoll)
+                .filter(payroll -> {
+                  Payroll e=  payrollRepository.getPayPeriodDetails(currentMonth(),payroll.getEmployee()).orElse(null);
+                  return e==null;
+                })
                 .forEach(this::savePayRoll);
+
     }
 
     Payroll generatePayRoll(Employee employee){
@@ -96,6 +101,11 @@ public class PayrollUpdater {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy");
         return previousMonth.format(formatter);
 
+    }
+    private String currentMonth(){
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy");
+        return currentDate.format(formatter);
     }
     void savePayRoll(Payroll payroll){
      if(payroll!=null)

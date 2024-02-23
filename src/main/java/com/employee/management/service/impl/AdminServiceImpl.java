@@ -1,9 +1,6 @@
 package com.employee.management.service.impl;
 
-import com.employee.management.DTO.AdminDashBoardData;
-import com.employee.management.DTO.AvgSalaryGraphResponse;
-import com.employee.management.DTO.EmployeeDTO;
-import com.employee.management.DTO.PayrollDTO;
+import com.employee.management.DTO.*;
 import com.employee.management.converters.Mapper;
 import com.employee.management.exception.CompanyException;
 import com.employee.management.exception.ResCodes;
@@ -171,6 +168,19 @@ public class AdminServiceImpl implements AdminService {
                 .map(entry -> new AvgSalaryGraphResponse(entry.getKey(), String.format("%.2f", entry.getValue())))
                 .toList();
 
+    }
+
+    @Override
+    public String updatePfDetails(PfNumberUpdateRequest request) {
+        Employee employee=employeeRepository.findById(request.getEmployeeId())
+                .orElseThrow(()->new CompanyException(ResCodes.EMPLOYEE_NOT_FOUND));
+        if(request.getUanNumber()!=null && request.getPfNumber()!=null) {
+            employee.setUanNumber(request.getUanNumber());
+            employee.setPfNumber(request.getPfNumber());
+            employeeRepository.save(employee);
+            return "Successfully Updated";
+        }
+        throw new CompanyException(ResCodes.EMPTY_FIELDS);
     }
 
 }

@@ -86,8 +86,9 @@ public class AdminController {
     public ResponseEntity<List<AvgSalaryGraphResponse>> fetchSixMonthData(){
         return new ResponseEntity<>(adminService.getSalaryGraphDataForPastSixMonths(),HttpStatus.OK);
     }
-
-
-
-
+    @PostMapping("/update-pf-no")
+    public ResponseEntity<String> updatePFDetails(@RequestBody PfNumberUpdateRequest request){
+        System.out.println(request);
+        return new ResponseEntity<>(adminService.updatePfDetails(request),HttpStatus.OK);
+    }
 }

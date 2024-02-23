@@ -52,11 +52,15 @@ public class Employee {
     private String password;
     @Column(name = "email", unique = true)
     private String email;
+    @Column(name = "uanNumber")
+    private String uanNumber;
+    @Column(name = "pfNumber")
+    private String pfNumber;
 
     @Override
     public String toString() {
         return "Employee{" +
-                "employeeID=" + employeeID +
+                "employeeID='" + employeeID + '\'' +
                 ", employeeName='" + employeeName + '\'' +
                 ", designation='" + designation + '\'' +
                 ", location='" + location + '\'' +
@@ -66,6 +70,8 @@ public class Employee {
                 ", dateOfJoin=" + dateOfJoin +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                ", uanNumber='" + uanNumber + '\'' +
+                ", pfNumber='" + pfNumber + '\'' +
                 '}';
     }
 }

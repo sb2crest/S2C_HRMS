@@ -18,4 +18,6 @@ public class EmployeeDTO {
     private String password;
     private String status;
     private String email;
+    private String uanNumber;
+    private String pfNumber;
 }

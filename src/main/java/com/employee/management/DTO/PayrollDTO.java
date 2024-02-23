@@ -17,9 +17,9 @@ public class PayrollDTO {
     private String providentFund;
     private String professionalTax;
     private String leaveDeduction;
+    private String incomeTax;
     private String totalDeductions;
     private String totalNetPayable;
-
     private Integer totalDaysPaid;
     private Integer totalLopDays;
 }

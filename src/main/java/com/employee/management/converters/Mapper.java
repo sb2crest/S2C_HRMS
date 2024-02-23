@@ -39,6 +39,8 @@ public class Mapper {
             employeeDTO.setBankName(employee.getBankName());
             employeeDTO.setAccountNo(employee.getAccountNo());
             employeeDTO.setStatus(employee.getStatus().getName());
+            employeeDTO.setPfNumber(employee.getPfNumber());
+            employeeDTO.setUanNumber(employee.getUanNumber());
             employeeDTO.setDateOfJoin(dateConverter.localDateTimeToStringConverter(employee.getDateOfJoin()));
         }
         return employeeDTO;
@@ -59,6 +61,7 @@ public class Mapper {
         dto.setTotalNetPayable(formatAmountWithCommas((double) Math.round(payroll.getTotalNetPayable())));
         dto.setProfessionalTax(formatAmountWithCommas(payroll.getProfessionalTax()));
         dto.setTotalDaysPaid(payroll.getTotalPaidDays());
+        dto.setIncomeTax(formatAmountWithCommas(payroll.getIncomeTax()));
         dto.setTotalLopDays(payroll.getTotalLopDays());
         dto.setLeaveDeduction(formatAmountWithCommas(payroll.getLeaveDeduction()));
         return dto;
@@ -81,6 +84,7 @@ public class Mapper {
             payroll.setTotalNetPayable(convertStringToDoubleAmount(payrollDTO.getTotalNetPayable()));
             payroll.setTotalPaidDays(payrollDTO.getTotalDaysPaid());
             payroll.setTotalLopDays(payrollDTO.getTotalLopDays());
+            payroll.setIncomeTax(convertStringToDoubleAmount(payrollDTO.getIncomeTax()));
             return payroll;
         }
         return payroll;
@@ -98,6 +102,8 @@ public class Mapper {
         employee.setPassword(passwordGenerator.generatePassword(6));
         employee.setEmail(employeeDTO.getEmail());
         employee.setDateOfJoin(dateConverter.stringToLocalDateTimeConverter(employeeDTO.getDateOfJoin()));
+        employee.setPfNumber(employeeDTO.getPfNumber());
+        employee.setUanNumber(employeeDTO.getUanNumber());
         return employee;
     }
 

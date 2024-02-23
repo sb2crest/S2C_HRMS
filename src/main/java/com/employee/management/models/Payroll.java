@@ -48,6 +48,9 @@ public class Payroll {
     @Column(name="ProfessionalTax")
     private Double professionalTax;
 
+    @Column(name="IncomeTax")
+    private Double incomeTax;
+
     @Column(name = "TotalDeductions")
     private Double totalDeductions;
 
