@@ -20,4 +20,6 @@ public class EmployeeDTO {
     private String email;
     private String uanNumber;
     private String pfNumber;
+    private String grossSalary;
+    private String nextHikeDate;
 }

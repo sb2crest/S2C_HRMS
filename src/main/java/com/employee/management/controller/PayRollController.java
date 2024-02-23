@@ -33,7 +33,7 @@ public class PayRollController {
         return new ResponseEntity<>(payRollService.getPaySlip(empId,payPeriod), HttpStatus.OK);
     }
     @GetMapping("/download")
-    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
+//    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
     public ResponseEntity<byte[]> getPaySlipDownload(@RequestParam("employeeId") String empId,
                                                      @RequestParam("payPeriod") String payPeriod) {
         PaySlip paySlip = payRollService.getPaySlip(empId, payPeriod);

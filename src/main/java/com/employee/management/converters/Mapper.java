@@ -1,20 +1,20 @@
 package com.employee.management.converters;
 
 import com.employee.management.DTO.EmployeeDTO;
+import com.employee.management.DTO.HikeEntityDTO;
 import com.employee.management.DTO.OfferLetterDTO;
 import com.employee.management.DTO.PayrollDTO;
 import com.employee.management.exception.CompanyException;
 import com.employee.management.exception.ResCodes;
-import com.employee.management.models.Employee;
-import com.employee.management.models.OfferLetterEntity;
-import com.employee.management.models.Payroll;
-import com.employee.management.models.Role;
+import com.employee.management.models.*;
 import com.employee.management.util.PasswordGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.text.DecimalFormat;
+import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 
 @Component
@@ -42,6 +42,8 @@ public class Mapper {
             employeeDTO.setPfNumber(employee.getPfNumber());
             employeeDTO.setUanNumber(employee.getUanNumber());
             employeeDTO.setDateOfJoin(dateConverter.localDateTimeToStringConverter(employee.getDateOfJoin()));
+            employeeDTO.setGrossSalary(formatAmountWithCommas(employee.getGrossSalary()));
+            employeeDTO.setNextHikeDate(dateConverter.localDateTimeToStringConverter(employee.getNextHikeDate()));
         }
         return employeeDTO;
     }
@@ -102,6 +104,15 @@ public class Mapper {
         employee.setPassword(passwordGenerator.generatePassword(6));
         employee.setEmail(employeeDTO.getEmail());
         employee.setDateOfJoin(dateConverter.stringToLocalDateTimeConverter(employeeDTO.getDateOfJoin()));
+
+        Date nextHikeDate = new Date(employee.getDateOfJoin().getTime());
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(nextHikeDate);
+        cal.add(Calendar.YEAR, 1);
+        nextHikeDate = cal.getTime();
+        employee.setNextHikeDate(nextHikeDate);
+
+        employee.setGrossSalary(convertStringToDoubleAmount(employeeDTO.getGrossSalary()));
         employee.setPfNumber(employeeDTO.getPfNumber());
         employee.setUanNumber(employeeDTO.getUanNumber());
         return employee;
@@ -136,6 +147,23 @@ public class Mapper {
         offerLetterDTO.setDepartment(entity.getDepartment());
         return offerLetterDTO;
     }
+
+    public HikeEntityDTO convertToHikeEntityDto(HikeEntity hike){
+        HikeEntityDTO hikeEntityDTO=new HikeEntityDTO();
+        hikeEntityDTO.setId(hike.getId());
+        hikeEntityDTO.setHikePercentage(String.valueOf(hike.getHikePercentage()));
+        hikeEntityDTO.setEffectiveDate(dateConverter.localDateTimeToStringConverter(hike.getEffectiveDate()));
+        hikeEntityDTO.setEmployeeId(hike.getEmployee().getEmployeeID());
+        hikeEntityDTO.setReason(hike.getReason());
+        hikeEntityDTO.setApprovedDate(dateConverter.localDateTimeToStringConverter(hike.getApprovedDate()));
+        hikeEntityDTO.setNewSalary(formatAmountWithCommas(hike.getNewSalary()));
+        hikeEntityDTO.setPrevSalary(formatAmountWithCommas(hike.getPrevSalary()));
+        hikeEntityDTO.setStatus(hike.getStatus());
+        if(hike.getApprovedBy() !=null)
+            hikeEntityDTO.setApprovedBy(hike.getApprovedBy().getEmployeeID());
+        return hikeEntityDTO;
+    }
+
     private boolean validateEmployeeDto(EmployeeDTO employeeDTO) {
         return Arrays.asList(employeeDTO.getEmployeeName(), employeeDTO.getDesignation(),
                         employeeDTO.getLocation(), employeeDTO.getBankName(),
@@ -147,6 +175,7 @@ public class Mapper {
         amount=amount.replace(",","");
        return Double.parseDouble(amount);
     }
+
     private String formatAmountWithCommas(Double amount) {
         if (amount == null) {
             return "";

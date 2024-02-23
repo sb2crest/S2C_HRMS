@@ -1,17 +1,12 @@
 package com.employee.management.service.impl;
 
 import com.employee.management.DTO.*;
+import com.employee.management.converters.DateTimeConverter;
 import com.employee.management.converters.Mapper;
 import com.employee.management.exception.CompanyException;
 import com.employee.management.exception.ResCodes;
-import com.employee.management.models.Employee;
-import com.employee.management.models.Payroll;
-import com.employee.management.models.Role;
-import com.employee.management.models.Status;
-import com.employee.management.repository.EmployeeRepository;
-import com.employee.management.repository.PayrollRepository;
-import com.employee.management.repository.RoleRepository;
-import com.employee.management.repository.StatusRepository;
+import com.employee.management.models.*;
+import com.employee.management.repository.*;
 import com.employee.management.service.AdminService;
 import com.employee.management.service.EmailSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +30,13 @@ public class AdminServiceImpl implements AdminService {
     PayrollRepository payrollRepository;
     @Autowired
     StatusRepository statusRepository;
+
+    @Autowired
+    HikeRepository hikeRepository;
+
+    @Autowired
+    DateTimeConverter dateTimeConverter;
+
     @Autowired
     Mapper mapper;
     @Autowired
@@ -84,17 +86,25 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public AdminDashBoardData loadData(){
         AdminDashBoardData adminDashBoardData=new AdminDashBoardData();
+
         YearMonth currentYearMonth = YearMonth.now();
         YearMonth previousYearMonth = currentYearMonth.minusMonths(1);
         String previousMonthFormatted = previousYearMonth.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH)
                 + " " + previousYearMonth.getYear();
+
         List<Payroll>payrolls=payrollRepository.getPayDetails(previousMonthFormatted)
                 .orElseThrow(()->new CompanyException(ResCodes.SALARY_DETAILS_NOT_FOUND));
+
         Double averageSalary=payrolls.stream()
                 .mapToDouble(Payroll::getGrossEarnings)
                 .average()
                 .orElse(0.0);
 
+        List<HikeEntity> hikeRec=hikeRepository.findAllByStatusFalse();
+        adminDashBoardData.setHikeRecommendations(hikeRec.stream()
+                .map(mapper::convertToHikeEntityDto)
+                .toList()
+        );
         adminDashBoardData.setAverageSalary(averageSalary);
         adminDashBoardData.setTodayDate(getTodayDateFormatted());
         adminDashBoardData.setNoOfEmployees(getEmployeeCount());
@@ -181,6 +191,26 @@ public class AdminServiceImpl implements AdminService {
             return "Successfully Updated";
         }
         throw new CompanyException(ResCodes.EMPTY_FIELDS);
+    }
+    @Override
+    public HikeEntityDTO updateHikeDetails(HikeUpdateRequest request){
+        Employee employee=employeeRepository.findById(request.getEmployeeId())
+                .orElseThrow(()->new CompanyException(ResCodes.EMPLOYEE_NOT_FOUND));
+        Employee approvedBy=employeeRepository.findById(request.getApprovedBy())
+                .orElseThrow(()->new CompanyException(ResCodes.EMPLOYEE_NOT_FOUND));
+        HikeEntity hike=hikeRepository.findByEmployee(employee).get();
+        if(!hike.getStatus()) {
+            hike.setStatus(true);
+            hike.setHikePercentage(Double.valueOf(request.getPercentage()));
+            hike.setApprovedBy(approvedBy);
+            hike.setNewSalary((hike.getPrevSalary() * (hike.getHikePercentage() / 100)) + hike.getPrevSalary());
+            hike.setApprovedDate(new Date());
+            hike.setEffectiveDate(dateTimeConverter.stringToLocalDateTimeConverter(request.getEffectiveDate()));
+            hike.setReason(request.getReason());
+            HikeEntity savedHike = hikeRepository.save(hike);
+            return mapper.convertToHikeEntityDto(savedHike);
+        }
+        throw new CompanyException(ResCodes.HIKE_APPROVED_ALREADY);
     }
 
 }
