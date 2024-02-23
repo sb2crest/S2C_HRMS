@@ -1,10 +1,9 @@
 package com.employee.management.service;
 
 import com.employee.management.DTO.AdminDashBoardData;
-import com.employee.management.DTO.AvgSalaryGraph;
+import com.employee.management.DTO.AvgSalaryGraphResponse;
 import com.employee.management.DTO.EmployeeDTO;
 import com.employee.management.DTO.PayrollDTO;
-import com.employee.management.models.Payroll;
 
 import java.util.List;
 
@@ -21,5 +20,5 @@ public interface AdminService {
 
     PayrollDTO addPayroll(PayrollDTO payrollDTO,String empId);
 
-    List<AvgSalaryGraph> getSalaryGraphDataForPastSixMonths();
+    List<AvgSalaryGraphResponse> getSalaryGraphDataForPastSixMonths();
 }

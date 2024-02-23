@@ -344,11 +344,11 @@ For and on behalf of]]></text>
 Founder & CEO]]></text>
             </staticText>
             <image>
-                <reportElement x="390" y="460" width="180" height="77" uuid="a065d30f-b8c4-462f-bb4d-b15273fdfd53"/>
+                <reportElement x="390" y="458" width="180" height="77" uuid="a065d30f-b8c4-462f-bb4d-b15273fdfd53"/>
                 <imageExpression><![CDATA["images/project_manager_sign.jpg"]]></imageExpression>
             </image>
             <staticText>
-                <reportElement x="406" y="502" width="130" height="40" uuid="aa55b1ae-b5b0-42dc-b25b-28b988c8af52"/>
+                <reportElement x="406" y="498" width="130" height="40" uuid="aa55b1ae-b5b0-42dc-b25b-28b988c8af52"/>
                 <textElement textAlignment="Center">
                     <font fontName="Arial" size="13" isBold="true"/>
                 </textElement>

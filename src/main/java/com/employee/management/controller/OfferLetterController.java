@@ -27,7 +27,6 @@ public class OfferLetterController {
         try {
             byte[] pdfBytes = offerLetterService.getMergedOfferReport(letterDTO);
             emailSenderService.sendEmailWithAttachment(letterDTO.getEmail(),"Offer and Appointment Letter ","Congratulations",pdfBytes);
-
             return new ResponseEntity<>("Email sent successfully",HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -35,16 +34,15 @@ public class OfferLetterController {
         }
     }
 
-    @PostMapping("/preview")
+    @PostMapping("/preview-compensation-details")
     public ResponseEntity<CtcData> preview(@RequestBody OfferLetterDTO offerLetterDTO){
         return new ResponseEntity<>(offerLetterService.preview(offerLetterDTO.getCtc()),HttpStatus.OK);
     }
-    @GetMapping("/download/{id}")
-    public ResponseEntity<byte[]> download(@PathVariable("id") Long id) throws JRException, IOException {
-//        return new ResponseEntity<>(offerLetterService.issueNewOfferLetter(offerLetterDTO), HttpStatus.OK);
-        OfferLetterDTO letterDTO=offerLetterService.get(id);
+
+    @PostMapping("/preview-letter")
+    public ResponseEntity<byte[]> previewLetter(@RequestBody OfferLetterDTO offerLetterDTO) throws JRException, IOException {
         try {
-            byte[] pdfBytes = offerLetterService.getMergedOfferReport(letterDTO);
+            byte[] pdfBytes = offerLetterService.getMergedOfferReport(offerLetterDTO);
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_PDF);

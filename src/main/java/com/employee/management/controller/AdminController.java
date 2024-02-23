@@ -2,13 +2,10 @@ package com.employee.management.controller;
 
 import com.employee.management.DTO.*;
 import com.employee.management.converters.AmountToWordsConverter;
-import com.employee.management.converters.Mapper;
 import com.employee.management.converters.PDFGeneratorForPaySlip;
-import com.employee.management.models.Payroll;
 import com.employee.management.service.AdminService;
 import com.employee.management.service.EmployeeService;
 import com.employee.management.service.PayRollService;
-import org.aspectj.apache.bcel.generic.RET;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -55,7 +52,6 @@ public class AdminController {
     public ResponseEntity<EmployeeDTO>getEmployee(@RequestParam("empId")String empId){
         return new ResponseEntity<>(employeeService.getEmployee(empId),HttpStatus.FOUND);
     }
-
     @PutMapping("/change-status")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<String>changeStatusOfEmployee(@RequestParam("empId")String empId,
@@ -87,7 +83,7 @@ public class AdminController {
 
     }
     @GetMapping("/salary-graph")
-    public ResponseEntity<List<AvgSalaryGraph>> fetchSixMonthData(){
+    public ResponseEntity<List<AvgSalaryGraphResponse>> fetchSixMonthData(){
         return new ResponseEntity<>(adminService.getSalaryGraphDataForPastSixMonths(),HttpStatus.OK);
     }
 

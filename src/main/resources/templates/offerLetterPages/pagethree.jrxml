@@ -73,6 +73,10 @@
     <detail>
         <band height="670" splitType="Stretch">
             <property name="com.jaspersoft.studio.unit.height" value="px"/>
+            <image scaleImage="RealHeight" isUsingCache="true">
+                <reportElement x="89" y="159" width="375" height="320" isPrintWhenDetailOverflows="true" uuid="2d616bcd-08d1-48e0-ba0e-b7583e1a7bd0"/>
+                <imageExpression><![CDATA["images/seabed_transparent.jpeg"]]></imageExpression>
+            </image>
             <staticText>
                 <reportElement x="13" y="41" width="528" height="71" forecolor="#635E5D" uuid="9d8f35b7-cf5c-46a3-b6a5-9cedc1e534dd"/>
                 <textElement textAlignment="Justified">

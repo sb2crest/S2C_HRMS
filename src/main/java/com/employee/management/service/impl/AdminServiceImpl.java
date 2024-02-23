@@ -1,7 +1,7 @@
 package com.employee.management.service.impl;
 
 import com.employee.management.DTO.AdminDashBoardData;
-import com.employee.management.DTO.AvgSalaryGraph;
+import com.employee.management.DTO.AvgSalaryGraphResponse;
 import com.employee.management.DTO.EmployeeDTO;
 import com.employee.management.DTO.PayrollDTO;
 import com.employee.management.converters.Mapper;
@@ -153,7 +153,7 @@ public class AdminServiceImpl implements AdminService {
       }
     }
     @Override
-    public List<AvgSalaryGraph> getSalaryGraphDataForPastSixMonths(){
+    public List<AvgSalaryGraphResponse> getSalaryGraphDataForPastSixMonths(){
         LocalDate currentDate = LocalDate.now();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -168,7 +168,7 @@ public class AdminServiceImpl implements AdminService {
                         Collectors.averagingDouble(Payroll::getTotalNetPayable)));
 
         return  averageSalaryByPayPeriod.entrySet().stream()
-                .map(entry -> new AvgSalaryGraph(entry.getKey(), String.format("%.2f", entry.getValue())))
+                .map(entry -> new AvgSalaryGraphResponse(entry.getKey(), String.format("%.2f", entry.getValue())))
                 .toList();
 
     }

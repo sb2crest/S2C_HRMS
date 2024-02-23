@@ -63,7 +63,7 @@
                 <reportElement x="0" y="0" width="555" height="73" uuid="dd02d450-fcb7-4f2d-93e2-6cf16bb5db44"/>
                 <image>
                     <reportElement x="10" y="-7" width="80" height="68" uuid="2c82e2b9-f385-4d8c-94ef-bd273fdc9d8d"/>
-                    <imageExpression><![CDATA["C:/Users/hp/Downloads/seabed2crest-logo.png"]]></imageExpression>
+                    <imageExpression><![CDATA["images/seabed2crest.jpg"]]></imageExpression>
                 </image>
                 <staticText>
                     <reportElement x="110" y="3" width="389" height="42" uuid="6416d8a4-003f-42a8-82e8-8042fee1a5e4"/>
@@ -84,6 +84,10 @@
     <detail>
         <band height="670" splitType="Stretch">
             <property name="com.jaspersoft.studio.unit.height" value="px"/>
+            <image scaleImage="RealHeight" isUsingCache="true">
+                <reportElement x="89" y="159" width="375" height="320" isPrintWhenDetailOverflows="true" uuid="2d616bcd-08d1-48e0-ba0e-b7583e1a7bd0"/>
+                <imageExpression><![CDATA["images/seabed_transparent.jpeg"]]></imageExpression>
+            </image>
             <staticText>
                 <reportElement x="210" y="4" width="138" height="20" uuid="96c1fa24-a81a-4bf0-b48b-c138f4bf9fbb"/>
                 <textElement textAlignment="Center">
@@ -167,14 +171,14 @@
                 <textElement verticalAlignment="Middle" markup="html">
                     <font fontName="Arial" size="13" isBold="true"/>
                 </textElement>
-                <textFieldExpression><![CDATA[$P{offer}.getIssuedDate()]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$P{offer}.getJoiningDate()]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="457" y="48" width="100" height="24" uuid="03b40497-afca-49cc-a8ac-3af06b6a91de"/>
                 <textElement verticalAlignment="Middle" markup="html">
                     <font size="13" isBold="true"/>
                 </textElement>
-                <textFieldExpression><![CDATA[$P{offer}.getJoiningDate()]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$P{offer}.getIssuedDate()]]></textFieldExpression>
             </textField>
             <staticText>
                 <reportElement x="14" y="256" width="529" height="61" forecolor="#635E5D" uuid="79e0ab11-15c4-425c-881d-f921edeae494"/>
