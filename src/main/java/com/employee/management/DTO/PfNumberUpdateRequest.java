@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class PfNumberUpdateRequest {
     private String employeeId;
-    private String pfNumber;
-    private String uanNumber;
+    private String PfNumber;
+    private String UanNumber;
 }
