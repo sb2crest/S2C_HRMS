@@ -74,11 +74,11 @@
         <band height="670" splitType="Stretch">
             <property name="com.jaspersoft.studio.unit.height" value="px"/>
             <image scaleImage="RealHeight" isUsingCache="true">
-                <reportElement x="89" y="159" width="375" height="320" isPrintWhenDetailOverflows="true" uuid="2d616bcd-08d1-48e0-ba0e-b7583e1a7bd0"/>
+                <reportElement x="89" y="159" width="375" height="320" isPrintWhenDetailOverflows="true" uuid="a895d092-eb72-42d6-aaa1-42a78abfe5fc"/>
                 <imageExpression><![CDATA["images/seabed_transparent.jpeg"]]></imageExpression>
             </image>
             <staticText>
-                <reportElement x="15" y="45" width="528" height="71" forecolor="#635E5D" uuid="9d8f35b7-cf5c-46a3-b6a5-9cedc1e534dd"/>
+                <reportElement x="15" y="50" width="528" height="50" forecolor="#635E5D" uuid="9d8f35b7-cf5c-46a3-b6a5-9cedc1e534dd"/>
                 <textElement textAlignment="Justified">
                     <font fontName="Times New Roman" size="12" isBold="false" isUnderline="false"/>
                 </textElement>
@@ -94,14 +94,14 @@
                 <text><![CDATA[CODE OF CONDUCT]]></text>
             </staticText>
             <staticText>
-                <reportElement x="15" y="143" width="528" height="79" forecolor="#635E5D" uuid="01d32b21-5792-47ce-99ec-868c12e35621"/>
+                <reportElement x="15" y="152" width="528" height="58" forecolor="#635E5D" uuid="01d32b21-5792-47ce-99ec-868c12e35621"/>
                 <textElement textAlignment="Justified">
                     <font fontName="Times New Roman" size="12" isBold="false" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[You will not give anyone by word of mouth, writing, facsimile, electronic devices and media or otherwise any particulars or details, which you acquire during the course of your employment of our working systems, technical know-how, security arrangements, administrative and or organization matters of our and our clients whether confidential, secret or otherwise, either during your employment with company or afterwards.]]></text>
             </staticText>
             <staticText>
-                <reportElement x="15" y="115" width="257" height="20" uuid="4d1cc075-c63f-414c-b39b-47fa798ac4a1">
+                <reportElement x="15" y="117" width="257" height="20" uuid="4d1cc075-c63f-414c-b39b-47fa798ac4a1">
                     <property name="com.jaspersoft.studio.unit.x" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Left">
@@ -110,14 +110,14 @@
                 <text><![CDATA[SECRECY AND CONFIDENTIALITY]]></text>
             </staticText>
             <staticText>
-                <reportElement x="15" y="255" width="528" height="110" forecolor="#635E5D" uuid="4554158b-72f7-4240-98a8-45554fa44f3a"/>
+                <reportElement x="15" y="261" width="528" height="69" forecolor="#635E5D" uuid="4554158b-72f7-4240-98a8-45554fa44f3a"/>
                 <textElement textAlignment="Justified">
                     <font fontName="Times New Roman" size="12" isBold="false" isUnderline="false"/>
                 </textElement>
-                <text><![CDATA[After confirmation, your employment may be terminated by either party giving 30 days' written notice. The company may also terminate your services immediately by paying 30 days' salary and allowances, if any, in lieu of notice, without providing a reason. The company reserves the right to terminate your employment without notice or payment in lieu of notice if you breach the terms of employment in a manner that adversely affects the company's reputation, involves any cost implication, or constitutes gross negligence, misrepresentation, persistent misconduct, or a criminal offense.]]></text>
+                <text><![CDATA[After confirmation, your employment may be terminated by either party giving 30 days' written notice. The company reserves the right to terminate your employment without notice or payment in lieu of notice if you breach the terms of employment in a manner that adversely affects the company's reputation, involves any cost implication, or constitutes gross negligence, misrepresentation, persistent misconduct, or a criminal offense.]]></text>
             </staticText>
             <staticText>
-                <reportElement x="15" y="228" width="150" height="20" uuid="345764d7-6935-4631-9961-d08d89c4cf0b">
+                <reportElement x="15" y="227" width="150" height="20" uuid="345764d7-6935-4631-9961-d08d89c4cf0b">
                     <property name="com.jaspersoft.studio.unit.x" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Left">
@@ -126,14 +126,14 @@
                 <text><![CDATA[TERMINATION]]></text>
             </staticText>
             <staticText>
-                <reportElement x="15" y="403" width="528" height="65" forecolor="#635E5D" uuid="833fe6d1-5180-429d-9b68-9a058cb3eb33"/>
+                <reportElement x="15" y="397" width="528" height="65" forecolor="#635E5D" uuid="833fe6d1-5180-429d-9b68-9a058cb3eb33"/>
                 <textElement textAlignment="Justified">
                     <font fontName="Times New Roman" size="12" isBold="false" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[If you abscond from duties or remain absent without leave or permission for (5) consecutive working days it will be deemed that you have voluntarily resigned from the services of the company. In such a case you acknowledge that the company may remove your name from the master roll of the company without assigning any reason what so ever]]></text>
             </staticText>
             <staticText>
-                <reportElement x="15" y="374" width="307" height="20" uuid="7c315214-3916-43c5-b6a8-3b35a7d2eaa7">
+                <reportElement x="15" y="355" width="307" height="20" uuid="7c315214-3916-43c5-b6a8-3b35a7d2eaa7">
                     <property name="com.jaspersoft.studio.unit.x" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Left">
@@ -142,20 +142,16 @@
                 <text><![CDATA[VOLUNTARY ABANDONMENT OF SERVICE]]></text>
             </staticText>
             <staticText>
-                <reportElement x="15" y="509" width="528" height="121" forecolor="#635E5D" uuid="e6f69153-92bb-4671-b23c-0c5015691adc"/>
+                <reportElement x="15" y="521" width="528" height="71" forecolor="#635E5D" uuid="e6f69153-92bb-4671-b23c-0c5015691adc"/>
                 <textElement textAlignment="Justified">
                     <font fontName="Times New Roman" size="12" isBold="false" isUnderline="false"/>
                 </textElement>
-                <text><![CDATA[You are requested to submit the following documents to us immediately on receipt of the offer:
-1. Two Photocopies of your Educational Certificates (10th     Passing Certificate, 12th Passing Certificate, Graduation Passing Certificate, Post-Graduation Passing Certificate)
-2. Two Photocopies of your Relieving Letter from present Employer (on the day of
-joining)
-3. Two Photocopies of the Last 3 months Salary Slip of present Employer
-4. Two Photocopies of all Experience Letter from previous companies
-5. Passport size photographs - 4]]></text>
+                <text><![CDATA[You need to submit the following documents.
+1. Two Photocopies and Originals  of your Educational Certificates(10th Passing Certificate, 12th Passing Certificate, Graduation Passing Certificate, Post-Graduation Passing Certificate)
+2. Passport size photographs - 2]]></text>
             </staticText>
             <staticText>
-                <reportElement x="15" y="481" width="287" height="20" uuid="9ff5a9bb-9147-4dfa-a00a-bcd3380db9f9">
+                <reportElement x="15" y="482" width="287" height="20" uuid="9ff5a9bb-9147-4dfa-a00a-bcd3380db9f9">
                     <property name="com.jaspersoft.studio.unit.x" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Left">

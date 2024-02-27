@@ -135,7 +135,7 @@
                 <textElement textAlignment="Justified" verticalAlignment="Top" markup="html">
                     <font fontName="Times New Roman" size="12" isBold="false"/>
                 </textElement>
-                <textFieldExpression><![CDATA["This is with reference to the successful completion of the selection process in our esteemed organization. We are delighted to welcome you to our valued team as <font color='black'><b>"+$P{offer}.getDesignation()+"</b></font> at <font color='black'><b>Seabed2Crest Technologies Pvt Ltd</b></font>, with effect from <font color='black'><b>"+$P{offer}.getJoiningDate()+"</b></font> on the following terms and conditions."]]></textFieldExpression>
+                <textFieldExpression><![CDATA["We are pleasured to inform you that your successful completion of the selection process in our esteemed organization. We are delighted to welcome you to our valued team as <font color='black'><b>"+$P{offer}.getDesignation()+"</b></font> at <font color='black'><b>Seabed2Crest Technologies Pvt Ltd</b></font>, Your assignment will start effective from <font color='black'><b>"+$P{offer}.getJoiningDate()+"</b></font> on the following terms and conditions."]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="430" y="50" width="125" height="19" forecolor="#635E5D" uuid="03b40497-afca-49cc-a8ac-3af06b6a91de"/>
@@ -167,40 +167,40 @@
             </textField>
 
             <staticText>
-                <reportElement x="15" y="374" width="130" height="20" uuid="23376990-536a-49c0-8045-797fa6697c52"/>
+                <reportElement x="15" y="369" width="130" height="20" uuid="23376990-536a-49c0-8045-797fa6697c52"/>
                 <textElement textAlignment="Left">
                     <font fontName="Times New Roman" size="14" isBold="true" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[WORKING HOURS]]></text>
             </staticText>
             <staticText>
-                <reportElement x="15" y="400" width="528" height="76" forecolor="#635E5D" uuid="129f59a0-69d2-45ab-a38b-7f7d9a334767"/>
+                <reportElement x="15" y="393" width="528" height="99" forecolor="#635E5D" uuid="129f59a0-69d2-45ab-a38b-7f7d9a334767"/>
                 <textElement textAlignment="Justified">
                     <font fontName="Times New Roman" size="12" isBold="false" isUnderline="false"/>
                 </textElement>
-                <text><![CDATA[You shall work a 5-day week of forty hours per week. Your normal hours of work are from 10.00 am to 6.00 pm Monday to Friday inclusive, with a half an hour lunch break. Depending on project contingencies, working hours for specific employees or groups of employees may be modified from time to time. Further you should be prepared to work in any shift, as may be warranted by the company’s/Client’s work requirement.]]></text>
+                <text><![CDATA[You shall work a 5-day week of forty hours per week. Your normal hours of work are from 10.00 am to 6.00 pm Monday to Friday. Depending on project contingencies, working hours for specific employees or groups of employees may be modified from time to time. Further you should be prepared to work in any shift, as may be warranted by the company’s/Client’s work requirement. If you need to work extra hours (or) to be login earlier you need to be ready.
+Note:Employees will be compensated for weekend work based on the actual presence of tasks, ensuring fair remuneration for their efforts.]]></text>
             </staticText>
             <staticText>
-                <reportElement x="15" y="489" width="130" height="20" uuid="afda5627-a3c6-421d-84f8-7fd06f974a35"/>
+                <reportElement x="15" y="495" width="130" height="20" uuid="afda5627-a3c6-421d-84f8-7fd06f974a35"/>
                 <textElement textAlignment="Left">
                     <font fontName="Times New Roman" size="14" isBold="true" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[ANNUAL LEAVES]]></text>
             </staticText>
             <staticText>
-                <reportElement x="15" y="514" width="528" height="64" forecolor="#635E5D" uuid="be38a24f-6df0-4309-96ed-b0fee9fd8644"/>
+                <reportElement x="15" y="520" width="528" height="64" forecolor="#635E5D" uuid="be38a24f-6df0-4309-96ed-b0fee9fd8644"/>
                 <textElement textAlignment="Justified">
                     <font fontName="Times New Roman" size="12" isBold="false" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[Employees are entitled to 12 working day’s total leave exclusive of Casual leave, Sick leave and Public Holiday as mentioned by the company, to be taken at such times agreed with the company. In case of sick leave, the employee will have to furnish medical certificate in case of continuous leave in excess of 2 days. Refer our Leave Policy for more detail.]]></text>
             </staticText>
-
             <staticText>
-                <reportElement x="15" y="615" width="528" height="51" forecolor="#635E5D" uuid="6c9dba52-e16a-4292-82f9-3aabdec12f34"/>
+                <reportElement x="15" y="611" width="528" height="59" forecolor="#635E5D" uuid="6c9dba52-e16a-4292-82f9-3aabdec12f34"/>
                 <textElement textAlignment="Justified">
                     <font fontName="Times New Roman" size="12" isBold="false" isUnderline="false"/>
                 </textElement>
-                <text><![CDATA[All appointments are based on the information furnished in the course of applying for the post with the company, Hence any false statement or information furnished during the course of application might lead to dismissal without notice. All appointments are subject to the receipt of satisfactory references.]]></text>
+                <text><![CDATA[All appointments are based on the information furnished in the course of applying for the post with the company. Hence any false statement or information furnished during the course of application might lead to dismissal without notice. All appointments are subject to the receipt of satisfactory references.]]></text>
             </staticText>
             <staticText>
                 <reportElement x="15" y="589" width="170" height="20" uuid="f1bdd0e6-4817-43f2-a9e8-b304b4c8bf56">
