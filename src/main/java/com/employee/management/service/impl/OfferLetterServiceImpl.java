@@ -42,7 +42,6 @@ public class OfferLetterServiceImpl implements OfferLetterService {
     public byte[] getMergedOfferReport(OfferLetterDTO offerLetterDTO) throws IOException, JRException {
         CtcData data=calculator.compensationDetails(offerLetterDTO.getCtc());
 
-        InputStream template = getClass().getResourceAsStream("/templates/pay-slip.jrxml");
         JasperReport report1 = JasperCompileManager.compileReport(new ClassPathResource("/templates/offerLetterPages/pageone.jrxml").getInputStream());
         JasperReport report2 = JasperCompileManager.compileReport(new ClassPathResource("/templates/offerLetterPages/pagetwo.jrxml").getInputStream());
         JasperReport report3 = JasperCompileManager.compileReport(new ClassPathResource("/templates/offerLetterPages/pagethree.jrxml").getInputStream());

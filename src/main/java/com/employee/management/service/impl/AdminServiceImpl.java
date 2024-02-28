@@ -9,10 +9,15 @@ import com.employee.management.models.*;
 import com.employee.management.repository.*;
 import com.employee.management.service.AdminService;
 import com.employee.management.service.EmailSenderService;
+import jakarta.mail.MessagingException;
+import net.sf.jasperreports.engine.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
@@ -208,9 +213,29 @@ public class AdminServiceImpl implements AdminService {
             hike.setEffectiveDate(dateTimeConverter.stringToLocalDateTimeConverter(request.getEffectiveDate()));
             hike.setReason(request.getReason());
             HikeEntity savedHike = hikeRepository.save(hike);
+            try{
+                sendHikeLetterMail(fillHikeLetter(mapper.convertToEmployeeDTO(employee),hike),employee.getEmail());
+            }catch (Exception e){
+                throw new RuntimeException("Something went wrong");
+            }
             return mapper.convertToHikeEntityDto(savedHike);
         }
         throw new CompanyException(ResCodes.HIKE_APPROVED_ALREADY);
+    }
+
+    private byte[] fillHikeLetter(EmployeeDTO employee,HikeEntity hike) throws JRException, IOException {
+        JasperReport template = JasperCompileManager.compileReport(new ClassPathResource("templates/hike-letter.jrxml").getInputStream());
+        System.err.println("compiled ");
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("employee", employee);
+        parameters.put("hikeDetails",mapper.convertToHikeEntityDto(hike));
+        parameters.put("hikeAmount",(hike.getNewSalary()-hike.getPrevSalary()));
+        JasperPrint jasperPrint = JasperFillManager.fillReport(template, parameters, new JREmptyDataSource());
+
+        return JasperExportManager.exportReportToPdf(jasperPrint);
+    }
+    private void sendHikeLetterMail(byte [] pdf,String to) throws MessagingException, IOException {
+        emailSenderService.sendEmailWithAttachment(to,"Salary Hike Updation ","Update",pdf);
     }
 
 }

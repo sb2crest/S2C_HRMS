@@ -21,7 +21,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.expression.WebExpressionAuthorizationManager;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+
 
 
 @Configuration
@@ -40,6 +44,10 @@ public class SecurityConfig{
                 .authorizeHttpRequests()
                 .requestMatchers("/auth/**","/admin/add","/offer-letter/**","/salary/download").permitAll()
                 .and()
+//                .authorizeHttpRequests()
+//                .requestMatchers("/employee/testing")
+//                .access(new WebExpressionAuthorizationManager("isAuthenticated() and hasIpAddress('192.168.1.44')"))
+//                .and()
                 .authorizeHttpRequests()
                 .requestMatchers("/admin/**", "/employee/**","/salary/**").authenticated()
                 .and()
