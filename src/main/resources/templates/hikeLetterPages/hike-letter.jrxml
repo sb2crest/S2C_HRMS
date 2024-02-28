@@ -213,6 +213,20 @@ Best regards,]]></text>
                 <text><![CDATA[NANDU KASARAM
 Founder & CEO]]></text>
             </staticText>
+            <textField>
+                <reportElement x="356" y="605" width="198" height="20" uuid="0f242287-2cb5-47f4-beed-8940ef1def0f"/>
+                <textElement textAlignment="Center">
+                    <font fontName="Times New Roman" size="14" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{employee}.getDesignation()]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="356" y="590" width="198" height="20" uuid="b6f407cf-26bf-4095-8781-281240d42f95"/>
+                <textElement textAlignment="Center">
+                    <font fontName="Times New Roman" size="14" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{employee}.getEmployeeName()]]></textFieldExpression>
+            </textField>
         </band>
     </detail>
     <pageFooter>

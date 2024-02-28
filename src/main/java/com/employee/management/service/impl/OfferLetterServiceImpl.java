@@ -40,7 +40,7 @@ public class OfferLetterServiceImpl implements OfferLetterService {
     }
     @Override
     public byte[] getMergedOfferReport(OfferLetterDTO offerLetterDTO) throws IOException, JRException {
-        CtcData data=calculator.compensationDetails(offerLetterDTO.getCtc());
+        CtcData data=calculator.compensationDetails(mapper.convertStringToDoubleAmount(offerLetterDTO.getCtc()));
 
         JasperReport report1 = JasperCompileManager.compileReport(new ClassPathResource("/templates/offerLetterPages/pageone.jrxml").getInputStream());
         JasperReport report2 = JasperCompileManager.compileReport(new ClassPathResource("/templates/offerLetterPages/pagetwo.jrxml").getInputStream());
@@ -72,7 +72,7 @@ public class OfferLetterServiceImpl implements OfferLetterService {
 
     @Override
     public CtcData preview(String grossSalary){
-        return calculator.compensationDetails(grossSalary);
+        return calculator.compensationDetails(mapper.convertStringToDoubleAmount(grossSalary));
     }
 
     @Override
