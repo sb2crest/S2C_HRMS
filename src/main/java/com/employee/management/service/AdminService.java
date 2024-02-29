@@ -9,9 +9,13 @@ public interface AdminService {
 
     AdminDashBoardData loadData();
 
+    List<HikeEntityDTO> hikeRecommendations();
+
     List<EmployeeDTO> fetchAllActiveEmployees();
 
     EmployeeDTO editEmployee(String empId,EmployeeDTO employeeDTO);
+
+    String fetchEmployeeDesignation(String empId);
 
     String changeEmployeeStatus(String empId, String empStatus);
 
@@ -20,5 +24,7 @@ public interface AdminService {
     List<AvgSalaryGraphResponse> getSalaryGraphDataForPastSixMonths();
     String updatePfDetails(PfNumberUpdateRequest request);
 
-    HikeEntityDTO updateHikeDetails(HikeUpdateRequest request);
+    String updateHikeDetails(HikeUpdateRequest request);
+
+    byte[] previewHikeDetails(HikeUpdateRequest request);
 }

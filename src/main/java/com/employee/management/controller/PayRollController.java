@@ -1,7 +1,7 @@
 package com.employee.management.controller;
 import com.employee.management.DTO.PaySlip;
 import com.employee.management.converters.AmountToWordsConverter;
-import com.employee.management.converters.PDFGeneratorForPaySlip;
+import com.employee.management.converters.PDFService;
 import com.employee.management.service.EmailSenderService;
 import com.employee.management.service.EmployeeService;
 import com.employee.management.service.PayRollService;
@@ -24,7 +24,7 @@ public class PayRollController {
     @Autowired
     AmountToWordsConverter amountToWordsConverter;
     @Autowired
-    PDFGeneratorForPaySlip pdfGeneratorForPaySlip;
+    PDFService pdfService;
     @Autowired
     EmailSenderService emailSenderService;
     @GetMapping("/get")
@@ -39,7 +39,7 @@ public class PayRollController {
         PaySlip paySlip = payRollService.getPaySlip(empId, payPeriod);
         String amountInWords = amountToWordsConverter.convertToIndianCurrency(paySlip.getPayrollDTO().getTotalNetPayable());
         try {
-            byte[] pdfBytes = pdfGeneratorForPaySlip.generatePaySlipPdf(paySlip, amountInWords);
+            byte[] pdfBytes = pdfService.generatePaySlipPdf(paySlip, amountInWords);
 
             emailSenderService.sendEmailWithAttachment(paySlip.getEmployeeDTO().getEmail(),"Salary slip","Salary details of period "+payPeriod+"attaching below",pdfBytes);
 
