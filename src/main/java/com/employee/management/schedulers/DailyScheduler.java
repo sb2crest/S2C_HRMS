@@ -34,7 +34,7 @@ public class DailyScheduler {
 
 
 //    @Scheduled(cron = "0 0 0 * * *")
-    @Scheduled(fixedRate = 180000)
+    @Scheduled(fixedRate = 60000)
     public void hikeTableUpdater(){
         List<Employee> employees=employeeRepository.findByStatusName("active");
         LocalDate today = LocalDate.now();

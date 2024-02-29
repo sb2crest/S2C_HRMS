@@ -3,6 +3,7 @@ package com.employee.management.service.impl;
 import com.employee.management.DTO.*;
 import com.employee.management.converters.DateTimeConverter;
 import com.employee.management.converters.Mapper;
+import com.employee.management.converters.PDFService;
 import com.employee.management.exception.CompanyException;
 import com.employee.management.exception.ResCodes;
 import com.employee.management.models.*;
@@ -55,6 +56,9 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    @Autowired
+    PDFService pdfService;
 
 
     private String getTodayDateFormatted(){
@@ -117,6 +121,7 @@ public class AdminServiceImpl implements AdminService {
         return adminDashBoardData;
     }
 
+    @Override
     public List<HikeEntityDTO> hikeRecommendations(){
         List<HikeEntity> hikeRec=hikeRepository.findAllByStatusFalse();
        return  hikeRec.stream()
@@ -208,12 +213,13 @@ public class AdminServiceImpl implements AdminService {
         throw new CompanyException(ResCodes.EMPTY_FIELDS);
     }
     @Override
-    public HikeEntityDTO updateHikeDetails(HikeUpdateRequest request){
+    public String updateHikeDetails(HikeUpdateRequest request){
         Employee employee=employeeRepository.findById(request.getEmployeeId())
                 .orElseThrow(()->new CompanyException(ResCodes.EMPLOYEE_NOT_FOUND));
         Employee approvedBy=employeeRepository.findById(request.getApprovedBy())
                 .orElseThrow(()->new CompanyException(ResCodes.EMPLOYEE_NOT_FOUND));
-        HikeEntity hike=hikeRepository.findByEmployee(employee).get();
+        HikeEntity hike=hikeRepository.findByStatusAndEmployee(false,employee)
+                .orElseThrow(()->new CompanyException(ResCodes.HIKE_APPROVED_ALREADY));
         if(!hike.getStatus()) {
             hike.setStatus(true);
             hike.setHikePercentage(Double.valueOf(request.getPercentage()));
@@ -224,56 +230,43 @@ public class AdminServiceImpl implements AdminService {
             hike.setReason(request.getReason());
             HikeEntity savedHike = hikeRepository.save(hike);
             try{
-                sendHikeLetterMail(fillHikeLetter(mapper.convertToEmployeeDTO(employee),hike),employee.getEmail());
+                sendHikeLetterMail(pdfService.generateHikeLetter(mapper.convertToEmployeeDTO(employee),savedHike),employee.getEmail());
             }catch (Exception e){
                 System.out.println(e);
             }
-            return mapper.convertToHikeEntityDto(savedHike);
+            return "Mail sent Successfully";
         }
         throw new CompanyException(ResCodes.HIKE_APPROVED_ALREADY);
     }
 
-    private byte[] fillHikeLetter(EmployeeDTO employee, HikeEntity hike) throws JRException, IOException {
-        JasperReport template1 = JasperCompileManager.compileReport(new ClassPathResource("templates/hikeLetterPages/hike-letter.jrxml").getInputStream());
-        JasperReport template2 = JasperCompileManager.compileReport(new ClassPathResource("templates/hikeLetterPages/hike-letter-page-two.jrxml").getInputStream());
-
-        System.err.println("compiled ");
-
-        Map<String, Object> parameters1 = new HashMap<>();
-        parameters1.put("employee", employee);
-        parameters1.put("hikeDetails", mapper.convertToHikeEntityDto(hike));
-        parameters1.put("hikeAmount", (hike.getNewSalary() - hike.getPrevSalary()));
-
-        CtcCalculator calculator = new CtcCalculator();
-        Map<String, Object> parameters2 = new HashMap<>();
-        parameters2.put("employee", employee);
-        parameters2.put("prevSalaryDetails", calculator.compensationDetails(hike.getPrevSalary()));
-        parameters2.put("newSalaryDetails", calculator.compensationDetails(hike.getNewSalary()));
-
-        JasperPrint jasperPrint1 = JasperFillManager.fillReport(template1, parameters1, new JREmptyDataSource());
-        JasperPrint jasperPrint2 = JasperFillManager.fillReport(template2, parameters2, new JREmptyDataSource());
-
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        JRPdfExporter exporter = new JRPdfExporter();
-
-        List<JasperPrint> jasperPrints = new ArrayList<>();
-        jasperPrints.add(jasperPrint1);
-        jasperPrints.add(jasperPrint2);
-
-        exporter.setExporterInput(SimpleExporterInput.getInstance(jasperPrints));
-        exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputStream));
-
-        SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
-        configuration.setPdfVersion(PdfVersionEnum.VERSION_1_7);
-        configuration.setCreatingBatchModeBookmarks(true);
-        configuration.setOverrideHints(true);
-        exporter.setConfiguration(configuration);
-
-        exporter.exportReport();
-
-        return outputStream.toByteArray();
+    @Override
+    public byte[] previewHikeDetails(HikeUpdateRequest request){
+        Employee employee=employeeRepository.findById(request.getEmployeeId())
+                .orElseThrow(()->new CompanyException(ResCodes.EMPLOYEE_NOT_FOUND));
+        Employee approvedBy=employeeRepository.findById(request.getApprovedBy())
+                .orElseThrow(()->new CompanyException(ResCodes.EMPLOYEE_NOT_FOUND));
+        HikeEntity hike=hikeRepository.findByStatusAndEmployee(false,employee)
+                .orElseThrow(()->new CompanyException(ResCodes.HIKE_APPROVED_ALREADY));
+        HikeEntity previewHike=new HikeEntity();
+        previewHike.setEmployee(hike.getEmployee());
+        previewHike.setStatus(hike.getStatus());
+        previewHike.setPrevSalary(hike.getPrevSalary());
+        if(!previewHike.getStatus()) {
+            previewHike.setStatus(true);
+            previewHike.setHikePercentage(Double.valueOf(request.getPercentage()));
+            previewHike.setApprovedBy(approvedBy);
+            previewHike.setNewSalary((hike.getPrevSalary() * (previewHike.getHikePercentage() / 100)) + hike.getPrevSalary());
+            previewHike.setApprovedDate(new Date());
+            previewHike.setEffectiveDate(dateTimeConverter.stringToLocalDateTimeConverter(request.getEffectiveDate()));
+            previewHike.setReason(request.getReason());
+            try{
+               return pdfService.generateHikeLetter(mapper.convertToEmployeeDTO(employee),previewHike);
+            }catch (Exception e){
+                System.out.println(e);
+            }
+        }
+        throw new CompanyException(ResCodes.HIKE_APPROVED_ALREADY);
     }
-
 
 
     private void sendHikeLetterMail(byte [] pdf,String to) throws MessagingException, IOException {
