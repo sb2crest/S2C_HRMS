@@ -64,6 +64,7 @@ public class AdminController {
         return new ResponseEntity<>(adminService.changeEmployeeStatus(empId,status),HttpStatus.OK);
     }
 
+
     @GetMapping("/get-designation/{id}")
     public ResponseEntity<String >getEmployeeDesignation(@PathVariable("id")String empId){
         return new ResponseEntity<>(adminService.fetchEmployeeDesignation(empId),HttpStatus.OK);
