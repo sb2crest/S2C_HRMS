@@ -3,13 +3,15 @@ package com.employee.management.service.impl;
 import com.employee.management.DTO.*;
 import com.employee.management.converters.DateTimeConverter;
 import com.employee.management.converters.Mapper;
-import com.employee.management.converters.PDFService;
+import com.employee.management.service.PDFService;
 import com.employee.management.exception.CompanyException;
 import com.employee.management.exception.ResCodes;
 import com.employee.management.models.*;
 import com.employee.management.repository.*;
 import com.employee.management.service.AdminService;
 import com.employee.management.service.EmailSenderService;
+import com.employee.management.util.CtcCalculator;
+import com.employee.management.util.EmailBodyBuilder;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -35,13 +37,16 @@ public class AdminServiceImpl implements AdminService {
     private final EmailSenderService emailSenderService;
     private final PasswordEncoder passwordEncoder;
     private final PDFService pdfService;
+    private final EmailBodyBuilder emailBodyBuilder;
+    private final CtcCalculator calculator;
 
     @Autowired
     public AdminServiceImpl(EmployeeRepository employeeRepository, RoleRepository roleRepository,
                        PayrollRepository payrollRepository, StatusRepository statusRepository,
                        HikeRepository hikeRepository, DateTimeConverter dateTimeConverter,
                        Mapper mapper, EmailSenderService emailSenderService,
-                       PasswordEncoder passwordEncoder, PDFService pdfService) {
+                       PasswordEncoder passwordEncoder, PDFService pdfService,
+                            EmailBodyBuilder emailBodyBuilder,CtcCalculator calculator) {
         this.employeeRepository = employeeRepository;
         this.roleRepository = roleRepository;
         this.payrollRepository = payrollRepository;
@@ -52,8 +57,9 @@ public class AdminServiceImpl implements AdminService {
         this.emailSenderService = emailSenderService;
         this.passwordEncoder = passwordEncoder;
         this.pdfService = pdfService;
+        this.emailBodyBuilder = emailBodyBuilder;
+        this.calculator=calculator;
     }
-
 
     private String getTodayDateFormatted(){
         LocalDate today = LocalDate.now();
@@ -73,24 +79,10 @@ public class AdminServiceImpl implements AdminService {
         employee.getRoles().add(role);
         employee.setStatus(statusRepository.findById(1L).get());
         Employee savedEmployee = employeeRepository.save(employee);
-        emailSenderService.sendSimpleEmail(employee.getEmail(),"Account Created",getBodyOfMail(savedEmployee.getEmployeeName(),savedEmployee.getEmployeeID(),password));
+        emailSenderService.sendSimpleEmail(employee.getEmail(),"Account Created",emailBodyBuilder.getBodyForAccountCreationMail(savedEmployee.getEmployeeName(),savedEmployee.getEmployeeID(),password));
 
         return mapper.convertToEmployeeDTO(savedEmployee);
     }
-    private String getBodyOfMail(String name, String empId, String password) {
-        StringBuilder body = new StringBuilder();
-        body.append("Hi ").append(name).append(",\n\n");
-        body.append("Welcome Seabed2Crest Technologies Pvt Ltd").append("\n");
-        body.append("Here are your login details:").append("\n");
-        body.append("Employee ID: ").append(empId).append("\n");
-        body.append("Password: ").append(password).append("\n\n");
-        body.append("Please keep this information confidential.").append("\n\n");
-        body.append("If you have any questions, feel free to contact us.").append("\n\n");
-        body.append("Best regards,\nThe HR Team");
-
-        return body.toString();
-    }
-
 
     @Override
     public AdminDashBoardData loadData(){
@@ -180,6 +172,24 @@ public class AdminServiceImpl implements AdminService {
       }
     }
     @Override
+    public PayrollDTO addMonthlyPayRoll(AddMonthlyPayRollRequest request){
+        Employee employee=employeeRepository.findById(request.getEmployeeId())
+                .orElseThrow(()->new CompanyException(ResCodes.EMPLOYEE_NOT_FOUND));
+        Payroll payrollExistForThisMonth=payrollRepository
+                .getPayPeriodDetails(request.getPayPeriod(),employee).orElse(null);
+        if(payrollExistForThisMonth!=null)
+            throw new CompanyException(ResCodes.DUPLICATE_PAYROLL_DETAILS);
+       CtcData ctcData= calculator.compensationDetails(employee.getGrossSalary());
+        Payroll payroll=new Payroll();
+        payroll.setEmployee(employee);
+
+        payroll.setTotalLopDays(request.getLopDays() != null?Integer.parseInt(request.getLopDays()):0);
+        payroll.setPayDate(dateTimeConverter.stringToLocalDateTimeConverter(request.getPayDate()));
+        payroll.setPayPeriod(request.getPayPeriod());
+        Payroll savedPayRoll = payrollRepository.save(mapper.mapCtcDataToPayroll(ctcData, payroll));
+        return mapper.convertToPayRollDTO(savedPayRoll);
+    }
+    @Override
     public List<AvgSalaryGraphResponse> getSalaryGraphDataForPastSixMonths(){
         LocalDate currentDate = LocalDate.now();
 
@@ -217,11 +227,13 @@ public class AdminServiceImpl implements AdminService {
         Employee approvedBy=employeeRepository.findById(request.getApprovedBy())
                 .orElseThrow(()->new CompanyException(ResCodes.EMPLOYEE_NOT_FOUND));
         HikeEntity hike=hikeRepository.findByStatusAndEmployee(false,employee)
+
                 .orElseThrow(()->new CompanyException(ResCodes.HIKE_DATA_NOT_FOUND));
 
         if(!hike.getIsApproved()) {
             hike.setIsApproved(true);
             hike.setIsPromoted(request.getNewPosition() != null && !request.getNewPosition().equals("None"));
+
             hike.setHikePercentage(Double.valueOf(request.getPercentage()));
             hike.setApprovedBy(approvedBy);
             hike.setNewSalary((hike.getPrevSalary() * (hike.getHikePercentage() / 100)) + hike.getPrevSalary());
@@ -250,18 +262,21 @@ public class AdminServiceImpl implements AdminService {
                 .orElseThrow(()->new CompanyException(ResCodes.HIKE_APPROVED_ALREADY));
         HikeEntity previewHike=new HikeEntity();
         previewHike.setEmployee(hike.getEmployee());
+
         previewHike.setIsApproved(hike.getIsApproved());
         previewHike.setPrevSalary(hike.getPrevSalary());
         previewHike.setPrevPosition(hike.getPrevPosition());
         if(!previewHike.getIsApproved()) {
             previewHike.setIsApproved(true);
             previewHike.setIsPromoted(request.getNewPosition() != null && !request.getNewPosition().equals("None"));
+
             previewHike.setHikePercentage(Double.valueOf(request.getPercentage()));
             previewHike.setApprovedBy(approvedBy);
             previewHike.setNewSalary((hike.getPrevSalary() * (previewHike.getHikePercentage() / 100)) + hike.getPrevSalary());
             previewHike.setApprovedDate(new Date());
             previewHike.setEffectiveDate(dateTimeConverter.stringToLocalDateTimeConverter(request.getEffectiveDate()));
             previewHike.setReason(request.getReason());
+
             previewHike.setNewPosition(hike.getIsPromoted()?request.getNewPosition():null);
 
             try{
@@ -272,6 +287,7 @@ public class AdminServiceImpl implements AdminService {
         }
         throw new CompanyException(ResCodes.HIKE_APPROVED_ALREADY);
     }
+
 
     private void sendHikeLetterMail(byte [] pdf,String to) throws MessagingException, IOException {
         emailSenderService.sendEmailWithAttachment(to,"Salary Hike Updation ","Update",pdf);

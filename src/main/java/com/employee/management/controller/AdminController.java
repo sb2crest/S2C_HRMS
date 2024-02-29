@@ -2,7 +2,7 @@ package com.employee.management.controller;
 
 import com.employee.management.DTO.*;
 import com.employee.management.converters.AmountToWordsConverter;
-import com.employee.management.converters.PDFService;
+import com.employee.management.service.PDFService;
 import com.employee.management.service.AdminService;
 import com.employee.management.service.EmployeeService;
 import com.employee.management.service.PayRollService;
@@ -64,6 +64,7 @@ public class AdminController {
         return new ResponseEntity<>(adminService.changeEmployeeStatus(empId,status),HttpStatus.OK);
     }
 
+
     @GetMapping("/get-designation/{id}")
     public ResponseEntity<String >getEmployeeDesignation(@PathVariable("id")String empId){
         return new ResponseEntity<>(adminService.fetchEmployeeDesignation(empId),HttpStatus.OK);
@@ -80,6 +81,10 @@ public class AdminController {
         System.out.println(payroll);
             return ResponseEntity.status(HttpStatus.CREATED).body(payroll);
 
+    }
+    @PostMapping("/add-new-payroll")
+    public ResponseEntity<PayrollDTO>addNewPayrollWithMinimalData(@RequestBody AddMonthlyPayRollRequest request){
+        return new ResponseEntity<>(adminService.addMonthlyPayRoll(request),HttpStatus.OK);
     }
     @GetMapping("/salary-graph")
     public ResponseEntity<List<AvgSalaryGraphResponse>> fetchSixMonthData(){

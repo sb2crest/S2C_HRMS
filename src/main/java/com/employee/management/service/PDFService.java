@@ -1,11 +1,13 @@
-package com.employee.management.converters;
+package com.employee.management.service;
 
 import com.employee.management.DTO.CtcData;
 import com.employee.management.DTO.EmployeeDTO;
 import com.employee.management.DTO.OfferLetterDTO;
 import com.employee.management.DTO.PaySlip;
+import com.employee.management.converters.Mapper;
 import com.employee.management.models.HikeEntity;
 import com.employee.management.util.CtcCalculator;
+import com.employee.management.util.Formatters;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.export.SimpleExporterInput;
@@ -19,8 +21,10 @@ import org.springframework.stereotype.Component;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,11 +32,13 @@ import java.util.Map;
 
 @Component
 public class PDFService {
-   private Mapper mapper;
-   private CtcCalculator calculator;
-   PDFService(Mapper mapper,CtcCalculator calculator){
+   private final Mapper mapper;
+   private final CtcCalculator calculator;
+   private final Formatters formatters;
+   PDFService(Mapper mapper,CtcCalculator calculator,Formatters formatters){
        this.mapper=mapper;
        this.calculator=calculator;
+       this.formatters=formatters;
    }
 
     public byte[] generatePaySlipPdf(PaySlip paySlip, String amountInWords) throws JRException {
@@ -48,6 +54,7 @@ public class PDFService {
         return JasperExportManager.exportReportToPdf(jasperPrint);
     }
     public byte[] generateHikeLetter(EmployeeDTO employee, HikeEntity hike) throws JRException, IOException {
+
         JasperReport template1 =hike.getIsPromoted()? JasperCompileManager.
                 compileReport(new ClassPathResource("templates/hikeLetterPages/hike-letter-with-promotion.jrxml").
                         getInputStream())
@@ -56,6 +63,7 @@ public class PDFService {
                         compileReport(new ClassPathResource("templates/hikeLetterPages/hike-letter.jrxml").
                                 getInputStream())
                 ;
+
         JasperReport template2 = JasperCompileManager.compileReport(new ClassPathResource("templates/hikeLetterPages/hike-letter-page-two.jrxml").getInputStream());
 
         System.err.println("compiled ");
@@ -67,8 +75,9 @@ public class PDFService {
         Map<String, Object> parameters1 = new HashMap<>();
         parameters1.put("employee", employee);
         parameters1.put("hikeDetails", mapper.convertToHikeEntityDto(hike));
-        parameters1.put("hikeAmount", mapper.formatAmountWithCommas((hike.getNewSalary() - hike.getPrevSalary())));
+        parameters1.put("hikeAmount", formatters.formatAmountWithCommas((hike.getNewSalary() - hike.getPrevSalary())));
         parameters1.put("currentDate", formattedDate);
+
 
         CtcCalculator calculator = new CtcCalculator();
         Map<String, Object> parameters2 = new HashMap<>();
@@ -101,7 +110,7 @@ public class PDFService {
     }
 
     public byte[] generateMergedOfferReport(OfferLetterDTO offerLetterDTO) throws IOException, JRException {
-        CtcData data=calculator.compensationDetails(mapper.convertStringToDoubleAmount(offerLetterDTO.getCtc()));
+        CtcData data=calculator.compensationDetails(formatters.convertStringToDoubleAmount(offerLetterDTO.getCtc()));
 
         JasperReport report1 = JasperCompileManager.compileReport(new ClassPathResource("/templates/offerLetterPages/pageone.jrxml").getInputStream());
         JasperReport report2 = JasperCompileManager.compileReport(new ClassPathResource("/templates/offerLetterPages/pagetwo.jrxml").getInputStream());
@@ -139,7 +148,6 @@ public class PDFService {
                     .headers(headers)
                     .body(pdfBytes);
         } catch (Exception e) {
-            System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }

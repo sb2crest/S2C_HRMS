@@ -9,6 +9,5 @@ import java.io.IOException;
 public interface OfferLetterService {
     OfferLetterDTO issueNewOfferLetter(OfferLetterDTO offerLetterDTO);
     CtcData preview(String grossSalary);
-
     OfferLetterDTO get(Long id);
 }

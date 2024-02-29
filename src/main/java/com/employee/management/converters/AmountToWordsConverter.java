@@ -1,8 +1,5 @@
 package com.employee.management.converters;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -69,11 +66,6 @@ public class AmountToWordsConverter {
         Collections.reverse(str);
         String Rupees = String.join(" ", str).trim();
 
-//        String paise = (decimal) > 0 ? " And Paise " + words.get(Integer.valueOf((int) (decimal - decimal % 10))) + " " + words.get(Integer.valueOf((int) (decimal % 10))) : "";
         return "Rupees " + Rupees + " Only";
     }
-
-
-
-
 }
