@@ -69,21 +69,10 @@ public class AdminController {
         return new ResponseEntity<>(adminService.fetchEmployeeDesignation(empId),HttpStatus.OK);
     }
 
-//    @GetMapping("/view")
-//    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-//    public ResponseEntity<String> viewPaySlip(@RequestParam("employeeId") String empId, @RequestParam("payPeriod") String payPeriod) {
-//        PaySlip paySlip = payRollService.getPaySlip(empId, payPeriod);
-//        String amountInWords = amountToWordsConverter.convertToIndianCurrency(paySlip.getPayrollDTO().getTotalNetPayable());
-//        try {
-//            byte[] pdfBytes = pdfService.generatePaySlipPdf(paySlip, amountInWords);
-//            String pdfBase64 = Base64.getEncoder().encodeToString(pdfBytes);
-//            String pdfUrl = "data:application/pdf;base64," + pdfBase64;
-//            return ResponseEntity.ok(pdfUrl);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-//        }
-//    }
+    @GetMapping("/hike-recommendations")
+    public ResponseEntity<List<HikeEntityDTO>>fetchHikeRecommendations(){
+        return new ResponseEntity<>(adminService.hikeRecommendations(),HttpStatus.OK);
+    }
     @PostMapping("/add-payroll")
 //    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<PayrollDTO> addNewPayRoll(@RequestBody PayrollDTO payrollDTO) {
