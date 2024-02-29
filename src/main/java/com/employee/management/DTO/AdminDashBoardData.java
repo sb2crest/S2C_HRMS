@@ -10,5 +10,5 @@ public class AdminDashBoardData {
     private Double averageSalary;
     private String todayDate;
     private Integer noOfEmployees;
-    private List<HikeEntityDTO> hikeRecommendations;
+    //private List<HikeEntityDTO> hikeRecommendations;
 }

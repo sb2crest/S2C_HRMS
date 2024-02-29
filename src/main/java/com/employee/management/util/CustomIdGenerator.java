@@ -12,9 +12,10 @@ import java.sql.SQLException;
 
 public class CustomIdGenerator implements IdentifierGenerator {
 
+    private static final String PREFIX = "S2C";
+
     @Override
     public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
-        String prefix = "S2C";
         String query = "SELECT MAX(employeeID) FROM Employees";
         Connection connection = null;
         try {
@@ -28,14 +29,18 @@ public class CustomIdGenerator implements IdentifierGenerator {
             if (rs.next()) {
                 String lastId = rs.getString(1);
                 if (lastId != null) {
-                    int number = Integer.parseInt(lastId.substring(prefix.length())) + 1;
-                    return prefix + number;
+                    int number = Integer.parseInt(lastId.substring(PREFIX.length())) + 1;
+                    return PREFIX + formatNumber(number);
                 }
             }
         } catch (SQLException e) {
             throw new HibernateException("Unable to generate ID", e);
         }
 
-        return prefix + "1"; // Initial value if no records are present
+        return PREFIX + "01"; // Initial value if no records are present
+    }
+
+    private String formatNumber(int number) {
+        return String.format("%02d", number);
     }
 }

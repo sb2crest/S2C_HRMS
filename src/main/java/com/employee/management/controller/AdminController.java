@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.Base64;
 import java.util.List;
@@ -27,6 +28,9 @@ public class AdminController {
     PayRollService payRollService;
     @Autowired
     private AmountToWordsConverter amountToWordsConverter;
+
+    private final SseEmitter emitter=new SseEmitter();
+
     @PostMapping("/add")
 //    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<EmployeeDTO> addEmployee(@RequestBody EmployeeDTO employeeDTO){
@@ -95,4 +99,5 @@ public class AdminController {
     public ResponseEntity<HikeEntityDTO>updateHike(@RequestBody HikeUpdateRequest request){
         return new ResponseEntity<>(adminService.updateHikeDetails(request),HttpStatus.OK);
     }
+
 }

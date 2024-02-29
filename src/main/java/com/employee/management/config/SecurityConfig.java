@@ -44,10 +44,7 @@ public class SecurityConfig{
                 .authorizeHttpRequests()
                 .requestMatchers("/auth/**","/admin/add","/offer-letter/**","/salary/download").permitAll()
                 .and()
-//                .authorizeHttpRequests()
-//                .requestMatchers("/employee/testing")
-//                .access(new WebExpressionAuthorizationManager("isAuthenticated() and hasIpAddress('192.168.1.44')"))
-//                .and()
+
                 .authorizeHttpRequests()
                 .requestMatchers("/admin/**", "/employee/**","/salary/**").authenticated()
                 .and()

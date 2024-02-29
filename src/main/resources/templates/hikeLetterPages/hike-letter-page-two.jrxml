@@ -6,7 +6,6 @@
     <parameter name="employee" class="com.employee.management.DTO.EmployeeDTO"/>
     <parameter name="prevSalaryDetails" class="com.employee.management.DTO.CtcData"/>
     <parameter name="newSalaryDetails" class="com.employee.management.DTO.CtcData"/>
-
     <queryString language="SQL">
         <![CDATA[select * from hike_table]]>
     </queryString>
@@ -50,9 +49,9 @@
         <property name="com.jaspersoft.studio.field.label" value="effective_date"/>
         <property name="com.jaspersoft.studio.field.tree.path" value="hike_table"/>
     </field>
-    <group name="employee_id">
-        <groupExpression><![CDATA[$P{employee}.getEmployeeID()]]></groupExpression>
-    </group>
+<!--    <group name="employee_id">-->
+<!--        <groupExpression><![CDATA[$F{employee_id}]]></groupExpression>-->
+<!--    </group>-->
     <background>
         <band splitType="Stretch"/>
     </background>
@@ -62,8 +61,8 @@
             <frame>
                 <reportElement x="0" y="0" width="555" height="73" uuid="22628884-66c8-469c-a09f-21aa901f3882"/>
                 <staticText>
-                    <reportElement x="110" y="3" width="389" height="42" uuid="0817a7d6-0e8d-4922-9f0c-37e20f610cfe"/>
-                    <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <reportElement x="109" y="1" width="389" height="36" uuid="0817a7d6-0e8d-4922-9f0c-37e20f610cfe"/>
+                    <textElement textAlignment="Center" verticalAlignment="Middle">
                         <font fontName="Arial" size="20"/>
                     </textElement>
                     <text><![CDATA[Seabed2Crest Technologies Pvt Ltd]]></text>
@@ -78,14 +77,29 @@
                     <reportElement x="10" y="-7" width="80" height="68" uuid="22ffd55e-0a22-4855-8ca7-6e03cd237649"/>
                     <imageExpression><![CDATA["images/seabed2crest.jpg"]]></imageExpression>
                 </image>
+                <staticText>
+                    <reportElement x="96" y="34" width="418" height="16" uuid="3dfb90ee-271a-4eb1-abb9-7ddb449ea1e3"/>
+                    <textElement textAlignment="Center">
+                        <font fontName="Times New Roman"/>
+                    </textElement>
+                    <text><![CDATA[ 1st floor, R D Rajanna Complex, Rajanukunte,  Yelehanka Taluk Bengaluru, Karnataka 560064]]></text>
+                </staticText>
             </frame>
         </band>
     </title>
     <detail>
         <band height="670" splitType="Stretch">
             <property name="com.jaspersoft.studio.unit.height" value="px"/>
+            <image>
+                <reportElement x="24" y="567" width="153" height="71" uuid="516c179a-e21c-4d6b-843d-20c88ed20a43"/>
+                <imageExpression><![CDATA["images/ceo_sign.jpg"]]></imageExpression>
+            </image>
             <frame>
-                <reportElement x="0" y="160" width="564" height="480" uuid="80d44d05-332c-4f70-96e3-a5a8474eec8e"/>
+                <reportElement x="1" y="132" width="556" height="424" uuid="80d44d05-332c-4f70-96e3-a5a8474eec8e"/>
+<!--                <image>-->
+<!--                    <reportElement x="8" y="428" width="191" height="73" uuid="1c12c9f0-5072-475c-b0d9-0f2fcf5fc434"/>-->
+<!--                    <imageExpression><![CDATA["images/ceo_sign.jpg"]]></imageExpression>-->
+<!--                </image>-->
                 <rectangle>
                     <reportElement x="4" y="14" width="552" height="185" uuid="08e12b97-1750-4e24-8d36-0435df06aa63">
                         <property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -126,47 +140,47 @@
                 <staticText>
                     <reportElement x="15" y="14" width="80" height="34" uuid="f5898702-5353-460e-b13a-ee7dc0b82003"/>
                     <textElement textAlignment="Left" verticalAlignment="Middle">
-                        <font size="14" isBold="true"/>
+                        <font size="14" isBold="false"/>
                     </textElement>
                     <text><![CDATA[Earnings]]></text>
                 </staticText>
                 <staticText>
-                    <reportElement x="219" y="14" width="80" height="34" uuid="44fc6533-1a65-4fe7-ae93-114f01c0034b"/>
+                    <reportElement x="219" y="14" width="80" height="34"  uuid="44fc6533-1a65-4fe7-ae93-114f01c0034b"/>
                     <textElement textAlignment="Left" verticalAlignment="Middle">
                         <font size="14" isBold="true"/>
                     </textElement>
                     <text><![CDATA[Prev.Salary]]></text>
                 </staticText>
                 <staticText>
-                    <reportElement x="350" y="15" width="76" height="34" uuid="11485479-63eb-48e4-84fc-80c81bd6d409"/>
+                    <reportElement x="350" y="15" width="76" height="34"  uuid="11485479-63eb-48e4-84fc-80c81bd6d409"/>
                     <textElement textAlignment="Left" verticalAlignment="Middle">
                         <font size="14" isBold="true"/>
                     </textElement>
                     <text><![CDATA[New Salary]]></text>
                 </staticText>
                 <staticText>
-                    <reportElement x="15" y="54" width="80" height="24" uuid="22e8abbc-5a6b-48ae-98f7-d09bce117cf3"/>
+                    <reportElement x="15" y="54" width="80" height="24" forecolor="#4F4E4E" uuid="22e8abbc-5a6b-48ae-98f7-d09bce117cf3"/>
                     <textElement textAlignment="Left" verticalAlignment="Middle">
                         <font fontName="Tahoma" size="14" isBold="false"/>
                     </textElement>
                     <text><![CDATA[Basic]]></text>
                 </staticText>
                 <staticText>
-                    <reportElement x="15" y="84" width="133" height="24" uuid="4f6aebea-cbc6-484f-bccc-bd869e7c9522"/>
+                    <reportElement x="15" y="84" width="133" height="24" forecolor="#4F4E4E" uuid="4f6aebea-cbc6-484f-bccc-bd869e7c9522"/>
                     <textElement textAlignment="Left" verticalAlignment="Middle">
                         <font size="14" isBold="false"/>
                     </textElement>
                     <text><![CDATA[Medical Allowance]]></text>
                 </staticText>
                 <staticText>
-                    <reportElement x="15" y="113" width="160" height="24" uuid="4527bf4a-bf20-4858-aa78-41442a0ffe37"/>
+                    <reportElement x="15" y="113" width="160" height="24" forecolor="#4F4E4E" uuid="4527bf4a-bf20-4858-aa78-41442a0ffe37"/>
                     <textElement textAlignment="Left" verticalAlignment="Middle">
                         <font size="14" isBold="false"/>
                     </textElement>
                     <text><![CDATA[House Rent Allowance]]></text>
                 </staticText>
                 <staticText>
-                    <reportElement x="15" y="143" width="119" height="24" uuid="5f6b75fd-b150-4a1e-847e-b9e2f1953c37"/>
+                    <reportElement x="15" y="143" width="119" height="24" forecolor="#4F4E4E" uuid="5f6b75fd-b150-4a1e-847e-b9e2f1953c37"/>
                     <textElement textAlignment="Left" verticalAlignment="Middle">
                         <font size="14" isBold="false"/>
                     </textElement>
@@ -175,68 +189,68 @@
                 <staticText>
                     <reportElement x="15" y="172" width="120" height="24" uuid="b57c6c44-cae8-4cf3-8f8e-188076840f2c"/>
                     <textElement textAlignment="Left" verticalAlignment="Middle">
-                        <font size="14" isBold="true"/>
+                        <font size="14" isBold="false"/>
                     </textElement>
                     <text><![CDATA[Gross C.T.C. (A)]]></text>
                 </staticText>
                 <textField>
-                    <reportElement x="174" y="50" width="124" height="24" uuid="548b1bff-dd44-4e8b-85c5-839c8245f7ff"/>
+                    <reportElement x="174" y="50" width="124" height="24" forecolor="#4F4E4E" uuid="548b1bff-dd44-4e8b-85c5-839c8245f7ff"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
                         <font size="14"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$P{prevSalaryDetails}.getMonthlyBasic()]]></textFieldExpression>
                 </textField>
                 <textField>
-                    <reportElement x="174" y="84" width="124" height="24" uuid="3e4f1875-771d-4be5-824c-2497322e768d"/>
+                    <reportElement x="174" y="84" width="124" height="24" forecolor="#4F4E4E" uuid="3e4f1875-771d-4be5-824c-2497322e768d"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
                         <font size="14"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$P{prevSalaryDetails}.getMonthlyMedAllowance()]]></textFieldExpression>
                 </textField>
                 <textField>
-                    <reportElement x="174" y="114" width="124" height="24" uuid="914ab117-4a60-4f5b-9238-738c06e673d6"/>
+                    <reportElement x="174" y="114" width="124" height="24" forecolor="#4F4E4E" uuid="914ab117-4a60-4f5b-9238-738c06e673d6"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
                         <font size="14"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$P{prevSalaryDetails}.getMonthlyHRA()]]></textFieldExpression>
                 </textField>
                 <textField>
-                    <reportElement x="174" y="145" width="124" height="24" uuid="e53b66fe-0e8d-43d4-876e-eb26902bab11"/>
+                    <reportElement x="174" y="145" width="124" height="24" forecolor="#4F4E4E" uuid="e53b66fe-0e8d-43d4-876e-eb26902bab11"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
                         <font size="14"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$P{prevSalaryDetails}.getMonthlyOtherAllowance()]]></textFieldExpression>
                 </textField>
                 <textField>
-                    <reportElement x="174" y="175" width="124" height="24" uuid="ec893c9c-da3f-4130-849a-8f0b762129b6"/>
+                    <reportElement x="174" y="175" width="124" height="24"  uuid="ec893c9c-da3f-4130-849a-8f0b762129b6"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
                         <font size="14"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$P{prevSalaryDetails}.getMonthlyGrossCtc()]]></textFieldExpression>
                 </textField>
                 <textField>
-                    <reportElement x="310" y="54" width="116" height="24" uuid="7404111f-fe08-4712-a54c-b28a9c150e4d"/>
+                    <reportElement x="310" y="54" width="116" height="24" forecolor="#4F4E4E" uuid="7404111f-fe08-4712-a54c-b28a9c150e4d"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
                         <font size="14"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$P{newSalaryDetails}.getMonthlyBasic()]]></textFieldExpression>
                 </textField>
                 <textField>
-                    <reportElement x="310" y="84" width="116" height="24" uuid="b69eb42e-93e6-4213-afee-65330a6507d1"/>
+                    <reportElement x="310" y="84" width="116" height="24" forecolor="#4F4E4E" uuid="b69eb42e-93e6-4213-afee-65330a6507d1"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
                         <font size="14"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$P{newSalaryDetails}.getMonthlyMedAllowance()]]></textFieldExpression>
                 </textField>
                 <textField>
-                    <reportElement x="310" y="114" width="116" height="24" uuid="b53eb45c-52b6-4126-8071-df9ad3e7f2b0"/>
+                    <reportElement x="310" y="114" width="116" height="24" forecolor="#4F4E4E" uuid="b53eb45c-52b6-4126-8071-df9ad3e7f2b0"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
                         <font size="14"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$P{newSalaryDetails}.getMonthlyHRA()]]></textFieldExpression>
                 </textField>
                 <textField>
-                    <reportElement x="310" y="145" width="116" height="24" uuid="dc6639d6-81e9-4526-8583-a497e28aac45"/>
+                    <reportElement x="310" y="145" width="116" height="24" forecolor="#4F4E4E" uuid="dc6639d6-81e9-4526-8583-a497e28aac45"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
                         <font size="14"/>
                     </textElement>
@@ -257,35 +271,35 @@
                     <text><![CDATA[Yearly Salary]]></text>
                 </staticText>
                 <textField>
-                    <reportElement x="440" y="54" width="112" height="24" uuid="6db55c71-d3ad-4f0a-b3ed-abc1a93f93fb"/>
+                    <reportElement x="440" y="54" width="112" height="24" forecolor="#4F4E4E" uuid="6db55c71-d3ad-4f0a-b3ed-abc1a93f93fb"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
                         <font size="14"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$P{newSalaryDetails}.getYearlyBasic()]]></textFieldExpression>
                 </textField>
                 <textField>
-                    <reportElement x="440" y="84" width="112" height="24" uuid="1080f0da-33bf-4f79-bb8f-ac7027b93531"/>
+                    <reportElement x="440" y="84" width="112" height="24" forecolor="#4F4E4E" uuid="1080f0da-33bf-4f79-bb8f-ac7027b93531"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
                         <font size="14"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$P{newSalaryDetails}.getYearlyMedAllowance()]]></textFieldExpression>
                 </textField>
                 <textField>
-                    <reportElement x="441" y="114" width="110" height="24" uuid="e54b8a54-af83-4671-9a03-c3822086eed7"/>
+                    <reportElement x="441" y="114" width="110" height="24" forecolor="#4F4E4E" uuid="e54b8a54-af83-4671-9a03-c3822086eed7"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
                         <font size="14"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$P{newSalaryDetails}.getYearlyHRA()]]></textFieldExpression>
                 </textField>
                 <textField>
-                    <reportElement x="441" y="145" width="110" height="24" uuid="d17a92e3-9660-4d1d-b540-b69554c3f48e"/>
+                    <reportElement x="441" y="145" width="110" height="24" forecolor="#4F4E4E" uuid="d17a92e3-9660-4d1d-b540-b69554c3f48e"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
                         <font size="14"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$P{newSalaryDetails}.getYearlyOtherAllowance()]]></textFieldExpression>
                 </textField>
                 <textField>
-                    <reportElement x="441" y="173" width="110" height="24" uuid="8fb4dc5c-72ce-4d70-926d-019b7050ba07"/>
+                    <reportElement x="441" y="173" width="110" height="24"  uuid="8fb4dc5c-72ce-4d70-926d-019b7050ba07"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
                         <font size="14"/>
                     </textElement>
@@ -316,26 +330,26 @@
                 <staticText>
                     <reportElement x="15" y="210" width="80" height="34" uuid="ff09000a-b118-4175-a92b-64b52257d619"/>
                     <textElement textAlignment="Left" verticalAlignment="Middle">
-                        <font size="14" isBold="true"/>
+                        <font size="14" isBold="false"/>
                     </textElement>
                     <text><![CDATA[Deductions]]></text>
                 </staticText>
                 <staticText>
-                    <reportElement x="190" y="210" width="109" height="34" uuid="1fc89c2f-b327-4f66-acc6-d107c876bdf4"/>
+                    <reportElement x="190" y="210" width="109" height="34"  uuid="1fc89c2f-b327-4f66-acc6-d107c876bdf4"/>
                     <textElement textAlignment="Left" verticalAlignment="Middle">
                         <font size="14" isBold="true"/>
                     </textElement>
                     <text><![CDATA[Prev.Deduction]]></text>
                 </staticText>
                 <staticText>
-                    <reportElement x="320" y="211" width="105" height="34" uuid="7d3008d7-ccd4-4c22-8f9a-561d2e28fcaf"/>
+                    <reportElement x="320" y="211" width="105" height="34"  uuid="7d3008d7-ccd4-4c22-8f9a-561d2e28fcaf"/>
                     <textElement textAlignment="Left" verticalAlignment="Middle">
                         <font size="14" isBold="true"/>
                     </textElement>
                     <text><![CDATA[New Deduction]]></text>
                 </staticText>
                 <staticText>
-                    <reportElement x="437" y="211" width="118" height="34" uuid="a68d8775-108e-4159-a383-e0296271d351"/>
+                    <reportElement x="437" y="211" width="118" height="34"  uuid="a68d8775-108e-4159-a383-e0296271d351"/>
                     <textElement textAlignment="Left" verticalAlignment="Middle">
                         <font size="14" isBold="true"/>
                     </textElement>
@@ -351,84 +365,84 @@
                     <reportElement x="5" y="311" width="551" height="1" uuid="b3e6346d-c85e-462f-acf2-eb620c20d99d"/>
                 </line>
                 <staticText>
-                    <reportElement x="15" y="246" width="118" height="24" uuid="893c1a47-6fb1-4f23-b44a-4b6ed6b89707"/>
+                    <reportElement x="15" y="246" width="118" height="24" forecolor="#4F4E4E" uuid="893c1a47-6fb1-4f23-b44a-4b6ed6b89707"/>
                     <textElement textAlignment="Left" verticalAlignment="Middle">
                         <font fontName="Tahoma" size="14" isBold="false"/>
                     </textElement>
                     <text><![CDATA[Provident Fund]]></text>
                 </staticText>
                 <staticText>
-                    <reportElement x="15" y="280" width="80" height="24" uuid="e0b94fb9-68ae-44f9-882b-5c87338737e7"/>
+                    <reportElement x="15" y="280" width="80" height="24" forecolor="#4F4E4E" uuid="e0b94fb9-68ae-44f9-882b-5c87338737e7"/>
                     <textElement textAlignment="Left" verticalAlignment="Middle">
                         <font fontName="Tahoma" size="14" isBold="false"/>
                     </textElement>
                     <text><![CDATA[Income Tax]]></text>
                 </staticText>
                 <staticText>
-                    <reportElement x="15" y="312" width="157" height="24" uuid="d93dbfee-51ad-4482-89c9-f8cc693ffa07"/>
+                    <reportElement x="15" y="312" width="157" height="24" forecolor="#4F4E4E" uuid="d93dbfee-51ad-4482-89c9-f8cc693ffa07"/>
                     <textElement textAlignment="Left" verticalAlignment="Middle">
                         <font fontName="Tahoma" size="14" isBold="false"/>
                     </textElement>
                     <text><![CDATA[Professional Tax]]></text>
                 </staticText>
                 <textField>
-                    <reportElement x="174" y="248" width="124" height="24" uuid="32f06a3f-7017-4e0e-84ca-e7ef1ec044d9"/>
+                    <reportElement x="174" y="248" width="124" height="24" forecolor="#4F4E4E" uuid="32f06a3f-7017-4e0e-84ca-e7ef1ec044d9"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
                         <font size="14"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$P{prevSalaryDetails}.getMonthlyProvidentFund()]]></textFieldExpression>
                 </textField>
                 <textField>
-                    <reportElement x="174" y="281" width="124" height="24" uuid="3654dd91-98aa-450f-b0de-b990eed7552f"/>
+                    <reportElement x="174" y="281" width="124" height="24" forecolor="#4F4E4E" uuid="3654dd91-98aa-450f-b0de-b990eed7552f"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
                         <font size="14"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$P{prevSalaryDetails}.getMonthlyIncomeTax()]]></textFieldExpression>
                 </textField>
                 <textField>
-                    <reportElement x="174" y="316" width="124" height="29" uuid="f1188078-7b5a-45fa-bdd0-667061ac2136"/>
+                    <reportElement x="174" y="316" width="124" height="29" forecolor="#4F4E4E" uuid="f1188078-7b5a-45fa-bdd0-667061ac2136"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
                         <font size="14"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$P{prevSalaryDetails}.getMonthlyProfessionalTax()]]></textFieldExpression>
                 </textField>
                 <textField>
-                    <reportElement x="301" y="248" width="124" height="24" uuid="cdc28b37-b7bf-4527-8cba-f44b167d4162"/>
+                    <reportElement x="301" y="248" width="124" height="24" forecolor="#4F4E4E" uuid="cdc28b37-b7bf-4527-8cba-f44b167d4162"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
                         <font size="14"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$P{newSalaryDetails}.getMonthlyProvidentFund()]]></textFieldExpression>
                 </textField>
                 <textField>
-                    <reportElement x="301" y="281" width="124" height="24" uuid="b6a1d63e-17d4-4a2c-b6c4-d7698084f483"/>
+                    <reportElement x="301" y="281" width="124" height="24" forecolor="#4F4E4E" uuid="b6a1d63e-17d4-4a2c-b6c4-d7698084f483"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
                         <font size="14"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$P{newSalaryDetails}.getMonthlyIncomeTax()]]></textFieldExpression>
                 </textField>
                 <textField>
-                    <reportElement x="301" y="316" width="124" height="24" uuid="59bbcd1f-6f5e-49b4-9c66-55b2fe3535a8"/>
+                    <reportElement x="301" y="316" width="124" height="24" forecolor="#4F4E4E" uuid="59bbcd1f-6f5e-49b4-9c66-55b2fe3535a8"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
                         <font size="14"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$P{newSalaryDetails}.getMonthlyProfessionalTax()]]></textFieldExpression>
                 </textField>
                 <textField>
-                    <reportElement x="428" y="248" width="124" height="24" uuid="b8b22d71-98e0-498e-8552-8abb0b95f732"/>
+                    <reportElement x="428" y="248" width="124" height="24" forecolor="#4F4E4E" uuid="b8b22d71-98e0-498e-8552-8abb0b95f732"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
                         <font size="14"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$P{newSalaryDetails}.getYearlyProvidentFund()]]></textFieldExpression>
                 </textField>
                 <textField>
-                    <reportElement x="428" y="281" width="124" height="24" uuid="05c83df3-279e-41f1-9152-fbb099a566fe"/>
+                    <reportElement x="428" y="281" width="124" height="24" forecolor="#4F4E4E" uuid="05c83df3-279e-41f1-9152-fbb099a566fe"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
                         <font size="14"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$P{newSalaryDetails}.getYearlyIncomeTax()]]></textFieldExpression>
                 </textField>
                 <textField>
-                    <reportElement x="428" y="316" width="124" height="24" uuid="2724f355-17bc-4cbc-a38f-0c1ae0eae93b"/>
+                    <reportElement x="428" y="316" width="124" height="24" forecolor="#4F4E4E" uuid="2724f355-17bc-4cbc-a38f-0c1ae0eae93b"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
                         <font size="14"/>
                     </textElement>
@@ -440,19 +454,19 @@
                 <staticText>
                     <reportElement x="15" y="348" width="156" height="24" uuid="e154683f-9f15-4c7b-b4ca-ade5424b0c62"/>
                     <textElement textAlignment="Left" verticalAlignment="Middle">
-                        <font size="14" isBold="true"/>
+                        <font size="14" isBold="false"/>
                     </textElement>
                     <text><![CDATA[Total Deductions (B)]]></text>
                 </staticText>
                 <textField>
-                    <reportElement x="174" y="351" width="124" height="24" uuid="7350373a-2a90-4118-a6ab-3cd5a7fa1f44"/>
+                    <reportElement x="174" y="351" width="124" height="24"  uuid="7350373a-2a90-4118-a6ab-3cd5a7fa1f44"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
                         <font size="14"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$P{prevSalaryDetails}.getMonthlyTotalDeduction()]]></textFieldExpression>
                 </textField>
                 <textField>
-                    <reportElement x="309" y="349" width="118" height="24" uuid="245dbbd0-c774-4de2-8cc9-4e0303d8f5ef"/>
+                    <reportElement x="309" y="349" width="118" height="24"  uuid="245dbbd0-c774-4de2-8cc9-4e0303d8f5ef"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
                         <font size="14"/>
                     </textElement>
@@ -466,13 +480,13 @@
                     <textFieldExpression><![CDATA[$P{newSalaryDetails}.getYearlyTotalDeduction()]]></textFieldExpression>
                 </textField>
                 <rectangle>
-                    <reportElement x="4" y="390" width="552" height="55" uuid="2eae4ec2-313b-403c-b4c5-62871b18967f">
+                    <reportElement x="4" y="390" width="552" height="27" uuid="2eae4ec2-313b-403c-b4c5-62871b18967f">
                         <property name="com.jaspersoft.studio.unit.height" value="px"/>
                         <property name="com.jaspersoft.studio.unit.width" value="px"/>
                     </reportElement>
                 </rectangle>
                 <rectangle>
-                    <reportElement x="4" y="390" width="170" height="55" uuid="76240188-da5d-4b28-9599-d6de2b6e1527">
+                    <reportElement x="4" y="390" width="170" height="27" uuid="76240188-da5d-4b28-9599-d6de2b6e1527">
                         <property name="com.jaspersoft.studio.unit.x" value="px"/>
                         <property name="com.jaspersoft.studio.unit.y" value="px"/>
                         <property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -480,65 +494,45 @@
                     </reportElement>
                 </rectangle>
                 <rectangle>
-                    <reportElement x="302" y="390" width="130" height="55" uuid="c1066eb3-a1d3-412b-bd7e-859b89449e5a">
+                    <reportElement x="302" y="390" width="130" height="27" uuid="c1066eb3-a1d3-412b-bd7e-859b89449e5a">
                         <property name="com.jaspersoft.studio.unit.x" value="px"/>
                         <property name="com.jaspersoft.studio.unit.y" value="px"/>
                         <property name="com.jaspersoft.studio.unit.height" value="px"/>
                         <property name="com.jaspersoft.studio.unit.width" value="px"/>
                     </reportElement>
                 </rectangle>
-                <staticText>
-                    <reportElement x="13" y="418" width="156" height="24" uuid="0671b8e7-a0e9-4254-9dfc-469aab78d070"/>
-                    <textElement textAlignment="Left" verticalAlignment="Middle">
-                        <font size="14" isBold="true"/>
-                    </textElement>
-                    <text><![CDATA[Total Net Payable (A-B)]]></text>
-                </staticText>
+
                 <textField>
-                    <reportElement x="174" y="421" width="124" height="24" uuid="578ca0e9-1921-436b-8419-9914402901de"/>
+                    <reportElement x="13" y="390" width="156" height="24" uuid="0671b8e7-a0e9-4254-9dfc-469aab78d070"/>
+                    <textElement textAlignment="Left" verticalAlignment="Middle" markup="html">
+                        <font size="14" isBold="false"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA["<style isBold='true'><font color='#000000'>Total Net Payable (A-B)</font></style>"]]></textFieldExpression>
+                </textField>
+
+
+                <textField>
+                    <reportElement x="174" y="393" width="124" height="24" uuid="578ca0e9-1921-436b-8419-9914402901de"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
                         <font size="14"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$P{prevSalaryDetails}.getMonthlyNetPayable()]]></textFieldExpression>
                 </textField>
                 <textField>
-                    <reportElement x="309" y="419" width="118" height="24" uuid="779241f8-968c-4e1f-b64a-cb58e11640f3"/>
+                    <reportElement x="309" y="391" width="118" height="24"  uuid="779241f8-968c-4e1f-b64a-cb58e11640f3"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
                         <font size="14"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$P{newSalaryDetails}.getMonthlyNetPayable()]]></textFieldExpression>
                 </textField>
                 <textField>
-                    <reportElement x="441" y="419" width="110" height="24" uuid="9cf0d2fc-7d4e-4510-8c6f-81d0f8af55f9"/>
+                    <reportElement x="441" y="391" width="110" height="24"  uuid="9cf0d2fc-7d4e-4510-8c6f-81d0f8af55f9"/>
                     <textElement textAlignment="Right" verticalAlignment="Middle">
                         <font size="14"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$P{newSalaryDetails}.getYearlyNetPayable()]]></textFieldExpression>
                 </textField>
-                <line>
-                    <reportElement x="5" y="415" width="551" height="1" uuid="40e5a2ef-d688-4ff9-aad6-5359f0ea2923"/>
-                </line>
-                <staticText>
-                    <reportElement x="186" y="385" width="109" height="34" uuid="698e6709-e446-440a-86aa-8bf2c1b2c80f"/>
-                    <textElement textAlignment="Left" verticalAlignment="Middle">
-                        <font size="14" isBold="true"/>
-                    </textElement>
-                    <text><![CDATA[Prev.Net Salary]]></text>
-                </staticText>
-                <staticText>
-                    <reportElement x="316" y="386" width="105" height="34" uuid="3ff41a41-026c-424a-a081-2f82745770d0"/>
-                    <textElement textAlignment="Left" verticalAlignment="Middle">
-                        <font size="14" isBold="true"/>
-                    </textElement>
-                    <text><![CDATA[New Net Salary]]></text>
-                </staticText>
-                <staticText>
-                    <reportElement x="435" y="389" width="118" height="30" uuid="0d1354d0-647e-4443-be3b-abb0353d2bd2"/>
-                    <textElement textAlignment="Left" verticalAlignment="Middle">
-                        <font size="14" isBold="true"/>
-                    </textElement>
-                    <text><![CDATA[Yearly Net Salary]]></text>
-                </staticText>
+
             </frame>
             <staticText>
                 <reportElement x="143" y="13" width="275" height="20" uuid="03be23d6-207a-432d-86bb-73db96ad042e"/>
@@ -587,12 +581,33 @@
                 <textElement verticalAlignment="Middle" markup="html">
                     <font fontName="Times New Roman" size="14" isBold="true"/>
                 </textElement>
-                <textFieldExpression><![CDATA["IT"]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$P{employee}.getDepartment()]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="356" y="597" width="198" height="20" uuid="a023bb43-519b-486b-9239-07fbe9ea724d"/>
+                <textElement textAlignment="Center">
+                    <font fontName="Times New Roman" size="14" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{employee}.getEmployeeName()]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="356" y="615" width="198" height="20" uuid="6eb30a8a-0246-49b3-a3dc-166008be9245"/>
+                <textElement textAlignment="Center">
+                    <font fontName="Times New Roman" size="14" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{employee}.getDesignation()]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="9" y="597" width="133" height="41" uuid="558ea8c8-6ed2-4c9a-b612-ecdf5d5f0309"/>
+                <textElement textAlignment="Center">
+                    <font size="14"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Nandhu Kasaram Founder&Ceo"]]></textFieldExpression>
             </textField>
         </band>
     </detail>
     <pageFooter>
-        <band height="54" splitType="Stretch">
+        <band height="52" splitType="Stretch">
             <frame>
                 <reportElement x="3" y="2" width="550" height="50" uuid="7a103966-e9ef-4c88-9939-d7b9e9a14d68"/>
                 <staticText>
@@ -600,7 +615,7 @@
                     <textElement textAlignment="Center">
                         <font size="11"/>
                     </textElement>
-                    <text><![CDATA[# 584, Near Suryodaya School, Hesaraghatta Hobli, Rajanukunte, Yelahanka Taluk, Bangalore North - 560064.]]></text>
+                    <text><![CDATA[ 1st floor, R D Rajanna Complex, Rajanukunte, Yelehanka Taluk, Bengaluru, Karnataka 560064]]></text>
                 </staticText>
                 <staticText>
                     <reportElement x="28" y="26" width="40" height="20" forecolor="#EBC107" uuid="901894a8-6390-45dc-9e92-ebb1a2174ed0"/>

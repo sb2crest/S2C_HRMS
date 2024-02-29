@@ -17,10 +17,10 @@ public class HikeEntity {
     @JoinColumn(name="employee_id", referencedColumnName="EmployeeID")
     private Employee employee;
 
-    @Column(name="prev-salary")
+    @Column(name = "prev-salary")
     private Double prevSalary;
 
-    @Column(name="new-salary")
+    @Column(name = "new-salary")
     private Double newSalary;
 
     @Column(name="hike-percentage")

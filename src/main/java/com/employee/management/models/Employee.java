@@ -24,6 +24,9 @@ public class Employee {
     @Column(name = "Designation")
     private String designation;
 
+    @Column(name="Department")
+    private String department;
+
     @Column(name = "Location")
     private String location;
 
@@ -60,7 +63,7 @@ public class Employee {
     @Column(name = "pfNumber")
     private String pfNumber;
 
-    @Column(name="Gross-salary")
+    @Column(name = "GrossSalary")
     private Double grossSalary;
 
     @Column(name="next-hike-date")

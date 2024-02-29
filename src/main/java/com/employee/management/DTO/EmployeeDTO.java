@@ -13,6 +13,7 @@ public class EmployeeDTO {
     private List<String> roles;
     private String location;
     private String bankName;
+    private String department;
     private String accountNo;
     private String dateOfJoin;
     private String password;

@@ -15,6 +15,8 @@ import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
+import net.sf.jasperreports.export.type.PdfVersionEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -109,16 +111,20 @@ public class AdminServiceImpl implements AdminService {
                 .average()
                 .orElse(0.0);
 
-        List<HikeEntity> hikeRec=hikeRepository.findAllByStatusFalse();
-        adminDashBoardData.setHikeRecommendations(hikeRec.stream()
-                .map(mapper::convertToHikeEntityDto)
-                .toList()
-        );
         adminDashBoardData.setAverageSalary(averageSalary);
         adminDashBoardData.setTodayDate(getTodayDateFormatted());
         adminDashBoardData.setNoOfEmployees(getEmployeeCount());
         return adminDashBoardData;
     }
+
+    public List<HikeEntityDTO> hikeRecommendations(){
+        List<HikeEntity> hikeRec=hikeRepository.findAllByStatusFalse();
+       return  hikeRec.stream()
+               .filter(Objects::nonNull)
+               .map(mapper::convertToHikeEntityDto)
+               .toList();
+    }
+
     @Override
     public List<EmployeeDTO> fetchAllActiveEmployees(){
         List<Employee>employees=employeeRepository.findAll();
@@ -220,42 +226,56 @@ public class AdminServiceImpl implements AdminService {
             try{
                 sendHikeLetterMail(fillHikeLetter(mapper.convertToEmployeeDTO(employee),hike),employee.getEmail());
             }catch (Exception e){
-                throw new RuntimeException("Something went wrong");
+                System.out.println(e);
             }
             return mapper.convertToHikeEntityDto(savedHike);
         }
         throw new CompanyException(ResCodes.HIKE_APPROVED_ALREADY);
     }
 
-    private byte[] fillHikeLetter(EmployeeDTO employee,HikeEntity hike) throws JRException, IOException {
+    private byte[] fillHikeLetter(EmployeeDTO employee, HikeEntity hike) throws JRException, IOException {
         JasperReport template1 = JasperCompileManager.compileReport(new ClassPathResource("templates/hikeLetterPages/hike-letter.jrxml").getInputStream());
         JasperReport template2 = JasperCompileManager.compileReport(new ClassPathResource("templates/hikeLetterPages/hike-letter-page-two.jrxml").getInputStream());
+
         System.err.println("compiled ");
+
         Map<String, Object> parameters1 = new HashMap<>();
         parameters1.put("employee", employee);
-        parameters1.put("hikeDetails",mapper.convertToHikeEntityDto(hike));
-        parameters1.put("hikeAmount",(hike.getNewSalary()-hike.getPrevSalary()));
+        parameters1.put("hikeDetails", mapper.convertToHikeEntityDto(hike));
+        parameters1.put("hikeAmount", (hike.getNewSalary() - hike.getPrevSalary()));
 
-
-        CtcCalculator calculator=new CtcCalculator();
+        CtcCalculator calculator = new CtcCalculator();
         Map<String, Object> parameters2 = new HashMap<>();
         parameters2.put("employee", employee);
-        parameters2.put("prevSalaryDetails",calculator.compensationDetails(hike.getPrevSalary()));
-        parameters2.put("newSalaryDetails",calculator.compensationDetails(hike.getNewSalary()));
+        parameters2.put("prevSalaryDetails", calculator.compensationDetails(hike.getPrevSalary()));
+        parameters2.put("newSalaryDetails", calculator.compensationDetails(hike.getNewSalary()));
 
         JasperPrint jasperPrint1 = JasperFillManager.fillReport(template1, parameters1, new JREmptyDataSource());
         JasperPrint jasperPrint2 = JasperFillManager.fillReport(template2, parameters2, new JREmptyDataSource());
+
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         JRPdfExporter exporter = new JRPdfExporter();
+
         List<JasperPrint> jasperPrints = new ArrayList<>();
         jasperPrints.add(jasperPrint1);
         jasperPrints.add(jasperPrint2);
+
         exporter.setExporterInput(SimpleExporterInput.getInstance(jasperPrints));
         exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputStream));
+
+        SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
+        configuration.setPdfVersion(PdfVersionEnum.VERSION_1_7);
+        configuration.setCreatingBatchModeBookmarks(true);
+        configuration.setOverrideHints(true);
+        exporter.setConfiguration(configuration);
+
         exporter.exportReport();
 
         return outputStream.toByteArray();
     }
+
+
+
     private void sendHikeLetterMail(byte [] pdf,String to) throws MessagingException, IOException {
         emailSenderService.sendEmailWithAttachment(to,"Salary Hike Updation ","Update",pdf);
     }

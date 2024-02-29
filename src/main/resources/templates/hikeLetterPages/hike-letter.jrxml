@@ -69,11 +69,18 @@
                     <imageExpression><![CDATA["images/seabed2crest.jpg"]]></imageExpression>
                 </image>
                 <staticText>
-                    <reportElement x="110" y="3" width="389" height="42" uuid="05b55a6b-796c-40e0-8f1d-6c33998af931"/>
-                    <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <reportElement x="109" y="1" width="389" height="36" uuid="c9855341-1612-47d1-8b73-8077c7ffa8ef"/>
+                    <textElement textAlignment="Center" verticalAlignment="Middle">
                         <font fontName="Arial" size="20"/>
                     </textElement>
                     <text><![CDATA[Seabed2Crest Technologies Pvt Ltd]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement x="96" y="34" width="418" height="16" uuid="775fc7d4-03ce-4eb8-8f06-728a0fc9e3bc"/>
+                    <textElement textAlignment="Center">
+                        <font fontName="Times New Roman"/>
+                    </textElement>
+                    <text><![CDATA[ 1st floor, R D Rajanna Complex, Rajanukunte,  Yelehanka Taluk Bengaluru, Karnataka 560064]]></text>
                 </staticText>
                 <line>
                     <reportElement x="2" y="64" width="545" height="1" forecolor="#4271C2" uuid="1d75c5bf-fffc-4f62-8527-79c31c136f04"/>
@@ -130,13 +137,13 @@
                 </textElement>
                 <textFieldExpression><![CDATA["<font color='#635E5D'>Designation:</font> " + $P{employee}.getDesignation()]]></textFieldExpression>
             </textField>
-            <textField>
-                <reportElement x="24" y="170" width="66" height="20" forecolor="#635E5D" uuid="7941956b-3d32-4e7f-972d-0f8b9ba5aa2c"/>
-                <textElement textAlignment="Left">
-                    <font fontName="Times New Roman" size="13" isBold="false" isUnderline="false"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$P{employee}.getLocation()]]></textFieldExpression>
-            </textField>
+<!--            <textField>-->
+<!--                <reportElement x="24" y="170" width="66" height="20" forecolor="#635E5D" uuid="7941956b-3d32-4e7f-972d-0f8b9ba5aa2c"/>-->
+<!--                <textElement textAlignment="Left">-->
+<!--                    <font fontName="Times New Roman" size="13" isBold="false" isUnderline="false"/>-->
+<!--                </textElement>-->
+<!--                <textFieldExpression><![CDATA[$P{employee}.getLocation()]]></textFieldExpression>-->
+<!--            </textField>-->
             <textField>
                 <reportElement x="430" y="88" width="125" height="19" forecolor="#635E5D" uuid="5797e0a2-4e6b-416c-b28e-fbedce886cc4"/>
                 <textElement verticalAlignment="Middle" markup="html">
@@ -213,20 +220,6 @@ Best regards,]]></text>
                 <text><![CDATA[NANDU KASARAM
 Founder & CEO]]></text>
             </staticText>
-            <textField>
-                <reportElement x="356" y="605" width="198" height="20" uuid="0f242287-2cb5-47f4-beed-8940ef1def0f"/>
-                <textElement textAlignment="Center">
-                    <font fontName="Times New Roman" size="14" isBold="true"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$P{employee}.getDesignation()]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement x="356" y="590" width="198" height="20" uuid="b6f407cf-26bf-4095-8781-281240d42f95"/>
-                <textElement textAlignment="Center">
-                    <font fontName="Times New Roman" size="14" isBold="true"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$P{employee}.getEmployeeName()]]></textFieldExpression>
-            </textField>
         </band>
     </detail>
     <pageFooter>
@@ -239,7 +232,7 @@ Founder & CEO]]></text>
                     <textElement textAlignment="Center">
                         <font size="11"/>
                     </textElement>
-                    <text><![CDATA[# 584, Near Suryodaya School, Hesaraghatta Hobli, Rajanukunte, Yelahanka Taluk, Bangalore North - 560064.]]></text>
+                    <text><![CDATA[ 1st floor, R D Rajanna Complex, Rajanukunte, Yelehanka Taluk, Bengaluru, Karnataka 560064]]></text>
                 </staticText>
                 <staticText>
                     <reportElement x="28" y="26" width="40" height="20" forecolor="#EBC107" uuid="816add8e-faec-4fa9-9eed-6ca9a2375b07"/>

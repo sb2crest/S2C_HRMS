@@ -40,6 +40,7 @@ public class Mapper {
             employeeDTO.setAccountNo(employee.getAccountNo());
             employeeDTO.setStatus(employee.getStatus().getName());
             employeeDTO.setPfNumber(employee.getPfNumber());
+            employeeDTO.setDepartment(employee.getDepartment());
             employeeDTO.setUanNumber(employee.getUanNumber());
             employeeDTO.setDateOfJoin(dateConverter.localDateTimeToStringConverter(employee.getDateOfJoin()));
             employeeDTO.setGrossSalary(formatAmountWithCommas(employee.getGrossSalary()));
@@ -101,6 +102,7 @@ public class Mapper {
         employee.setLocation(employeeDTO.getLocation());
         employee.setBankName(employeeDTO.getBankName());
         employee.setAccountNo(employeeDTO.getAccountNo());
+        employee.setDepartment(employeeDTO.getDepartment());
         employee.setPassword(passwordGenerator.generatePassword(6));
         employee.setEmail(employeeDTO.getEmail());
         employee.setDateOfJoin(dateConverter.stringToLocalDateTimeConverter(employeeDTO.getDateOfJoin()));
@@ -176,15 +178,45 @@ public class Mapper {
        return Double.parseDouble(amount);
     }
 
-    private String formatAmountWithCommas(Double amount) {
+    public String formatAmountWithCommas(Double amount) {
         if (amount == null) {
             return "";
         }
         if(amount==0){
             return "0";
         }
-        DecimalFormat formatter = new DecimalFormat("#,##,###.00");
-        return formatter.format(amount);
+        String numb = String.valueOf(amount);
+        String numberStr;
+        String split = null;
+        if (numb.contains(".")) {
+            String[] num = numb.split("\\.");
+            numberStr = num[0];
+            split = num[1];
+        } else numberStr = numb;
+        StringBuilder result = getStringBuilder(numberStr);
+        if(split!=null)
+            result.append(".").append(split).append("0");
+        return result.toString();
+    }
+    private StringBuilder getStringBuilder(String numberStr) {
+        StringBuilder result = new StringBuilder();
+
+        int len = numberStr.length();
+        int count = 0;
+        for (int i = len - 1; i >= 0; i--) {
+            result.insert(0, numberStr.charAt(i));
+            count++;
+            if (count == 3 && i != 0) {
+                result.insert(0, ",");
+            }
+            if (count == 5 && i != 0) {
+                result.insert(0, ",");
+            }
+            if (count == 7 && i != 0) {
+                result.insert(0, ",");
+            }
+        }
+        return result;
     }
 
 }
