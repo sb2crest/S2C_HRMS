@@ -19,8 +19,10 @@ import org.springframework.stereotype.Component;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -48,6 +50,7 @@ public class PDFService {
         return JasperExportManager.exportReportToPdf(jasperPrint);
     }
     public byte[] generateHikeLetter(EmployeeDTO employee, HikeEntity hike) throws JRException, IOException {
+
         JasperReport template1 =hike.getIsPromoted()? JasperCompileManager.
                 compileReport(new ClassPathResource("templates/hikeLetterPages/hike-letter-with-promotion.jrxml").
                         getInputStream())
@@ -56,6 +59,7 @@ public class PDFService {
                         compileReport(new ClassPathResource("templates/hikeLetterPages/hike-letter.jrxml").
                                 getInputStream())
                 ;
+
         JasperReport template2 = JasperCompileManager.compileReport(new ClassPathResource("templates/hikeLetterPages/hike-letter-page-two.jrxml").getInputStream());
 
         System.err.println("compiled ");
@@ -69,6 +73,7 @@ public class PDFService {
         parameters1.put("hikeDetails", mapper.convertToHikeEntityDto(hike));
         parameters1.put("hikeAmount", mapper.formatAmountWithCommas((hike.getNewSalary() - hike.getPrevSalary())));
         parameters1.put("currentDate", formattedDate);
+
 
         CtcCalculator calculator = new CtcCalculator();
         Map<String, Object> parameters2 = new HashMap<>();

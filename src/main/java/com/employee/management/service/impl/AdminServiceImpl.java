@@ -54,6 +54,9 @@ public class AdminServiceImpl implements AdminService {
         this.pdfService = pdfService;
     }
 
+    @Autowired
+    PDFService pdfService;
+
 
     private String getTodayDateFormatted(){
         LocalDate today = LocalDate.now();
@@ -217,11 +220,13 @@ public class AdminServiceImpl implements AdminService {
         Employee approvedBy=employeeRepository.findById(request.getApprovedBy())
                 .orElseThrow(()->new CompanyException(ResCodes.EMPLOYEE_NOT_FOUND));
         HikeEntity hike=hikeRepository.findByStatusAndEmployee(false,employee)
+
                 .orElseThrow(()->new CompanyException(ResCodes.HIKE_DATA_NOT_FOUND));
 
         if(!hike.getIsApproved()) {
             hike.setIsApproved(true);
             hike.setIsPromoted(request.getNewPosition() != null && !request.getNewPosition().equals("None"));
+
             hike.setHikePercentage(Double.valueOf(request.getPercentage()));
             hike.setApprovedBy(approvedBy);
             hike.setNewSalary((hike.getPrevSalary() * (hike.getHikePercentage() / 100)) + hike.getPrevSalary());
@@ -250,18 +255,21 @@ public class AdminServiceImpl implements AdminService {
                 .orElseThrow(()->new CompanyException(ResCodes.HIKE_APPROVED_ALREADY));
         HikeEntity previewHike=new HikeEntity();
         previewHike.setEmployee(hike.getEmployee());
+
         previewHike.setIsApproved(hike.getIsApproved());
         previewHike.setPrevSalary(hike.getPrevSalary());
         previewHike.setPrevPosition(hike.getPrevPosition());
         if(!previewHike.getIsApproved()) {
             previewHike.setIsApproved(true);
             previewHike.setIsPromoted(request.getNewPosition() != null && !request.getNewPosition().equals("None"));
+
             previewHike.setHikePercentage(Double.valueOf(request.getPercentage()));
             previewHike.setApprovedBy(approvedBy);
             previewHike.setNewSalary((hike.getPrevSalary() * (previewHike.getHikePercentage() / 100)) + hike.getPrevSalary());
             previewHike.setApprovedDate(new Date());
             previewHike.setEffectiveDate(dateTimeConverter.stringToLocalDateTimeConverter(request.getEffectiveDate()));
             previewHike.setReason(request.getReason());
+
             previewHike.setNewPosition(hike.getIsPromoted()?request.getNewPosition():null);
 
             try{
@@ -272,6 +280,7 @@ public class AdminServiceImpl implements AdminService {
         }
         throw new CompanyException(ResCodes.HIKE_APPROVED_ALREADY);
     }
+
 
     private void sendHikeLetterMail(byte [] pdf,String to) throws MessagingException, IOException {
         emailSenderService.sendEmailWithAttachment(to,"Salary Hike Updation ","Update",pdf);
