@@ -8,7 +8,6 @@ import com.employee.management.util.Formatters;
 import com.employee.management.util.PasswordGenerator;
 import com.employee.management.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Component;
 import java.util.Calendar;
 import java.util.Date;
