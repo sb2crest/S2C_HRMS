@@ -12,6 +12,7 @@ import com.employee.management.service.AdminService;
 import com.employee.management.service.EmailSenderService;
 import com.employee.management.util.CtcCalculator;
 import com.employee.management.util.EmailBodyBuilder;
+import com.employee.management.util.Formatters;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -39,6 +40,7 @@ public class AdminServiceImpl implements AdminService {
     private final PDFService pdfService;
     private final EmailBodyBuilder emailBodyBuilder;
     private final CtcCalculator calculator;
+    private final Formatters formatters;
 
     @Autowired
     public AdminServiceImpl(EmployeeRepository employeeRepository, RoleRepository roleRepository,
@@ -46,7 +48,8 @@ public class AdminServiceImpl implements AdminService {
                        HikeRepository hikeRepository, DateTimeConverter dateTimeConverter,
                        Mapper mapper, EmailSenderService emailSenderService,
                        PasswordEncoder passwordEncoder, PDFService pdfService,
-                            EmailBodyBuilder emailBodyBuilder,CtcCalculator calculator) {
+                            EmailBodyBuilder emailBodyBuilder,CtcCalculator calculator,
+                            Formatters formatters) {
         this.employeeRepository = employeeRepository;
         this.roleRepository = roleRepository;
         this.payrollRepository = payrollRepository;
@@ -59,6 +62,7 @@ public class AdminServiceImpl implements AdminService {
         this.pdfService = pdfService;
         this.emailBodyBuilder = emailBodyBuilder;
         this.calculator=calculator;
+        this.formatters=formatters;
     }
 
     private String getTodayDateFormatted(){
@@ -251,41 +255,95 @@ public class AdminServiceImpl implements AdminService {
         }
         throw new CompanyException(ResCodes.HIKE_APPROVED_ALREADY);
     }
-
     @Override
-    public byte[] previewHikeDetails(HikeUpdateRequest request){
+    public HikeEntityDTO giveHike(HikeUpdateRequest request){
         Employee employee=employeeRepository.findById(request.getEmployeeId())
                 .orElseThrow(()->new CompanyException(ResCodes.EMPLOYEE_NOT_FOUND));
         Employee approvedBy=employeeRepository.findById(request.getApprovedBy())
                 .orElseThrow(()->new CompanyException(ResCodes.EMPLOYEE_NOT_FOUND));
-        HikeEntity hike=hikeRepository.findByStatusAndEmployee(false,employee)
-                .orElseThrow(()->new CompanyException(ResCodes.HIKE_APPROVED_ALREADY));
-        HikeEntity previewHike=new HikeEntity();
-        previewHike.setEmployee(hike.getEmployee());
+        HikeEntity hike=new HikeEntity();
+        hike.setEmployee(employee);
+        hike.setApprovedBy(approvedBy);
+        hike.setIsApproved(true);
+        hike.setHikePercentage(Double.valueOf(request.getPercentage()));
+        hike.setReason(request.getReason());
+        hike.setEffectiveDate(dateTimeConverter.stringToLocalDateTimeConverter(request.getEffectiveDate()));
 
-        previewHike.setIsApproved(hike.getIsApproved());
-        previewHike.setPrevSalary(hike.getPrevSalary());
-        previewHike.setPrevPosition(hike.getPrevPosition());
-        if(!previewHike.getIsApproved()) {
-            previewHike.setIsApproved(true);
-            previewHike.setIsPromoted(request.getNewPosition() != null && !request.getNewPosition().equals("None"));
-
-            previewHike.setHikePercentage(Double.valueOf(request.getPercentage()));
-            previewHike.setApprovedBy(approvedBy);
-            previewHike.setNewSalary((hike.getPrevSalary() * (previewHike.getHikePercentage() / 100)) + hike.getPrevSalary());
-            previewHike.setApprovedDate(new Date());
-            previewHike.setEffectiveDate(dateTimeConverter.stringToLocalDateTimeConverter(request.getEffectiveDate()));
-            previewHike.setReason(request.getReason());
-
-            previewHike.setNewPosition(hike.getIsPromoted()?request.getNewPosition():null);
-
-            try{
-               return pdfService.generateHikeLetter(mapper.convertToEmployeeDTO(employee),previewHike);
-            }catch (Exception e){
-                System.out.println(e);
-            }
+        hike.setPrevPosition(employee.getDesignation());
+        hike.setNewPosition(request.getNewPosition());
+        hike.setPrevSalary(employee.getGrossSalary());
+        hike.setNewSalary((hike.getPrevSalary() * (hike.getHikePercentage() / 100)) + hike.getPrevSalary());
+        hike.setIsPromoted(request.getNewPosition() != null && !request.getNewPosition().equals("None"));
+        hike.setApprovedDate(new Date());
+        HikeEntity savedHike = hikeRepository.save(hike);
+        try{
+            sendHikeLetterMail(pdfService.generateHikeLetter(mapper.convertToEmployeeDTO(employee),savedHike),employee.getEmail());
+        }catch (Exception e){
+            System.out.println(e);
         }
-        throw new CompanyException(ResCodes.HIKE_APPROVED_ALREADY);
+        return mapper.convertToHikeEntityDto(savedHike);
+    }
+
+    @Override
+    public byte[] previewHikeDetails(HikeUpdateRequest request) {
+        Employee employee=employeeRepository.findById(request.getEmployeeId())
+                .orElseThrow(()->new CompanyException(ResCodes.EMPLOYEE_NOT_FOUND));
+        Employee approvedBy=employeeRepository.findById(request.getApprovedBy())
+                .orElseThrow(()->new CompanyException(ResCodes.EMPLOYEE_NOT_FOUND));
+        HikeEntity hike=new HikeEntity();
+        hike.setEmployee(employee);
+        hike.setApprovedBy(approvedBy);
+        hike.setIsApproved(true);
+        hike.setHikePercentage(Double.valueOf(request.getPercentage()));
+        hike.setReason(request.getReason());
+        hike.setEffectiveDate(dateTimeConverter.stringToLocalDateTimeConverter(request.getEffectiveDate()));
+        hike.setPrevPosition(employee.getDesignation());
+        hike.setNewPosition(request.getNewPosition());
+        hike.setPrevSalary(employee.getGrossSalary());
+        hike.setNewSalary((hike.getPrevSalary() * (hike.getHikePercentage() / 100)) + hike.getPrevSalary());
+        hike.setIsPromoted(request.getNewPosition() != null && !request.getNewPosition().equals("None"));
+        hike.setApprovedDate(new Date());
+        try {
+            return pdfService.generateHikeLetter(mapper.convertToEmployeeDTO(employee), hike);
+        }catch (Exception e){
+            throw new CompanyException(ResCodes.SOMETHING_WENT_WRONG);
+        }
+
+    }
+    @Override
+    public String sendHikeLetter(Long id){
+        HikeEntity hike=hikeRepository.findById(id)
+                .orElseThrow(()->new CompanyException(ResCodes.HIKE_DATA_NOT_FOUND));
+        Employee employee=employeeRepository.findById(hike.getEmployee().getEmployeeID())
+                .orElseThrow(()->new CompanyException(ResCodes.EMPLOYEE_NOT_FOUND));
+        try{
+            sendHikeLetterMail(pdfService.generateHikeLetter(mapper.convertToEmployeeDTO(employee),hike),employee.getEmail());
+            return "Email send Successfully";
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        return "Something went wrong";
+    }
+    @Override
+    public HikeEntityDTO editHikeLetter(HikeEntityDTO hikeEntityDTO){
+        HikeEntity hike=hikeRepository.findById(hikeEntityDTO.getId())
+                .orElseThrow(()->new CompanyException(ResCodes.HIKE_DATA_NOT_FOUND));
+        Employee employee=employeeRepository.findById(hikeEntityDTO.getEmployeeId())
+                .orElseThrow(()->new CompanyException(ResCodes.EMPLOYEE_NOT_FOUND));
+        Employee approvedBy=employeeRepository.findById(hikeEntityDTO.getApprovedBy())
+                .orElseThrow(()->new CompanyException(ResCodes.EMPLOYEE_NOT_FOUND));
+        hike.setHikePercentage(hike.getHikePercentage());
+        hike.setReason(hikeEntityDTO.getReason());
+        hike.setNewPosition(hikeEntityDTO.getNewPosition());
+        hike.setPrevPosition(hikeEntityDTO.getPrevPosition());
+        hike.setApprovedDate(dateTimeConverter.stringToLocalDateTimeConverter(hikeEntityDTO.getApprovedDate()));
+        hike.setEffectiveDate(dateTimeConverter.stringToLocalDateTimeConverter(hikeEntityDTO.getEffectiveDate()));
+        hike.setPrevSalary(formatters.convertStringToDoubleAmount(hikeEntityDTO.getPrevSalary()));
+        hike.setNewSalary(formatters.convertStringToDoubleAmount(hikeEntityDTO.getNewSalary()));
+        hike.setEmployee(employee);
+        hike.setApprovedBy(approvedBy);
+        HikeEntity save = hikeRepository.save(hike);
+        return mapper.convertToHikeEntityDto(save);
     }
 
 

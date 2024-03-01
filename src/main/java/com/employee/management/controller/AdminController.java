@@ -95,13 +95,23 @@ public class AdminController {
         System.out.println(request);
         return new ResponseEntity<>(adminService.updatePfDetails(request),HttpStatus.OK);
     }
-    @PostMapping("/update-hike")
-    public ResponseEntity<String>updateHike(@RequestBody HikeUpdateRequest request){
+    @PostMapping("/approve-hike")
+    public ResponseEntity<String>approveHike(@RequestBody HikeUpdateRequest request){
         return new ResponseEntity<>(adminService.updateHikeDetails(request),HttpStatus.OK);
+    }
+
+    @PostMapping("/update-hike")
+    public ResponseEntity<HikeEntityDTO>giveHike(@RequestBody HikeUpdateRequest request){
+        return new ResponseEntity<>(adminService.giveHike(request),HttpStatus.OK);
     }
     @PostMapping("/preview-hike")
     public ResponseEntity<byte[]>reviewHike(@RequestBody HikeUpdateRequest request){
         byte[] pdfBytes = adminService.previewHikeDetails(request);
         return pdfService.generatePdfPreviewResponse(pdfBytes);
     }
+    @PostMapping("/edit-hike")
+    public ResponseEntity<HikeEntityDTO>editHike(@RequestBody HikeEntityDTO hikeEntityDTO){
+        return new ResponseEntity<>(adminService.editHikeLetter(hikeEntityDTO),HttpStatus.OK);
+    }
+
 }

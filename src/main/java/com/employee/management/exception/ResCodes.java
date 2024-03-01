@@ -19,7 +19,8 @@ public enum ResCodes {
     INVALID_OTP("1011","Invalid Otp"),
     EMPTY_FIELDS("1012","Fields can not be empty"),
     HIKE_APPROVED_ALREADY("1013","Hike already approved for the employee"),
-    HIKE_DATA_NOT_FOUND("1014","Hike data not found")
+    HIKE_DATA_NOT_FOUND("1014","Hike data not found"),
+    SOMETHING_WENT_WRONG("1015","Error in generating Hike letter")
     ;
 
     private final String errorCode;

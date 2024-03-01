@@ -1,6 +1,7 @@
 package com.employee.management.service;
 
 import com.employee.management.DTO.*;
+import com.employee.management.models.HikeEntity;
 
 import java.util.List;
 
@@ -28,5 +29,11 @@ public interface AdminService {
 
     String updateHikeDetails(HikeUpdateRequest request);
 
+    HikeEntityDTO giveHike(HikeUpdateRequest request);
+
     byte[] previewHikeDetails(HikeUpdateRequest request);
+
+    String sendHikeLetter(Long id);
+
+    HikeEntityDTO editHikeLetter(HikeEntityDTO hikeEntityDTO);
 }

@@ -54,19 +54,28 @@
                     <reportElement x="10" y="-7" width="80" height="68" uuid="73cb7ef5-b4b7-4049-8477-ea84c7464eff"/>
                     <imageExpression><![CDATA["images/seabed2crest.jpg"]]></imageExpression>
                 </image>
-                <staticText>
-                    <reportElement x="110" y="3" width="389" height="42" uuid="68df26ed-181a-4d4a-b3a0-ea6fbeb483b4"/>
-                    <textElement textAlignment="Left" verticalAlignment="Middle">
-                        <font size="20"/>
+                <textField>
+                    <reportElement x="110" y="3" width="389" height="42" uuid="d47f8477-a689-4b53-876a-b870622455c6"/>
+                    <textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+                        <font fontName="Arial" size="20"/>
                     </textElement>
-                    <text><![CDATA[Seabed2Crest Technologies Pvt Ltd]]></text>
+                    <textFieldExpression><![CDATA["<font color='#fbac04'>"+"Seabed2Crest"+"</font>"+"<font color='#4aa6c2'>"+" Technologies Pvt Ltd"+"</font>"]]></textFieldExpression>
+                </textField>
+
+
+                <line>
+                    <reportElement x="2" y="64" width="545" height="1" forecolor="#4271C2" uuid="1f21e3f2-8b94-4801-bce3-85ff5ea3c9d0"/>
+                </line>
+                <line>
+                    <reportElement x="2" y="66" width="545" height="1" forecolor="#EBC107" uuid="993a6070-3b96-424e-8e7f-c3de709dffc0"/>
+                </line>
+                <staticText>
+                    <reportElement x="96" y="34" width="418" height="16" uuid="364d5aa0-fb30-4b75-98b1-516a9afd086b"/>
+                    <textElement textAlignment="Center">
+                        <font fontName="Times New Roman"/>
+                    </textElement>
+                    <text><![CDATA[ 1st floor, R D Rajanna Complex, Rajanukunte,  Yelehanka Taluk Bengaluru, Karnataka 560064]]></text>
                 </staticText>
-                <line>
-                    <reportElement x="2" y="64" width="545" height="1" forecolor="#4271C2" uuid="e84a53a9-ca7a-4b98-bc38-b0bad7f5c9f7"/>
-                </line>
-                <line>
-                    <reportElement x="2" y="66" width="545" height="1" forecolor="#EBC107" uuid="609d1165-9e9c-4959-a54e-08269c9e1905"/>
-                </line>
             </frame>
         </band>
     </title>
@@ -176,11 +185,11 @@ During the probation period, either party may terminate your services with fifte
             <frame>
                 <reportElement x="3" y="2" width="550" height="50" uuid="d4f4834b-dea7-419f-bb14-81b0eca9efad"/>
                 <staticText>
-                    <reportElement x="0" y="9" width="550" height="20" forecolor="#4271C2" uuid="c4087a65-dbab-4cf7-a8b6-fcd9786b770f"/>
+                    <reportElement x="0" y="9" width="550" height="20" forecolor="#4271C2" uuid="c8aafd3f-ce4c-43a7-b402-34556ae9b1a2"/>
                     <textElement textAlignment="Center">
                         <font size="11"/>
                     </textElement>
-                    <text><![CDATA[# 584, Near Suryodaya School, Hesaraghatta Hobli, Rajanukunte, Yelahanka Taluk, Bangalore North - 560064.]]></text>
+                    <text><![CDATA[ 1st floor, R D Rajanna Complex, Rajanukunte, Yelehanka Taluk, Bengaluru, Karnataka 560064]]></text>
                 </staticText>
                 <staticText>
                     <reportElement x="28" y="26" width="40" height="20" forecolor="#EBC107" uuid="d62f3fa4-9d47-4f82-8f79-df3dbde52e6d"/>

@@ -54,19 +54,26 @@
                     <reportElement x="10" y="-7" width="80" height="68" uuid="73fc5f9e-5bde-4426-83c7-5f6c6a87dc85"/>
                     <imageExpression><![CDATA["images/seabed2crest.jpg"]]></imageExpression>
                 </image>
-                <staticText>
-                    <reportElement x="110" y="3" width="389" height="42" uuid="bc4e1ccd-f78e-44a5-b36c-6502d4b557b1"/>
-                    <textElement textAlignment="Left" verticalAlignment="Middle">
+                <textField>
+                    <reportElement x="110" y="3" width="389" height="42" uuid="d47f8477-a689-4b53-876a-b870622455c6"/>
+                    <textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
                         <font fontName="Arial" size="20"/>
                     </textElement>
-                    <text><![CDATA[Seabed2Crest Technologies Pvt Ltd]]></text>
+                    <textFieldExpression><![CDATA["<font color='#fbac04'>"+"Seabed2Crest"+"</font>"+"<font color='#4aa6c2'>"+" Technologies Pvt Ltd"+"</font>"]]></textFieldExpression>
+                </textField>
+                <line>
+                    <reportElement x="2" y="64" width="545" height="1" forecolor="#4271C2" uuid="1f21e3f2-8b94-4801-bce3-85ff5ea3c9d0"/>
+                </line>
+                <line>
+                    <reportElement x="2" y="66" width="545" height="1" forecolor="#EBC107" uuid="993a6070-3b96-424e-8e7f-c3de709dffc0"/>
+                </line>
+                <staticText>
+                    <reportElement x="96" y="34" width="418" height="16" uuid="364d5aa0-fb30-4b75-98b1-516a9afd086b"/>
+                    <textElement textAlignment="Center">
+                        <font fontName="Times New Roman"/>
+                    </textElement>
+                    <text><![CDATA[ 1st floor, R D Rajanna Complex, Rajanukunte,  Yelehanka Taluk Bengaluru, Karnataka 560064]]></text>
                 </staticText>
-                <line>
-                    <reportElement x="2" y="64" width="545" height="1" forecolor="#4271C2" uuid="72954fb7-1452-486a-a54a-44a803d6de31"/>
-                </line>
-                <line>
-                    <reportElement x="2" y="66" width="545" height="1" forecolor="#EBC107" uuid="26c4f4c5-3328-4820-a55c-847a05f2e930"/>
-                </line>
             </frame>
         </band>
     </title>
@@ -166,11 +173,11 @@
             <frame>
                 <reportElement x="3" y="2" width="550" height="50" uuid="f28a7cf5-51c2-4c0b-9450-c40058b8f1e6"/>
                 <staticText>
-                    <reportElement x="0" y="9" width="550" height="20" forecolor="#4271C2" uuid="386cb605-a6a9-4fbe-b387-ab22e88173b1"/>
+                    <reportElement x="0" y="9" width="550" height="20" forecolor="#4271C2" uuid="c8aafd3f-ce4c-43a7-b402-34556ae9b1a2"/>
                     <textElement textAlignment="Center">
                         <font size="11"/>
                     </textElement>
-                    <text><![CDATA[# 584, Near Suryodaya School, Hesaraghatta Hobli, Rajanukunte, Yelahanka Taluk, Bangalore North - 560064.]]></text>
+                    <text><![CDATA[ 1st floor, R D Rajanna Complex, Rajanukunte, Yelehanka Taluk, Bengaluru, Karnataka 560064]]></text>
                 </staticText>
                 <staticText>
                     <reportElement x="28" y="26" width="40" height="20" forecolor="#EBC107" uuid="a8785343-0302-4080-b126-e1fc4480892e"/>

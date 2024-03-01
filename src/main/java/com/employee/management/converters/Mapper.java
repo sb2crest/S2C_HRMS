@@ -160,7 +160,7 @@ public class Mapper {
 
     public OfferLetterDTO convertToOfferLetterDto(OfferLetterEntity entity){
         OfferLetterDTO offerLetterDTO=new OfferLetterDTO();
-        offerLetterDTO.setCtc(String.valueOf(entity.getCtc()));
+        offerLetterDTO.setCtc(formatter.formatAmountWithCommas(entity.getCtc()));
         offerLetterDTO.setIssuedDate(dateConverter.localDateTimeToStringConverter(entity.getIssuedDate()));
         offerLetterDTO.setFullName(entity.getFullName());
         offerLetterDTO.setEmail(entity.getEmail());
