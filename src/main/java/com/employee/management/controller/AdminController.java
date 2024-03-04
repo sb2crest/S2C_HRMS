@@ -34,7 +34,7 @@ public class AdminController {
 
     @PostMapping("/add")
 //    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public ResponseEntity<EmployeeDTO> addEmployee(@RequestBody EmployeeDTO employeeDTO){
+    public ResponseEntity<String> addEmployee(@RequestBody EmployeeDTO employeeDTO){
         return new ResponseEntity<>(adminService.addNewEmployee(employeeDTO), HttpStatus.CREATED);
     }
     @GetMapping

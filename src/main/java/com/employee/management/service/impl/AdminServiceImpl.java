@@ -75,7 +75,7 @@ public class AdminServiceImpl implements AdminService {
         return employees.size();
     }
     @Override
-    public EmployeeDTO addNewEmployee(EmployeeDTO employeeDTO){
+    public String addNewEmployee(EmployeeDTO employeeDTO){
         Employee employee=mapper.convertToEmployeeEntity(employeeDTO);
         Role role=roleRepository.findById(2L).get();
         String password=employee.getPassword();
@@ -85,7 +85,7 @@ public class AdminServiceImpl implements AdminService {
         Employee savedEmployee = employeeRepository.save(employee);
         emailSenderService.sendSimpleEmail(employee.getEmail(),"Account Created",emailBodyBuilder.getBodyForAccountCreationMail(savedEmployee.getEmployeeName(),savedEmployee.getEmployeeID(),password));
 
-        return mapper.convertToEmployeeDTO(savedEmployee);
+        return "Employee Added";
     }
 
     @Override

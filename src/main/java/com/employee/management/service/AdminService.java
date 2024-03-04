@@ -1,12 +1,11 @@
 package com.employee.management.service;
 
 import com.employee.management.DTO.*;
-import com.employee.management.models.HikeEntity;
 
 import java.util.List;
 
 public interface AdminService {
-    EmployeeDTO addNewEmployee(EmployeeDTO employeeDTO);
+    String addNewEmployee(EmployeeDTO employeeDTO);
 
     AdminDashBoardData loadData();
 
