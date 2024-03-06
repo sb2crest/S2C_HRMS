@@ -53,7 +53,7 @@ public class PDFService {
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
         return JasperExportManager.exportReportToPdf(jasperPrint);
     }
-    public byte[] generateHikeLetter(EmployeeDTO employee, HikeEntity hike) throws JRException, IOException {
+    public byte[] generateHikeLetter(EmployeeDTO employee, HikeEntity hike,String issuedDate) throws JRException, IOException {
 
         JasperReport template1 =hike.getIsPromoted()? JasperCompileManager.
                 compileReport(new ClassPathResource("templates/hikeLetterPages/hike-letter-with-promotion.jrxml").
@@ -68,15 +68,12 @@ public class PDFService {
 
         System.err.println("compiled ");
 
-        LocalDate currentDate = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
-        String formattedDate = currentDate.format(formatter);
 
         Map<String, Object> parameters1 = new HashMap<>();
         parameters1.put("employee", employee);
         parameters1.put("hikeDetails", mapper.convertToHikeEntityDto(hike));
         parameters1.put("hikeAmount", formatters.formatAmountWithCommas((hike.getNewSalary() - hike.getPrevSalary())));
-        parameters1.put("currentDate", formattedDate);
+        parameters1.put("currentDate", issuedDate);
 
 
         CtcCalculator calculator = new CtcCalculator();

@@ -316,8 +316,12 @@ public class AdminServiceImpl implements AdminService {
                 .orElseThrow(()->new CompanyException(ResCodes.HIKE_DATA_NOT_FOUND));
         Employee employee=employeeRepository.findById(hike.getEmployee().getEmployeeID())
                 .orElseThrow(()->new CompanyException(ResCodes.EMPLOYEE_NOT_FOUND));
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
+        String formattedDate = currentDate.format(formatter);
+
         try{
-            sendHikeLetterMail(pdfService.generateHikeLetter(mapper.convertToEmployeeDTO(employee),hike),employee.getEmail());
+            sendHikeLetterMail(pdfService.generateHikeLetter(mapper.convertToEmployeeDTO(employee),hike,formattedDate),employee.getEmail());
             return "Email send Successfully";
         }catch (Exception e){
             System.out.println(e);
