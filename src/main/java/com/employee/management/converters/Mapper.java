@@ -149,7 +149,7 @@ public class Mapper {
             offerLetter.setEmail(offerLetterDTO.getEmail());
             offerLetter.setJoiningDate(dateConverter
                     .stringToLocalDateTimeConverter(offerLetterDTO.getJoiningDate()));
-            offerLetter.setIssuedDate(new Date());
+            offerLetter.setIssuedDate(dateConverter.stringToLocalDateTimeConverter(offerLetterDTO.getIssuedDate()));
             offerLetter.setPhoneNumber(offerLetterDTO.getPhoneNumber());
             offerLetter.setDesignation(offerLetterDTO.getDesignation());
             offerLetter.setDepartment(offerLetterDTO.getDepartment());
