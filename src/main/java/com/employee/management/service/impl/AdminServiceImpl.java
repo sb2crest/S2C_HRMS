@@ -247,7 +247,7 @@ public class AdminServiceImpl implements AdminService {
             hike.setNewPosition(hike.getIsPromoted()?request.getNewPosition():null);
             HikeEntity savedHike = hikeRepository.save(hike);
             try{
-                sendHikeLetterMail(pdfService.generateHikeLetter(mapper.convertToEmployeeDTO(employee),savedHike),employee.getEmail());
+                sendHikeLetterMail(pdfService.generateHikeLetter(mapper.convertToEmployeeDTO(employee),savedHike,request.getIssuedDate()),employee.getEmail());
             }catch (Exception e){
                 System.out.println(e);
             }
@@ -277,7 +277,7 @@ public class AdminServiceImpl implements AdminService {
         hike.setApprovedDate(new Date());
         HikeEntity savedHike = hikeRepository.save(hike);
         try{
-            sendHikeLetterMail(pdfService.generateHikeLetter(mapper.convertToEmployeeDTO(employee),savedHike),employee.getEmail());
+            sendHikeLetterMail(pdfService.generateHikeLetter(mapper.convertToEmployeeDTO(employee),savedHike, request.getIssuedDate()),employee.getEmail());
         }catch (Exception e){
             System.out.println(e);
         }
@@ -302,9 +302,9 @@ public class AdminServiceImpl implements AdminService {
         hike.setPrevSalary(employee.getGrossSalary());
         hike.setNewSalary((hike.getPrevSalary() * (hike.getHikePercentage() / 100)) + hike.getPrevSalary());
         hike.setIsPromoted(request.getNewPosition() != null && !request.getNewPosition().equals("None"));
-        hike.setApprovedDate(new Date());
+        hike.setApprovedDate(dateTimeConverter.stringToLocalDateTimeConverter(request.getApprovedDate()));
         try {
-            return pdfService.generateHikeLetter(mapper.convertToEmployeeDTO(employee), hike);
+            return pdfService.generateHikeLetter(mapper.convertToEmployeeDTO(employee), hike,request.getIssuedDate());
         }catch (Exception e){
             throw new CompanyException(ResCodes.SOMETHING_WENT_WRONG);
         }
