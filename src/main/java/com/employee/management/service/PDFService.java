@@ -4,6 +4,7 @@ import com.employee.management.DTO.CtcData;
 import com.employee.management.DTO.EmployeeDTO;
 import com.employee.management.DTO.OfferLetterDTO;
 import com.employee.management.DTO.PaySlip;
+import com.employee.management.converters.AmountToWordsConverter;
 import com.employee.management.converters.Mapper;
 import com.employee.management.models.HikeEntity;
 import com.employee.management.util.CtcCalculator;
@@ -35,20 +36,23 @@ public class PDFService {
    private final Mapper mapper;
    private final CtcCalculator calculator;
    private final Formatters formatters;
-   PDFService(Mapper mapper,CtcCalculator calculator,Formatters formatters){
+   private final AmountToWordsConverter converter;
+   PDFService(Mapper mapper,CtcCalculator calculator,Formatters formatters,AmountToWordsConverter converter){
        this.mapper=mapper;
        this.calculator=calculator;
        this.formatters=formatters;
+       this.converter=converter;
    }
 
-    public byte[] generatePaySlipPdf(PaySlip paySlip, String amountInWords) throws JRException {
+    public byte[] generatePaySlipPdf(PaySlip paySlip) throws JRException {
         InputStream template = getClass().getResourceAsStream("/templates/pay-slip.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(template);
+        String amount= converter.convertToIndianCurrency(paySlip.getPayrollDTO().getTotalNetPayable());
 
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("payroll", paySlip.getPayrollDTO());
         parameters.put("employee", paySlip.getEmployeeDTO());
-        parameters.put("amount", amountInWords);
+        parameters.put("amount", amount);
 
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
         return JasperExportManager.exportReportToPdf(jasperPrint);

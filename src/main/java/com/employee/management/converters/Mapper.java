@@ -4,6 +4,7 @@ import com.employee.management.DTO.*;
 import com.employee.management.exception.CompanyException;
 import com.employee.management.exception.ResCodes;
 import com.employee.management.models.*;
+import com.employee.management.util.CtcCalculator;
 import com.employee.management.util.Formatters;
 import com.employee.management.util.PasswordGenerator;
 import com.employee.management.util.Util;
@@ -21,6 +22,10 @@ public class Mapper {
     DateTimeConverter dateConverter;
     @Autowired
     Formatters formatter;
+    @Autowired
+    DateTimeConverter dateTimeConverter;
+    @Autowired
+    CtcCalculator calculator;
     @Autowired
     Util util;
     public EmployeeDTO convertToEmployeeDTO(Employee employee){
@@ -92,8 +97,14 @@ public class Mapper {
         }
         return payroll;
     }
-    public Payroll mapCtcDataToPayroll(CtcData ctcData,Payroll payroll){
+    public Payroll mapCtcDataToPayroll(AddMonthlyPayRollRequest request,Employee employee){
+        CtcData ctcData=calculator.compensationDetails(employee.getGrossSalary());
         if(ctcData!=null){
+            Payroll payroll=new Payroll();
+            payroll.setEmployee(employee);
+            payroll.setTotalLopDays(request.getLopDays() != null?Integer.parseInt(request.getLopDays()):0);
+            payroll.setPayDate(dateTimeConverter.stringToLocalDateTimeConverter(request.getPayDate()));
+            payroll.setPayPeriod(request.getPayPeriod());
             payroll.setBasic(formatter.convertStringToDoubleAmount(ctcData.getMonthlyBasic()));
             payroll.setHouseRentAllowance(formatter.convertStringToDoubleAmount(ctcData.getMonthlyHRA()));
             payroll.setMedicalAllowance(formatter.convertStringToDoubleAmount(ctcData.getMonthlyMedAllowance()));

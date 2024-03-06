@@ -20,7 +20,8 @@ public enum ResCodes {
     EMPTY_FIELDS("1012","Fields can not be empty"),
     HIKE_APPROVED_ALREADY("1013","Hike already approved for the employee"),
     HIKE_DATA_NOT_FOUND("1014","Hike data not found"),
-    SOMETHING_WENT_WRONG("1015","Error in generating Hike letter")
+    SOMETHING_WENT_WRONG("1015","Error in generating Hike letter"),
+    EMAIL_FAILED("1016","Problem in sending mail")
     ;
 
     private final String errorCode;

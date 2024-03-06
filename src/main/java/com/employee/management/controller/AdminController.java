@@ -6,6 +6,7 @@ import com.employee.management.service.PDFService;
 import com.employee.management.service.AdminService;
 import com.employee.management.service.EmployeeService;
 import com.employee.management.service.PayRollService;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -76,15 +77,25 @@ public class AdminController {
     }
     @PostMapping("/add-payroll")
 //    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public ResponseEntity<PayrollDTO> addNewPayRoll(@RequestBody PayrollDTO payrollDTO) {
-            PayrollDTO payroll = adminService.addPayroll(payrollDTO, payrollDTO.getEmployeeId());
-        System.out.println(payroll);
-            return ResponseEntity.status(HttpStatus.CREATED).body(payroll);
-
+    public ResponseEntity<String> addNewPayRoll(@RequestBody PayrollDTO payrollDTO) {
+        return new ResponseEntity<>(adminService.addPayroll(payrollDTO, payrollDTO.getEmployeeId()),HttpStatus.OK);
     }
     @PostMapping("/add-new-payroll")
-    public ResponseEntity<PayrollDTO>addNewPayrollWithMinimalData(@RequestBody AddMonthlyPayRollRequest request){
+    public ResponseEntity<String>addNewPayrollWithMinimalData(@RequestBody AddMonthlyPayRollRequest request){
         return new ResponseEntity<>(adminService.addMonthlyPayRoll(request),HttpStatus.OK);
+    }
+    @PostMapping("/preview-payslip")
+    public ResponseEntity<byte[]> previewNewPayRoll(@RequestBody PayrollDTO payrollDTO) throws JRException {
+        EmployeeDTO employee= employeeService.getEmployee(payrollDTO.getEmployeeId());
+        PaySlip paySlip=new PaySlip();
+        paySlip.setPayrollDTO(payrollDTO);
+        paySlip.setEmployeeDTO(employee);
+        return pdfService.generatePdfPreviewResponse(pdfService.generatePaySlipPdf(paySlip));
+    }
+
+    @PostMapping("/preview-new-payslip")
+    public ResponseEntity<byte[]>previewMonthlyPayroll(@RequestBody AddMonthlyPayRollRequest request) throws JRException {
+        return pdfService.generatePdfPreviewResponse(adminService.previewPayslipPdf(request));
     }
     @GetMapping("/salary-graph")
     public ResponseEntity<List<AvgSalaryGraphResponse>> fetchSixMonthData(){

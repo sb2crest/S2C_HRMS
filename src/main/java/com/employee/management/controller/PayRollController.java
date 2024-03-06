@@ -37,9 +37,8 @@ public class PayRollController {
     public ResponseEntity<byte[]> getPaySlipDownload(@RequestParam("employeeId") String empId,
                                                      @RequestParam("payPeriod") String payPeriod) {
         PaySlip paySlip = payRollService.getPaySlip(empId, payPeriod);
-        String amountInWords = amountToWordsConverter.convertToIndianCurrency(paySlip.getPayrollDTO().getTotalNetPayable());
         try {
-            byte[] pdfBytes = pdfService.generatePaySlipPdf(paySlip, amountInWords);
+            byte[] pdfBytes = pdfService.generatePaySlipPdf(paySlip);
 
             emailSenderService.sendEmailWithAttachment(paySlip.getEmployeeDTO().getEmail(),"Salary slip","Salary details of period "+payPeriod+"attaching below",pdfBytes);
             HttpHeaders headers = new HttpHeaders();

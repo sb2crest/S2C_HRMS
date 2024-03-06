@@ -1,6 +1,7 @@
 package com.employee.management.service.impl;
 
 import com.employee.management.DTO.*;
+import com.employee.management.converters.AmountToWordsConverter;
 import com.employee.management.converters.DateTimeConverter;
 import com.employee.management.converters.Mapper;
 import com.employee.management.service.PDFService;
@@ -14,6 +15,7 @@ import com.employee.management.util.CtcCalculator;
 import com.employee.management.util.EmailBodyBuilder;
 import com.employee.management.util.Formatters;
 import jakarta.mail.MessagingException;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -41,15 +43,16 @@ public class AdminServiceImpl implements AdminService {
     private final EmailBodyBuilder emailBodyBuilder;
     private final CtcCalculator calculator;
     private final Formatters formatters;
+    private final AmountToWordsConverter converter;
 
     @Autowired
     public AdminServiceImpl(EmployeeRepository employeeRepository, RoleRepository roleRepository,
-                       PayrollRepository payrollRepository, StatusRepository statusRepository,
-                       HikeRepository hikeRepository, DateTimeConverter dateTimeConverter,
-                       Mapper mapper, EmailSenderService emailSenderService,
-                       PasswordEncoder passwordEncoder, PDFService pdfService,
-                            EmailBodyBuilder emailBodyBuilder,CtcCalculator calculator,
-                            Formatters formatters) {
+                            PayrollRepository payrollRepository, StatusRepository statusRepository,
+                            HikeRepository hikeRepository, DateTimeConverter dateTimeConverter,
+                            Mapper mapper, EmailSenderService emailSenderService,
+                            PasswordEncoder passwordEncoder, PDFService pdfService,
+                            EmailBodyBuilder emailBodyBuilder, CtcCalculator calculator,
+                            Formatters formatters, AmountToWordsConverter converter) {
         this.employeeRepository = employeeRepository;
         this.roleRepository = roleRepository;
         this.payrollRepository = payrollRepository;
@@ -63,6 +66,7 @@ public class AdminServiceImpl implements AdminService {
         this.emailBodyBuilder = emailBodyBuilder;
         this.calculator=calculator;
         this.formatters=formatters;
+        this.converter=converter;
     }
 
     private String getTodayDateFormatted(){
@@ -162,7 +166,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public PayrollDTO addPayroll(PayrollDTO payrollDTO,String empId){
+    public String addPayroll(PayrollDTO payrollDTO,String empId){
       Employee employee=employeeRepository.findById(empId)
               .orElseThrow(()->new CompanyException(ResCodes.EMPLOYEE_NOT_FOUND));
       Payroll a=payrollRepository.getPayPeriodDetails(payrollDTO.getPayPeriod(),employee).orElse(null);
@@ -170,28 +174,55 @@ public class AdminServiceImpl implements AdminService {
           Payroll payroll = mapper.convertToPayroll(payrollDTO);
           payroll.setEmployee(employee);
           Payroll savedPayroll = payrollRepository.save(payroll);
-          return mapper.convertToPayRollDTO(savedPayroll);
+          PaySlip paySlip=new PaySlip();
+          paySlip.setEmployeeDTO(mapper.convertToEmployeeDTO(employee));
+          paySlip.setPayrollDTO(payrollDTO);
+        try {
+            emailSenderService.sendEmailWithAttachment(employee.getEmail(), payrollDTO.getPayPeriod() + " Payroll details ",
+                    "Payroll",
+                    pdfService.generatePaySlipPdf(paySlip)
+            );
+            return "Successfully send mail to "+employee.getEmail();
+        }catch (JRException | MessagingException | IOException e){
+            throw new CompanyException(ResCodes.EMAIL_FAILED);
+        }
+
       }else{
           throw new CompanyException(ResCodes.DUPLICATE_PAYROLL_DETAILS);
       }
     }
     @Override
-    public PayrollDTO addMonthlyPayRoll(AddMonthlyPayRollRequest request){
+    public String addMonthlyPayRoll(AddMonthlyPayRollRequest request){
         Employee employee=employeeRepository.findById(request.getEmployeeId())
                 .orElseThrow(()->new CompanyException(ResCodes.EMPLOYEE_NOT_FOUND));
         Payroll payrollExistForThisMonth=payrollRepository
                 .getPayPeriodDetails(request.getPayPeriod(),employee).orElse(null);
         if(payrollExistForThisMonth!=null)
             throw new CompanyException(ResCodes.DUPLICATE_PAYROLL_DETAILS);
-       CtcData ctcData= calculator.compensationDetails(employee.getGrossSalary());
-        Payroll payroll=new Payroll();
-        payroll.setEmployee(employee);
-
-        payroll.setTotalLopDays(request.getLopDays() != null?Integer.parseInt(request.getLopDays()):0);
-        payroll.setPayDate(dateTimeConverter.stringToLocalDateTimeConverter(request.getPayDate()));
-        payroll.setPayPeriod(request.getPayPeriod());
-        Payroll savedPayRoll = payrollRepository.save(mapper.mapCtcDataToPayroll(ctcData, payroll));
-        return mapper.convertToPayRollDTO(savedPayRoll);
+        CtcData ctcData= calculator.compensationDetails(employee.getGrossSalary());
+        Payroll savedPayRoll = payrollRepository.save(mapper.mapCtcDataToPayroll(request,employee));
+        PaySlip paySlip=new PaySlip();
+        paySlip.setEmployeeDTO(mapper.convertToEmployeeDTO(employee));
+        paySlip.setPayrollDTO(mapper.convertToPayRollDTO(savedPayRoll));
+        try {
+            emailSenderService.sendEmailWithAttachment(employee.getEmail(), savedPayRoll.getPayPeriod() + " Payroll details ",
+                    "Payroll",
+                    pdfService.generatePaySlipPdf(paySlip)
+            );
+            return "Successfully send mail to "+employee.getEmail();
+        }catch (JRException | MessagingException | IOException e){
+            throw new CompanyException(ResCodes.EMAIL_FAILED);
+        }
+    }
+    @Override
+    public byte[] previewPayslipPdf(AddMonthlyPayRollRequest request) throws JRException {
+        Employee employee=employeeRepository.findById(request.getEmployeeId())
+                .orElseThrow(()->new CompanyException(ResCodes.EMPLOYEE_NOT_FOUND));
+        Payroll payroll=mapper.mapCtcDataToPayroll(request,employee);
+        PaySlip paySlip=new PaySlip();
+        paySlip.setEmployeeDTO(mapper.convertToEmployeeDTO(employee));
+        paySlip.setPayrollDTO(mapper.convertToPayRollDTO(payroll));
+        return pdfService.generatePaySlipPdf(paySlip);
     }
     @Override
     public List<AvgSalaryGraphResponse> getSalaryGraphDataForPastSixMonths(){

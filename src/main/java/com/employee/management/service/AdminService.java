@@ -1,6 +1,7 @@
 package com.employee.management.service;
 
 import com.employee.management.DTO.*;
+import net.sf.jasperreports.engine.JRException;
 
 import java.util.List;
 
@@ -19,9 +20,11 @@ public interface AdminService {
 
     String changeEmployeeStatus(String empId, String empStatus);
 
-    PayrollDTO addPayroll(PayrollDTO payrollDTO,String empId);
+    String addPayroll(PayrollDTO payrollDTO,String empId);
 
-    PayrollDTO addMonthlyPayRoll(AddMonthlyPayRollRequest request);
+    String addMonthlyPayRoll(AddMonthlyPayRollRequest request);
+
+    byte[] previewPayslipPdf(AddMonthlyPayRollRequest request) throws JRException;
 
     List<AvgSalaryGraphResponse> getSalaryGraphDataForPastSixMonths();
     String updatePfDetails(PfNumberUpdateRequest request);
