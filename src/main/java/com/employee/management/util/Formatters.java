@@ -9,7 +9,8 @@ public class Formatters {
         return Double.parseDouble(amount);
     }
 
-    public String formatAmountWithCommas(Double amount) {
+    public String formatAmountWithCommas(Double number) {
+        Double amount= (double) Math.round(number);
         if (amount == null) {
             return "";
         }

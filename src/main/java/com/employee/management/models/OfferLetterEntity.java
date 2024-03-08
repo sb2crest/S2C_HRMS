@@ -29,9 +29,13 @@ public class OfferLetterEntity {
     @Column(name="department")
     private String department;
 
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "issued_date")
     private Date issuedDate;
 
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "joining_date")
     private Date joiningDate;
 

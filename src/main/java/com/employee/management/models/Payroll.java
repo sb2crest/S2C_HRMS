@@ -2,6 +2,7 @@ package com.employee.management.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -17,6 +18,8 @@ public class Payroll {
     @Column(name = "PayPeriod")
     private String payPeriod;
 
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "PayDate")
     private Date payDate;
 

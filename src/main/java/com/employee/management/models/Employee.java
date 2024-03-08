@@ -3,6 +3,7 @@ package com.employee.management.models;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -47,7 +48,8 @@ public class Employee {
     @ManyToOne
     @JoinColumn(name = "StatusID", referencedColumnName = "StatusID")
     private Status status;
-
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "DateOfJoin")
     private Date dateOfJoin;
 
@@ -63,9 +65,10 @@ public class Employee {
     @Column(name = "pfNumber")
     private String pfNumber;
 
-    @Column(name = "GrossSalary")
+    @Column(name = "grossSalary")
     private Double grossSalary;
-
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name="next-hike-date")
     private Date nextHikeDate;
 

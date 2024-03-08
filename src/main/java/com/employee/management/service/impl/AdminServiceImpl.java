@@ -109,7 +109,7 @@ public class AdminServiceImpl implements AdminService {
                 .average()
                 .orElse(0.0);
 
-        adminDashBoardData.setAverageSalary(averageSalary);
+        adminDashBoardData.setAverageSalary(formatters.formatAmountWithCommas(averageSalary));
         adminDashBoardData.setTodayDate(getTodayDateFormatted());
         adminDashBoardData.setNoOfEmployees(getEmployeeCount());
         return adminDashBoardData;

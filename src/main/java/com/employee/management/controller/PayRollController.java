@@ -29,8 +29,8 @@ public class PayRollController {
     EmailSenderService emailSenderService;
     @GetMapping("/get")
     @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
-    public ResponseEntity<PaySlip> getPaySlip(@RequestParam("employeeId")String empId,@RequestParam("payPeriod")String payPeriod){
-        return new ResponseEntity<>(payRollService.getPaySlip(empId,payPeriod), HttpStatus.OK);
+    public ResponseEntity<PaySlip> getPaySlip(@RequestParam("employeeId") String empId, @RequestParam("payPeriod") String payPeriod) {
+        return new ResponseEntity<>(payRollService.getPaySlip(empId, payPeriod), HttpStatus.OK);
     }
     @GetMapping("/download")
 //    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
@@ -51,8 +51,4 @@ public class PayRollController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
-//    public ResponseEntity<String>generateMailReceipt(@RequestParam("employeeId") String empId,
-//                                                     @RequestParam("payPeriod") String payPeriod){
-//
-//    }
 }

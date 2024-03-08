@@ -2,6 +2,7 @@ package com.employee.management.converters;
 
 import org.springframework.stereotype.Component;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -12,14 +13,26 @@ import java.util.Locale;
 
 @Component
 public class DateTimeConverter {
+    public static LocalDateTime convertDateToLocalDateTime(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            String dateString = dateFormat.format(date);
+            return LocalDateTime.parse(dateString + "T00:00:00");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public String localDateTimeToStringConverter(Date date) {
         if (date == null) {
             return null;
         }
-        LocalDateTime localDateTime = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+        LocalDateTime localDateTime = convertDateToLocalDateTime(date);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
         return localDateTime.format(formatter);
     }
+
     public Date stringToLocalDateTimeConverter(String dateString) {
         if (dateString == null) {
             return null;
@@ -32,4 +45,6 @@ public class DateTimeConverter {
         LocalDateTime parsedDateTime = LocalDateTime.parse(formattedDateTime, outputFormatter);
         return Date.from(parsedDateTime.atZone(ZoneId.systemDefault()).toInstant());
     }
+
+
 }

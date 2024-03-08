@@ -2,6 +2,7 @@ package com.employee.management.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -39,6 +40,8 @@ public class HikeEntity {
     @JoinColumn(name="approved_by", referencedColumnName="EmployeeID")
     private Employee approvedBy;
 
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name="approved_date")
     private Date approvedDate;
 
@@ -48,6 +51,8 @@ public class HikeEntity {
     @Column(name = "isPromoted")
     private Boolean isPromoted;
 
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name="effective_date")
     private Date effectiveDate;
 

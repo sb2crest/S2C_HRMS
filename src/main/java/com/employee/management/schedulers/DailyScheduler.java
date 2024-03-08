@@ -1,5 +1,6 @@
 package com.employee.management.schedulers;
 
+import com.employee.management.converters.DateTimeConverter;
 import com.employee.management.exception.CompanyException;
 import com.employee.management.exception.ResCodes;
 import com.employee.management.models.Employee;
@@ -13,6 +14,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -24,10 +26,12 @@ import java.util.Objects;
 public class DailyScheduler {
     private final EmployeeRepository employeeRepository;
     private final HikeRepository hikeRepository;
+    private final DateTimeConverter converter;
 
-    public DailyScheduler(EmployeeRepository employeeRepository, HikeRepository hikeEntityRepository) {
+    public DailyScheduler(EmployeeRepository employeeRepository, HikeRepository hikeEntityRepository, DateTimeConverter converter) {
         this.employeeRepository = employeeRepository;
         this.hikeRepository = hikeEntityRepository;
+        this.converter = converter;
     }
     @Autowired
     EmailSenderService emailSenderService;
@@ -69,15 +73,13 @@ public class DailyScheduler {
     }
 
     private boolean isOneWeekBeforeHikeDate(Employee employee) {
-        Date nextHikeDate = employee.getNextHikeDate();
-        if (nextHikeDate == null) {
+        String nextHikeDateString = converter.localDateTimeToStringConverter(employee.getNextHikeDate());
+        if (nextHikeDateString == null) {
             return false;
         }
-        LocalDate hikeDate = nextHikeDate.toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDate();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
+        LocalDate hikeDate = LocalDate.parse(nextHikeDateString, formatter);
         LocalDate oneWeekBeforeHikeDate = hikeDate.minusWeeks(1);
-
         return LocalDate.now().equals(oneWeekBeforeHikeDate);
     }
 

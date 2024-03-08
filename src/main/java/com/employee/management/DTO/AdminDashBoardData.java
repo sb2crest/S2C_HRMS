@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 public class AdminDashBoardData {
-    private Double averageSalary;
+    private String averageSalary;
     private String todayDate;
     private Integer noOfEmployees;
     //private List<HikeEntityDTO> hikeRecommendations;

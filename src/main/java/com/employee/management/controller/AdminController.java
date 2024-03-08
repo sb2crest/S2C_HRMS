@@ -80,6 +80,11 @@ public class AdminController {
     public ResponseEntity<String> addNewPayRoll(@RequestBody PayrollDTO payrollDTO) {
         return new ResponseEntity<>(adminService.addPayroll(payrollDTO, payrollDTO.getEmployeeId()),HttpStatus.OK);
     }
+
+    @GetMapping("/view-payroll-by-id")
+    public ResponseEntity<CtcData> getPayrollDetails(@RequestParam("empId")String empId){
+        return new ResponseEntity<>(payRollService.getPayrollDetails(empId),HttpStatus.OK);
+    }
     @PostMapping("/add-new-payroll")
     public ResponseEntity<String>addNewPayrollWithMinimalData(@RequestBody AddMonthlyPayRollRequest request){
         return new ResponseEntity<>(adminService.addMonthlyPayRoll(request),HttpStatus.OK);
