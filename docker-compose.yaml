@@ -6,7 +6,7 @@ services:
       context: .
       args:
         - TAG_NAME=${TAG_NAME:-latest}
-    image: 'sb2crest/fdapn-service:${TAG_NAME:-latest}'
+    image: 'sb2crest/hrm-service:${TAG_NAME:-latest}'
     container_name: app
     depends_on:
       - mdb
@@ -18,12 +18,12 @@ services:
       - SPRING_DATASOURCE_PASSWORD=Hithika@09
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - SPRING_JPA_SHOW_SQL=true
-      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQL8Dialect
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQLDialect
       - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT_STORAGE_ENGINE=innodb
       - SPRING_MAIL_HOST=smtp.gmail.com
       - SPRING_MAIL_PORT=587
       - SPRING_MAIL_USERNAME=info@seabed2crest.com
-      - SPRING_MAIL_PASSWORD=jyrp zuhm kxga rurn
+      - SPRING_MAIL_PASSWORD=jyrpzuhmkxgarurn
       - SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH=true
       - SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE=true
 
