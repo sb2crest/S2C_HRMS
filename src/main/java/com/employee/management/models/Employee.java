@@ -11,61 +11,61 @@ import java.util.Set;
 
 @Entity
 @Data
-@Table(name = "Employees")
+@Table(name = "employees")
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "custom-id")
     @GenericGenerator(name = "custom-id", strategy = "com.employee.management.util.CustomIdGenerator")
-    @Column(name = "EmployeeID")
+    @Column(name = "employeeId")
     private String employeeID;
 
-    @Column(name = "EmployeeName")
+    @Column(name = "employee_name")
     private String employeeName;
 
-    @Column(name = "Designation")
+    @Column(name = "designation")
     private String designation;
 
-    @Column(name="Department")
+    @Column(name="department")
     private String department;
 
-    @Column(name = "Location")
+    @Column(name = "location")
     private String location;
 
-    @Column(name = "BankName")
+    @Column(name = "bank_name")
     private String bankName;
 
-    @Column(name = "AccountNo")
+    @Column(name = "account_no")
     private String accountNo;
 
     @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinTable(
-            name = "Employee_Role",
-            joinColumns = @JoinColumn(name = "EmployeeID"),
-            inverseJoinColumns = @JoinColumn(name = "RoleID")
+            name = "employee_role",
+            joinColumns = @JoinColumn(name = "employeeId"),
+            inverseJoinColumns = @JoinColumn(name = "roleId")
     )
     private Set<Role> roles = new HashSet<>();
 
     @ManyToOne
-    @JoinColumn(name = "StatusID", referencedColumnName = "StatusID")
+    @JoinColumn(name = "statusId", referencedColumnName = "statusId")
     private Status status;
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "DateOfJoin")
+    @Column(name = "date_of_join")
     private Date dateOfJoin;
 
-    @Column(name = "Password")
+    @Column(name = "password")
     private String password;
 
     @Column(name = "email", unique = true)
     private String email;
 
-    @Column(name = "uanNumber")
+    @Column(name = "uan_number")
     private String uanNumber;
 
-    @Column(name = "pfNumber")
+    @Column(name = "pf_number")
     private String pfNumber;
 
-    @Column(name = "grossSalary")
+    @Column(name = "gross_salary")
     private Double grossSalary;
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")

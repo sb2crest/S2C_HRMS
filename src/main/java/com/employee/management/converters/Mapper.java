@@ -10,6 +10,8 @@ import com.employee.management.util.PasswordGenerator;
 import com.employee.management.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.stream.Stream;
@@ -201,10 +203,31 @@ public class Mapper {
         return hikeEntityDTO;
     }
 
+    public CalendarDTO getCalendarDTO(CalendarEntity calendarEntity){
+        CalendarDTO calendarDTO=new CalendarDTO();
+        calendarDTO.setDate(dateTimeConverter.localDateTimeToStringConverter(calendarEntity.getDate()));
+        calendarDTO.setEvent(calendarEntity.getEvent());
+        calendarDTO.setPeriod(formatMonthYear(calendarEntity.getDate()));
+        return calendarDTO;
+    }
+    public CalendarEntity getCalendarEntity(CalendarDTO calendarDTO){
+        CalendarEntity calendarEntity=new CalendarEntity();
+        calendarEntity.setDate(dateTimeConverter.stringToLocalDateTimeConverter(calendarDTO.getDate()));
+        calendarEntity.setEvent(calendarDTO.getEvent());
+        calendarEntity.setPeriod(formatMonthYear(calendarEntity.getDate()));
+        return calendarEntity;
+    }
+
     private boolean validateEmployeeDto(EmployeeDTO employeeDTO) {
         return Stream.of(employeeDTO.getEmployeeName(), employeeDTO.getDesignation(),
                         employeeDTO.getLocation(), employeeDTO.getBankName(),
                         employeeDTO.getAccountNo())
                 .allMatch(field -> field != null && !field.isEmpty());
     }
+
+    public String formatMonthYear(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM yyyy");
+        return dateFormat.format(date);
+    }
+
 }

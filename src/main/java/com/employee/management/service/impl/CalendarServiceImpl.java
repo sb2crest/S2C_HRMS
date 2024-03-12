@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 
 @Service
@@ -26,22 +27,20 @@ public class CalendarServiceImpl implements CalendarService {
 
     @Override
     public CalendarDTO addEvent(CalendarDTO calendarDTO) throws ParseException {
-        CalendarEntity calendarEntity=new CalendarEntity();
-        calendarEntity.setDate(dateTimeConverter.stringToLocalDateTimeConverter(calendarDTO.getDate()));
-        calendarEntity.setEvent(calendarDTO.getEvent());
-        calendarEntity.setPeriod(formatMonthYear(calendarEntity.getDate()));
+        CalendarEntity calendarEntity=mapper.getCalendarEntity(calendarDTO);
         calendarRepository.save(calendarEntity);
         return calendarDTO;
     }
 
     @Override
-    public List<CalendarDTO> getEvents(){
-        List<CalendarEntity> calendarEntities=calendarRepository.findAll();
+    public List<CalendarDTO> getEvents() {
+        List<CalendarEntity> calendarEntities = calendarRepository.findAll();
 
         return calendarEntities
                 .stream()
-                .map(calendarEntity->
-                        new CalendarDTO(dateTimeConverter.localDateTimeToStringConverter(calendarEntity.getDate()),calendarEntity.getPeriod(),calendarEntity.getEvent())).toList();
+                .filter(Objects::nonNull)
+                .map(mapper::getCalendarDTO)
+                .toList();
     }
     @Override
     public List<CalendarDTO> getEventsByMonth(String month){
@@ -50,14 +49,7 @@ public class CalendarServiceImpl implements CalendarService {
         return calendarEntities
                 .stream()
                 .filter(calendarEntity -> calendarEntity.getPeriod().equals(month))
-                .map(calendarEntity->
-                        new CalendarDTO(dateTimeConverter.localDateTimeToStringConverter(calendarEntity.getDate()),calendarEntity.getPeriod(),calendarEntity.getEvent())).toList();
+                .map(mapper::getCalendarDTO)
+                .toList();
     }
-
-
-    public String formatMonthYear(Date date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM yyyy");
-        return dateFormat.format(date);
-    }
-
 }

@@ -367,7 +367,7 @@ public class AdminServiceImpl implements AdminService {
                 .orElseThrow(()->new CompanyException(ResCodes.EMPLOYEE_NOT_FOUND));
         Employee approvedBy=employeeRepository.findById(hikeEntityDTO.getApprovedBy())
                 .orElseThrow(()->new CompanyException(ResCodes.EMPLOYEE_NOT_FOUND));
-        hike.setHikePercentage(hike.getHikePercentage());
+        hike.setHikePercentage(Double.valueOf(hikeEntityDTO.getHikePercentage()));
         hike.setReason(hikeEntityDTO.getReason());
         hike.setNewPosition(hikeEntityDTO.getNewPosition());
         hike.setPrevPosition(hikeEntityDTO.getPrevPosition());

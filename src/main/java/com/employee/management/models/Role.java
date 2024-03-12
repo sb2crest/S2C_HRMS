@@ -10,13 +10,13 @@ import java.util.Set;
 
 @Entity
 @Data
-@Table(name = "Roles")
+@Table(name = "roles")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "RoleID")
+    @Column(name = "roleId")
     private Long roleId;
-    @Column(name = "Name" )
+    @Column(name = "name" )
     private String name;
     @ManyToMany(mappedBy = "roles")
     private List<Employee> employees = new ArrayList<>();

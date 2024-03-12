@@ -6,8 +6,8 @@ import com.employee.management.DTO.ForgetPasswordRequest;
 
 public interface EmployeeService {
     EmployeeDTO getEmployee(String id);
-    @Deprecated
-    boolean verifyUser(Long id, String password);
+//    @Deprecated
+//    boolean verifyUser(Long id, String password);
 
     String changePassword(ChangePasswordRequest request);
 

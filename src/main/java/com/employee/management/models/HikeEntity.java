@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name="HIKE_TABLE")
+@Table(name="hike_table")
 public class HikeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,7 +48,7 @@ public class HikeEntity {
     @Column(name="status")
     private Boolean isApproved;
 
-    @Column(name = "isPromoted")
+    @Column(name = "is_promoted")
     private Boolean isPromoted;
 
     @Temporal(TemporalType.DATE)
