@@ -119,6 +119,7 @@ public class PDFService {
         JasperReport report4 = JasperCompileManager.compileReport(new ClassPathResource("/templates/offerLetterPages/pagefour.jrxml").getInputStream());
         Map<String, Object> paramsForReport= new HashMap<>();
         paramsForReport.put("offer",offerLetterDTO);
+        System.out.println(offerLetterDTO.getIssuedDate());
         paramsForReport.put("ctc",data);
 
 

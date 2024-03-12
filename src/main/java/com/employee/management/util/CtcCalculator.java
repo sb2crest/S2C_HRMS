@@ -10,7 +10,7 @@ import java.math.RoundingMode;
 public class CtcCalculator {
     private static final double HRA_PERCENTAGE = 0.1;
     private static final double MED_PERCENTAGE = 0.3;
-    private static final double IT_PERCENTAGE = 0;
+    private static double IT_PERCENTAGE = 0;
     private static final double PF = 1000;
     private static final double BASIC = 8333;
     private static final double PROF_TAX = 200;
@@ -19,7 +19,17 @@ public class CtcCalculator {
 
 
     public CtcData compensationDetails(Double grossSalary) {
+        if(grossSalary>500000)
+            IT_PERCENTAGE=0.05;
+        if(grossSalary>1000000)
+            IT_PERCENTAGE=0.10;
+        if(grossSalary>1000000)
+            IT_PERCENTAGE=0.20;
+        if(grossSalary>2000000)
+            IT_PERCENTAGE=0.30;
+
         double monthlyGrossSalary = grossSalary / 12;
+        System.out.println(IT_PERCENTAGE);
 
         CtcData data = new CtcData();
         data.setYearlyGrossCtc((formatNumber(grossSalary)));
@@ -77,5 +87,9 @@ public class CtcCalculator {
         }
         formattedValue = String.join(".", parts);
         return formattedValue;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new CtcCalculator().compensationDetails(1000001.0));
     }
 }

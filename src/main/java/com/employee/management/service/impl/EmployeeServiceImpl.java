@@ -48,18 +48,7 @@ public class EmployeeServiceImpl implements EmployeeService {
        Employee employee= employeeRepository.findById(id).orElseThrow(()->new CompanyException(ResCodes.EMPLOYEE_NOT_FOUND));
       return mapper.convertToEmployeeDTO(employee);
     }
-    @Override
-    public boolean verifyUser(Long id, String password) {
-        Employee employee=employeeRepository.findById("")
-                .orElseThrow(()->new CompanyException(ResCodes.EMPLOYEE_NOT_FOUND));
-        if(employee.getPassword().equals(password) && employee.getStatus().getName().equals("active")){
-            return true;
-        }
-        if(employee.getStatus().getName().equals("inactive")){
-            throw new CompanyException(ResCodes.INACTIVE_EMPLOYEE);
-        }
-        return false;
-    }
+
     @Override
     public String changePassword(ChangePasswordRequest request) {
         try {

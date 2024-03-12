@@ -34,7 +34,7 @@ public class EmailSenderService {
     public void sendEmailWithAttachment(String to, String subject, String text, byte [] pdfResource) throws MessagingException, IOException, MessagingException {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
-        helper.setFrom("kichuakshay290@gmail.com");
+        helper.setFrom("info@seabed2crest.com");
         helper.setTo(to);
         helper.setSubject(subject);
         helper.setText(text);
