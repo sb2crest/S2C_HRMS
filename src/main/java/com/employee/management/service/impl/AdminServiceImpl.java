@@ -267,7 +267,7 @@ public class AdminServiceImpl implements AdminService {
 
         if(!hike.getIsApproved()) {
             hike.setIsApproved(true);
-            hike.setIsPromoted(request.getNewPosition() != null && !request.getNewPosition().equals("None"));
+            hike.setIsPromoted(request.getNewPosition() != null || !request.getNewPosition().equals("None"));
 
             hike.setHikePercentage(Double.valueOf(request.getPercentage()));
             hike.setApprovedBy(approvedBy);
@@ -279,10 +279,11 @@ public class AdminServiceImpl implements AdminService {
             HikeEntity savedHike = hikeRepository.save(hike);
             try{
                 sendHikeLetterMail(pdfService.generateHikeLetter(mapper.convertToEmployeeDTO(employee),savedHike,request.getIssuedDate()),employee.getEmail());
+                return "Mail sent Successfully";
             }catch (Exception e){
                 System.out.println(e);
+                throw new CompanyException(ResCodes.EMAIL_FAILED);
             }
-            return "Mail sent Successfully";
         }
         throw new CompanyException(ResCodes.HIKE_APPROVED_ALREADY);
     }
@@ -356,8 +357,8 @@ public class AdminServiceImpl implements AdminService {
             return "Email send Successfully";
         }catch (Exception e){
             System.out.println(e);
+            return "Something went wrong";
         }
-        return "Something went wrong";
     }
     @Override
     public HikeEntityDTO editHikeLetter(HikeEntityDTO hikeEntityDTO){

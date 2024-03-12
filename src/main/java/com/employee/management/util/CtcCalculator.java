@@ -1,6 +1,7 @@
 package com.employee.management.util;
 
 import com.employee.management.DTO.CtcData;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -8,6 +9,9 @@ import java.math.RoundingMode;
 
 @Component
 public class CtcCalculator {
+    @Autowired
+    Formatters formatters;
+
     private static final double HRA_PERCENTAGE = 0.1;
     private static final double MED_PERCENTAGE = 0.3;
     private static double IT_PERCENTAGE = 0;
@@ -19,21 +23,23 @@ public class CtcCalculator {
 
 
     public CtcData compensationDetails(Double grossSalary) {
-        if(grossSalary>500000)
-            IT_PERCENTAGE=0.05;
-        if(grossSalary>1000000)
-            IT_PERCENTAGE=0.10;
-        if(grossSalary>1000000)
-            IT_PERCENTAGE=0.20;
-        if(grossSalary>2000000)
-            IT_PERCENTAGE=0.30;
+        if (grossSalary > 2000000) {
+            IT_PERCENTAGE = 0.30;
+        } else if (grossSalary > 1000000) {
+            IT_PERCENTAGE = 0.20;
+        } else if (grossSalary > 500000) {
+            IT_PERCENTAGE = 0.10;
+        } else if (grossSalary> 300000) {
+            IT_PERCENTAGE = 0.05;
+        }
+        else IT_PERCENTAGE = 0.0;
+
 
         double monthlyGrossSalary = grossSalary / 12;
-        System.out.println(IT_PERCENTAGE);
 
         CtcData data = new CtcData();
-        data.setYearlyGrossCtc((formatNumber(grossSalary)));
-        data.setMonthlyGrossCtc((formatNumber(monthlyGrossSalary)));
+        data.setYearlyGrossCtc((formatters.formatAmountWithCommas(grossSalary)));
+        data.setMonthlyGrossCtc((formatters.formatAmountWithCommas(monthlyGrossSalary)));
 
         calculateMonthlyCompensations(data);
 
@@ -41,55 +47,39 @@ public class CtcCalculator {
         double monthlyMedAllowance = monthlyGrossSalary * MED_PERCENTAGE;
         double monthlyOtherAllowance = monthlyGrossSalary - (monthlyMedAllowance + BASIC + monthlyHRA);
 
-        data.setYearlyBasic((formatNumber(BASIC * 12)));
-        data.setMonthlyBasic((formatNumber(BASIC)));
-        data.setYearlyHRA((formatNumber(monthlyHRA*12)));
-        data.setMonthlyHRA((formatNumber(monthlyHRA)));
-        data.setYearlyMedAllowance((formatNumber(monthlyMedAllowance * 12)));
-        data.setMonthlyMedAllowance((formatNumber(monthlyMedAllowance)));
-        data.setYearlyOtherAllowance((formatNumber(monthlyOtherAllowance * 12)));
-        data.setMonthlyOtherAllowance((formatNumber(monthlyOtherAllowance)));
-        data.setYearlyIncomeTax((formatNumber(Double.parseDouble(data.getMonthlyIncomeTax())*12)));
-        data.setYearlyLeaveDeduction((formatNumber(Double.parseDouble(data.getMonthlyLeaveDeduction())*12)));
-        data.setYearlyProvidentFund((formatNumber(Double.parseDouble(data.getMonthlyProvidentFund())*12)));
-        data.setYearlyProfessionalTax((formatNumber(Double.parseDouble(data.getMonthlyProfessionalTax())*12)));
-        data.setYearlyTotalDeduction((formatNumber(Double.parseDouble(data.getMonthlyTotalDeduction())*12)));
-        data.setYearlyNetPayable((formatNumber(Double.parseDouble(data.getYearlyGrossCtc())-Double.parseDouble(data.getYearlyTotalDeduction()))));
+        data.setYearlyBasic((formatters.formatAmountWithCommas(BASIC * 12)));
+        data.setMonthlyBasic((formatters.formatAmountWithCommas(BASIC)));
+        data.setYearlyHRA((formatters.formatAmountWithCommas(monthlyHRA*12)));
+        data.setMonthlyHRA((formatters.formatAmountWithCommas(monthlyHRA)));
+        data.setYearlyMedAllowance((formatters.formatAmountWithCommas(monthlyMedAllowance * 12)));
+        data.setMonthlyMedAllowance((formatters.formatAmountWithCommas(monthlyMedAllowance)));
+        data.setYearlyOtherAllowance((formatters.formatAmountWithCommas(monthlyOtherAllowance * 12)));
+        data.setMonthlyOtherAllowance((formatters.formatAmountWithCommas(monthlyOtherAllowance)));
+        data.setYearlyIncomeTax((formatters.formatAmountWithCommas(formatters.convertStringToDoubleAmount(data.getMonthlyIncomeTax())*12)));
+        data.setYearlyLeaveDeduction((formatters.formatAmountWithCommas(formatters.convertStringToDoubleAmount(data.getMonthlyLeaveDeduction())*12)));
+        data.setYearlyProvidentFund((formatters.formatAmountWithCommas(formatters.convertStringToDoubleAmount(data.getMonthlyProvidentFund())*12)));
+        data.setYearlyProfessionalTax((formatters.formatAmountWithCommas(formatters.convertStringToDoubleAmount(data.getMonthlyProfessionalTax())*12)));
+        data.setYearlyTotalDeduction((formatters.formatAmountWithCommas(formatters.convertStringToDoubleAmount(data.getMonthlyTotalDeduction())*12)));
+        data.setYearlyNetPayable((formatters.formatAmountWithCommas(formatters.convertStringToDoubleAmount(data.getYearlyGrossCtc())-formatters.convertStringToDoubleAmount(data.getYearlyTotalDeduction()))));
 
         return data;
     }
     private void calculateMonthlyCompensations(CtcData data) {
-        double monthlyGrossSalary = Double.parseDouble(data.getMonthlyGrossCtc());
-        data.setMonthlyBasic(formatNumber(BASIC));
-        data.setMonthlyHRA(formatNumber(monthlyGrossSalary * HRA_PERCENTAGE));
+        double monthlyGrossSalary = (formatters.convertStringToDoubleAmount(data.getMonthlyGrossCtc()));
+        data.setMonthlyBasic(formatters.formatAmountWithCommas(BASIC));
+        data.setMonthlyHRA(formatters.formatAmountWithCommas(monthlyGrossSalary * HRA_PERCENTAGE));
 
         double monthlyMedAllowance = monthlyGrossSalary * MED_PERCENTAGE;
-        Double monthlyOtherAllowance = monthlyGrossSalary - (monthlyMedAllowance + BASIC + Double.parseDouble(data.getMonthlyHRA()));
+        Double monthlyOtherAllowance = monthlyGrossSalary - (monthlyMedAllowance + BASIC + formatters.convertStringToDoubleAmount(data.getMonthlyHRA()));
 
-        data.setMonthlyMedAllowance(formatNumber(monthlyMedAllowance));
-        data.setMonthlyOtherAllowance(formatNumber(monthlyOtherAllowance));
-        data.setMonthlyIncomeTax(formatNumber(monthlyGrossSalary * IT_PERCENTAGE));
-        data.setMonthlyProfessionalTax(formatNumber(PROF_TAX));
-        data.setMonthlyLeaveDeduction(formatNumber(LEAVE_DED));
-        data.setMonthlyProvidentFund(formatNumber(PF));
-        double totalDeduction = PROF_TAX + Double.parseDouble(data.getMonthlyIncomeTax()) + PF + LEAVE_DED;
-        data.setMonthlyTotalDeduction(formatNumber(totalDeduction));
-        data.setMonthlyNetPayable(formatNumber(monthlyGrossSalary - totalDeduction));
-    }
-
-    private String formatNumber(Double value) {
-
-        BigDecimal bd = new BigDecimal(Math.round(value)).setScale(2, RoundingMode.HALF_UP);
-        String formattedValue = bd.toString();
-        String[] parts = formattedValue.split("\\.");
-        if (parts.length > 1 && parts[1].length() < 2) {
-            parts[1] = parts[1] + "0".repeat(2 - parts[1].length());
-        }
-        formattedValue = String.join(".", parts);
-        return formattedValue;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(new CtcCalculator().compensationDetails(1000001.0));
+        data.setMonthlyMedAllowance(formatters.formatAmountWithCommas(monthlyMedAllowance));
+        data.setMonthlyOtherAllowance(formatters.formatAmountWithCommas(monthlyOtherAllowance));
+        data.setMonthlyIncomeTax(formatters.formatAmountWithCommas(monthlyGrossSalary * IT_PERCENTAGE));
+        data.setMonthlyProfessionalTax(formatters.formatAmountWithCommas(PROF_TAX));
+        data.setMonthlyLeaveDeduction(formatters.formatAmountWithCommas(LEAVE_DED));
+        data.setMonthlyProvidentFund(formatters.formatAmountWithCommas(PF));
+        double totalDeduction = PROF_TAX + formatters.convertStringToDoubleAmount(data.getMonthlyIncomeTax()) + PF + LEAVE_DED;
+        data.setMonthlyTotalDeduction(formatters.formatAmountWithCommas(totalDeduction));
+        data.setMonthlyNetPayable(formatters.formatAmountWithCommas(monthlyGrossSalary - totalDeduction));
     }
 }

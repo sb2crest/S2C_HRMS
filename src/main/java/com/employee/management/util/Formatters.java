@@ -2,6 +2,8 @@ package com.employee.management.util;
 
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+
 @Component
 public class Formatters {
     public Double convertStringToDoubleAmount(String amount){
@@ -10,17 +12,20 @@ public class Formatters {
     }
 
     public String formatAmountWithCommas(Double number) {
-        Double amount= (double) Math.round(number);
-        if (amount == null) {
+
+        if (number == null) {
             return "";
         }
-        if(amount==0){
+        double roundedNo=Math.round(number);
+        if(number==0){
             return "0";
         }
+        BigDecimal amount= BigDecimal.valueOf(roundedNo);
+
         String numb = String.valueOf(amount);
         String numberStr;
         String split = null;
-        if (numb.contains(".")) {
+        if(numb.contains(".")) {
             String[] num = numb.split("\\.");
             numberStr = num[0];
             split = num[1];
@@ -28,6 +33,7 @@ public class Formatters {
         StringBuilder result = getStringBuilder(numberStr);
         if(split!=null)
             result.append(".").append(split).append("0");
+        else result.append(".00");
         return result.toString();
     }
     private StringBuilder getStringBuilder(String numberStr) {
@@ -45,6 +51,9 @@ public class Formatters {
                 result.insert(0, ",");
             }
             if (count == 7 && i != 0) {
+                result.insert(0, ",");
+            }
+            if(count == 9 && i != 0) {
                 result.insert(0, ",");
             }
         }
