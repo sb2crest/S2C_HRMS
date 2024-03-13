@@ -6,12 +6,15 @@ import java.math.BigDecimal;
 
 @Component
 public class Formatters {
-    public Double convertStringToDoubleAmount(String amount){
-        amount=amount.replace(",","");
-        return Double.parseDouble(amount);
+    public static Double convertStringToDoubleAmount(String amount){
+        if(amount!=null) {
+            amount = amount.replace(",", "");
+            return Double.parseDouble(amount);
+        }
+        else return null;
     }
 
-    public String formatAmountWithCommas(Double number) {
+    public static String formatAmountWithCommas(Double number) {
 
         if (number == null) {
             return "";
@@ -36,7 +39,7 @@ public class Formatters {
         else result.append(".00");
         return result.toString();
     }
-    private StringBuilder getStringBuilder(String numberStr) {
+    private static StringBuilder getStringBuilder(String numberStr) {
         StringBuilder result = new StringBuilder();
 
         int len = numberStr.length();

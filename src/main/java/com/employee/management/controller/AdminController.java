@@ -33,15 +33,26 @@ public class AdminController {
 
     private final SseEmitter emitter=new SseEmitter();
 
-    @PostMapping("/add")
-//    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public ResponseEntity<String> addEmployee(@RequestBody EmployeeDTO employeeDTO){
-        return new ResponseEntity<>(adminService.addNewEmployee(employeeDTO), HttpStatus.CREATED);
-    }
+
+    //----------------------------------------------------------------
+    //DashBoard
     @GetMapping
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<AdminDashBoardData>loadData(){
         return new ResponseEntity<>(adminService.loadData(),HttpStatus.OK);
+    }
+    @GetMapping("/salary-graph")
+    public ResponseEntity<List<AvgSalaryGraphResponse>> fetchSixMonthData(){
+        return new ResponseEntity<>(adminService.getSalaryGraphDataForPastSixMonths(),HttpStatus.OK);
+    }
+
+
+    //----------------------------------------------------------------
+    //Employee Operations
+    @PostMapping("/add")
+//    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public ResponseEntity<String> addEmployee(@RequestBody EmployeeDTO employeeDTO){
+        return new ResponseEntity<>(adminService.addNewEmployee(employeeDTO), HttpStatus.CREATED);
     }
     @GetMapping("/all")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -64,23 +75,25 @@ public class AdminController {
                                                         @RequestParam("status")String status){
         return new ResponseEntity<>(adminService.changeEmployeeStatus(empId,status),HttpStatus.OK);
     }
-
-
     @GetMapping("/get-designation/{id}")
     public ResponseEntity<String >getEmployeeDesignation(@PathVariable("id")String empId){
         return new ResponseEntity<>(adminService.fetchEmployeeDesignation(empId),HttpStatus.OK);
     }
-
-    @GetMapping("/hike-recommendations")
-    public ResponseEntity<List<HikeEntityDTO>>fetchHikeRecommendations(){
-        return new ResponseEntity<>(adminService.hikeRecommendations(),HttpStatus.OK);
+    @PostMapping("/update-pf-no")
+    public ResponseEntity<String> updatePFDetails(@RequestBody PfNumberUpdateRequest request){
+        System.out.println(request);
+        return new ResponseEntity<>(adminService.updatePfDetails(request),HttpStatus.OK);
     }
+
+
+
+    //----------------------------------------------------------------
+    //Payroll Operations
     @PostMapping("/add-payroll")
 //    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<String> addNewPayRoll(@RequestBody PayrollDTO payrollDTO) {
         return new ResponseEntity<>(adminService.addPayroll(payrollDTO, payrollDTO.getEmployeeId()),HttpStatus.OK);
-    }
-
+    }//Old
     @GetMapping("/view-payroll-by-id")
     public ResponseEntity<CtcData> getPayrollDetails(@RequestParam("empId")String empId){
         return new ResponseEntity<>(payRollService.getPayrollDetails(empId),HttpStatus.OK);
@@ -97,19 +110,18 @@ public class AdminController {
         paySlip.setEmployeeDTO(employee);
         return pdfService.generatePdfPreviewResponse(pdfService.generatePaySlipPdf(paySlip));
     }
-
     @PostMapping("/preview-new-payslip")
     public ResponseEntity<byte[]>previewMonthlyPayroll(@RequestBody AddMonthlyPayRollRequest request) throws JRException {
         return pdfService.generatePdfPreviewResponse(adminService.previewPayslipPdf(request));
     }
-    @GetMapping("/salary-graph")
-    public ResponseEntity<List<AvgSalaryGraphResponse>> fetchSixMonthData(){
-        return new ResponseEntity<>(adminService.getSalaryGraphDataForPastSixMonths(),HttpStatus.OK);
-    }
-    @PostMapping("/update-pf-no")
-    public ResponseEntity<String> updatePFDetails(@RequestBody PfNumberUpdateRequest request){
-        System.out.println(request);
-        return new ResponseEntity<>(adminService.updatePfDetails(request),HttpStatus.OK);
+
+
+
+    //----------------------------------------------------------------
+    //Hike Operations
+    @GetMapping("/hike-recommendations")
+    public ResponseEntity<List<HikeEntityDTO>>fetchHikeRecommendations(){
+        return new ResponseEntity<>(adminService.hikeRecommendations(),HttpStatus.OK);
     }
     @PostMapping("/approve-hike")
     public ResponseEntity<String>approveHike(@RequestBody HikeUpdateRequest request){

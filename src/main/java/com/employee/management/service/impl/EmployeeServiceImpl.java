@@ -2,6 +2,7 @@ package com.employee.management.service.impl;
 
 import com.employee.management.DTO.ChangePasswordRequest;
 import com.employee.management.DTO.EmployeeDTO;
+import com.employee.management.DTO.EmployeeNameDTO;
 import com.employee.management.DTO.ForgetPasswordRequest;
 import com.employee.management.converters.Mapper;
 import com.employee.management.exception.CompanyException;
@@ -101,8 +102,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         throw new CompanyException(ResCodes.INVALID_OTP);
     }
 
-
-
+    @Override
+    public EmployeeNameDTO getEmployeeNameById(String id) {
+        Employee employee=employeeRepository.findById(id).orElseThrow(()->new CompanyException(ResCodes.EMPLOYEE_NOT_FOUND));
+        EmployeeNameDTO employeeNameDTO = new EmployeeNameDTO();
+        employeeNameDTO.setEmployeeName(employee.getEmployeeName());
+        return employeeNameDTO;
+    }
 
 
 }

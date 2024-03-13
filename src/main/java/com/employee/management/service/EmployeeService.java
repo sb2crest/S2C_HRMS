@@ -2,6 +2,7 @@ package com.employee.management.service;
 
 import com.employee.management.DTO.ChangePasswordRequest;
 import com.employee.management.DTO.EmployeeDTO;
+import com.employee.management.DTO.EmployeeNameDTO;
 import com.employee.management.DTO.ForgetPasswordRequest;
 
 public interface EmployeeService {
@@ -14,4 +15,6 @@ public interface EmployeeService {
     String resetPasswordMail(String empId);
 
     String forgetPassword(ForgetPasswordRequest request);
+
+    EmployeeNameDTO getEmployeeNameById(String id);
 }

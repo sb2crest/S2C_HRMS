@@ -1,6 +1,7 @@
 package com.employee.management.controller;
 
 import com.employee.management.DTO.EmployeeDTO;
+import com.employee.management.DTO.EmployeeNameDTO;
 import com.employee.management.exception.CompanyException;
 import com.employee.management.exception.ResCodes;
 import com.employee.management.service.AttendanceService;
@@ -26,7 +27,7 @@ public class EmployeeController {
 
 
     @GetMapping("/get")
-    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
+//    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
     public ResponseEntity<EmployeeDTO>getEmployee(@RequestParam("empId")String id, @RequestHeader("Authorization")String jwtToken){
         System.out.println("Token :"+jwtToken);
         String token=jwtToken.substring(7);
@@ -42,5 +43,10 @@ public class EmployeeController {
         System.out.println("Client IP Address: " + ipAddress);
         String text = "successful";
         return new ResponseEntity<>(text, HttpStatus.OK);
+    }
+
+    @GetMapping("/get-by-id/{empId}")
+    public ResponseEntity<EmployeeNameDTO> getEmployeeName(@PathVariable String empId) {
+        return new ResponseEntity<>(employeeService.getEmployeeNameById(empId), HttpStatus.OK);
     }
 }

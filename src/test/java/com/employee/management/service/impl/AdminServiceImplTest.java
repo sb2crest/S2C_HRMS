@@ -154,7 +154,7 @@ class AdminServiceImplTest {
 
         when(payrollRepository.getPayDetails(previousMonthFormatted)).thenReturn(Optional.of(payrolls));
         when(employeeRepository.findAll()).thenReturn(Collections.nCopies(noOfEmployees, new Employee()));
-        when(formatters.formatAmountWithCommas(anyDouble())).thenReturn(averageSalary);
+        when(Formatters.formatAmountWithCommas(anyDouble())).thenReturn(averageSalary);
 
 
         AdminDashBoardData result = adminService.loadData();
@@ -985,7 +985,7 @@ class AdminServiceImplTest {
         when(hikeRepository.findById(any())).thenReturn(Optional.of(hike));
         when(employeeRepository.findById(any())).thenReturn(Optional.of(employee));
         when(dateTimeConverter.stringToLocalDateTimeConverter(any())).thenReturn(new Date());
-        when(formatters.convertStringToDoubleAmount(any())).thenReturn(20D);
+        when(Formatters.convertStringToDoubleAmount(anyString())).thenReturn(20D);
         when(hikeRepository.save(any())).thenReturn((hike));
         when(mapper.convertToHikeEntityDto(any())).thenReturn(new HikeEntityDTO());
 

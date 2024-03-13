@@ -11,6 +11,7 @@ import com.employee.management.repository.EmployeeRepository;
 import com.employee.management.repository.PayrollRepository;
 import com.employee.management.service.PayRollService;
 import com.employee.management.util.CtcCalculator;
+import com.employee.management.util.Formatters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,8 @@ public class PayRollServiceImpl implements PayRollService {
     EmployeeRepository employeeRepository;
     @Autowired
     Mapper mapper;
+    @Autowired
+    Formatters formatters;
     @Override
     public PaySlip getPaySlip(String empId, String payPeriod){
         Employee employee=employeeRepository.findById(empId).orElseThrow(()-> new CompanyException(ResCodes.EMPLOYEE_NOT_FOUND));

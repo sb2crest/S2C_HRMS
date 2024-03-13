@@ -28,7 +28,7 @@ public class PayRollController {
     @Autowired
     EmailSenderService emailSenderService;
     @GetMapping("/get")
-    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
+//    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
     public ResponseEntity<PaySlip> getPaySlip(@RequestParam("employeeId") String empId, @RequestParam("payPeriod") String payPeriod) {
         return new ResponseEntity<>(payRollService.getPaySlip(empId, payPeriod), HttpStatus.OK);
     }
