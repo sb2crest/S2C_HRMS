@@ -18,7 +18,7 @@ public class Formatters {
         }
         double roundedNo=Math.round(number);
         if(number==0){
-            return "0";
+            return "0.00";
         }
         BigDecimal amount= BigDecimal.valueOf(roundedNo);
 
