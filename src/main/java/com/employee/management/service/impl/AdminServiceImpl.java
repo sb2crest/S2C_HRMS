@@ -42,8 +42,6 @@ public class AdminServiceImpl implements AdminService {
     private final PDFService pdfService;
     private final EmailBodyBuilder emailBodyBuilder;
     private final CtcCalculator calculator;
-    private final Formatters formatters;
-    private final AmountToWordsConverter converter;
 
     @Autowired
     public AdminServiceImpl(EmployeeRepository employeeRepository, RoleRepository roleRepository,
@@ -65,8 +63,6 @@ public class AdminServiceImpl implements AdminService {
         this.pdfService = pdfService;
         this.emailBodyBuilder = emailBodyBuilder;
         this.calculator=calculator;
-        this.formatters=formatters;
-        this.converter=converter;
     }
 
     private String getTodayDateFormatted(){
@@ -109,7 +105,7 @@ public class AdminServiceImpl implements AdminService {
                 .average()
                 .orElse(0.0);
 
-        adminDashBoardData.setAverageSalary(formatters.formatAmountWithCommas(averageSalary));
+        adminDashBoardData.setAverageSalary(Formatters.formatAmountWithCommas(averageSalary));
         adminDashBoardData.setTodayDate(getTodayDateFormatted());
         adminDashBoardData.setNoOfEmployees(getEmployeeCount());
         return adminDashBoardData;
@@ -374,8 +370,8 @@ public class AdminServiceImpl implements AdminService {
         hike.setPrevPosition(hikeEntityDTO.getPrevPosition());
         hike.setApprovedDate(dateTimeConverter.stringToLocalDateTimeConverter(hikeEntityDTO.getApprovedDate()));
         hike.setEffectiveDate(dateTimeConverter.stringToLocalDateTimeConverter(hikeEntityDTO.getEffectiveDate()));
-        hike.setPrevSalary(formatters.convertStringToDoubleAmount(hikeEntityDTO.getPrevSalary()));
-        hike.setNewSalary(formatters.convertStringToDoubleAmount(hikeEntityDTO.getNewSalary()));
+        hike.setPrevSalary(Formatters.convertStringToDoubleAmount(hikeEntityDTO.getPrevSalary()));
+        hike.setNewSalary(Formatters.convertStringToDoubleAmount(hikeEntityDTO.getNewSalary()));
         hike.setEmployee(employee);
         hike.setApprovedBy(approvedBy);
         HikeEntity save = hikeRepository.save(hike);
