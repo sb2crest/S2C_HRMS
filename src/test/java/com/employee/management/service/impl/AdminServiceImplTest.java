@@ -316,6 +316,25 @@ class AdminServiceImplTest {
     }
 
     @Test
+    void changeEmployeeStatus_catchBlock() {
+        String resultStr ="Employee status changed successfully";
+        String empId ="EMP001";
+        String newStatus ="inactive";
+        Employee employee =getEmployee();
+        Status status = new Status();
+        status.setName(newStatus);
+        employee.setStatus(status);
+        when(employeeRepository.findById(empId)).thenReturn(Optional.of(employee));
+        when(statusRepository.findByName(newStatus.toLowerCase())).thenReturn(Optional.of(status));
+        when(employeeRepository.save(any(Employee.class))).thenReturn(employee);
+
+        String result = adminService.changeEmployeeStatus(empId,newStatus);
+        assertEquals(resultStr,result);
+        assertEquals("inactive",employee.getStatus().getName());
+        verify(employeeRepository).findById(anyString());
+    }
+
+    @Test
     public void testAddPayroll() {
         String empId = "EMP001";
         PayrollDTO payroll = testPayrollDTO();
@@ -349,7 +368,7 @@ class AdminServiceImplTest {
     }
 
     @Test
-    public void testAddPayroll_WithExistingPayroll_ExceptionThrown() {
+    public void testAddPayroll_throwsEmployeeNotFound() {
         String empId = "employeeId";
         PayrollDTO payrollDTO = new PayrollDTO();
 
@@ -379,6 +398,37 @@ class AdminServiceImplTest {
         assertThrows(CompanyException.class, () -> adminService.addPayroll(payrollDTO, empId));
 
         verify(payrollRepository).getPayPeriodDetails(anyString(),any());
+    }
+    @Test
+    public void testAddPayroll_catchBlock() throws JRException {
+        String empId = "EMP001";
+        PayrollDTO payroll = testPayrollDTO();
+        Employee employee = getEmployee();
+        employee.setEmployeeID(empId);
+        employee.setGrossSalary(5000D);
+
+        when(employeeRepository.findById(empId)).thenReturn(Optional.of(employee));
+        when(payrollRepository.getPayPeriodDetails(anyString(), any())).thenReturn(Optional.empty());
+
+
+        PayrollDTO payrollDTO = new PayrollDTO();
+
+        payrollDTO.setEmployeeId(empId);
+        payrollDTO.setGrossEarnings("5000");
+        payrollDTO.setPayDate("29-Feb-2024");
+        payrollDTO.setPayPeriod("February 2024");
+        payrollDTO.setLeaveDeduction("200");
+
+        when(mapper.convertToPayroll(any())).thenReturn(new Payroll());
+        when(pdfService.generatePaySlipPdf(any())).thenThrow(new JRException("Problem in sending mail"));
+
+        CompanyException exception = assertThrows(CompanyException.class, () -> {
+            adminService.addPayroll(payrollDTO,empId);
+        });
+
+        assertEquals(ResCodes.EMAIL_FAILED, exception.getResCodes());
+        verify(payrollRepository).save(any(Payroll.class));
+        verify(pdfService).generatePaySlipPdf(any());
     }
 
     @Test
@@ -549,6 +599,69 @@ class AdminServiceImplTest {
         verify(hikeRepository).save(hike);
         verify(pdfService).generateHikeLetter(any(), any(),anyString());
     }
+
+    @Test
+    void testUpdateHikeDetails_newPositionNull() throws IOException, JRException {
+        String empID="EMP001";
+        String resultStr="Mail sent Successfully";
+        HikeUpdateRequest request = new HikeUpdateRequest();
+        request.setEmployeeId(empID);
+        request.setNewPosition("New");
+        request.setReason("Performance Excellence");
+        request.setPercentage("10");
+        request.setEffectiveDate("2023-05-01");
+        request.setApprovedBy("EMP002");
+        request.setIssuedDate("14-Feb-2024");
+        Employee employee = getEmployee();
+        employee.setEmployeeID(request.getEmployeeId());
+        Employee approvedBy = getEmployee();
+        approvedBy.setEmployeeID(request.getApprovedBy());
+        HikeEntity hike = getHikeEntity();
+        hike.setNewPosition(null);
+
+        when(employeeRepository.findById(eq(empID))).thenReturn(Optional.of(employee));
+        when(employeeRepository.findById(eq(request.getApprovedBy()))).thenReturn(Optional.of(approvedBy));
+        when(hikeRepository.findByStatusAndEmployee(false, employee)).thenReturn(Optional.of(hike));
+        when(dateTimeConverter.stringToLocalDateTimeConverter(anyString())).thenReturn(new Date());
+        when(pdfService.generateHikeLetter(any(), any(),anyString())).thenReturn(new byte[0]);
+
+        String result = adminService.updateHikeDetails(request);
+
+        assertEquals(resultStr, result);
+        verify(hikeRepository).save(hike);
+        verify(pdfService).generateHikeLetter(any(), any(),anyString());
+    }
+    @Test
+    void testUpdateHikeDetails_newPositionIsNone() throws IOException, JRException {
+        String empID="EMP001";
+        String resultStr="Mail sent Successfully";
+        HikeUpdateRequest request = new HikeUpdateRequest();
+        request.setEmployeeId(empID);
+        request.setNewPosition("New");
+        request.setReason("Performance Excellence");
+        request.setPercentage("10");
+        request.setEffectiveDate("2023-05-01");
+        request.setApprovedBy("EMP002");
+        request.setIssuedDate("14-Feb-2024");
+        Employee employee = getEmployee();
+        employee.setEmployeeID(request.getEmployeeId());
+        Employee approvedBy = getEmployee();
+        approvedBy.setEmployeeID(request.getApprovedBy());
+        HikeEntity hike = getHikeEntity();
+        hike.setNewPosition("None");
+
+        when(employeeRepository.findById(eq(empID))).thenReturn(Optional.of(employee));
+        when(employeeRepository.findById(eq(request.getApprovedBy()))).thenReturn(Optional.of(approvedBy));
+        when(hikeRepository.findByStatusAndEmployee(false, employee)).thenReturn(Optional.of(hike));
+        when(dateTimeConverter.stringToLocalDateTimeConverter(anyString())).thenReturn(new Date());
+        when(pdfService.generateHikeLetter(any(), any(),anyString())).thenReturn(new byte[0]);
+
+        String result = adminService.updateHikeDetails(request);
+
+        assertEquals(resultStr, result);
+        verify(hikeRepository).save(hike);
+        verify(pdfService).generateHikeLetter(any(), any(),anyString());
+    }
     @Test
     void testUpdateHikeDetails_ThrowEmpNotFound() throws IOException, JRException {
         String empID="EMP001";
@@ -629,22 +742,26 @@ class AdminServiceImplTest {
         Employee approvedBy = getEmployee();
         approvedBy.setEmployeeID(request.getApprovedBy());
         HikeEntity hike = getHikeEntity();
-
+        hike.setIsApproved(false);
+        hike.setIsPromoted(false);
 
         when(employeeRepository.findById(eq(empID))).thenReturn(Optional.of(employee));
         when(employeeRepository.findById(eq(request.getApprovedBy()))).thenReturn(Optional.of(approvedBy));
-        when(hikeRepository.findByStatusAndEmployee(false, employee)).thenReturn(Optional.of(hike));
-        when(dateTimeConverter.stringToLocalDateTimeConverter(anyString())).thenReturn(new Date());
-        when(pdfService.generateHikeLetter(any(), any(),anyString())).thenThrow(JRException.class);
+        when(hikeRepository.findByStatusAndEmployee(anyBoolean(),any())).thenReturn(Optional.of(hike));
+        when(mapper.convertToEmployeeDTO(any())).thenReturn(new EmployeeDTO());
+        when(pdfService.generateHikeLetter(any(), any(), anyString())).thenThrow(new JRException("Problem in sending mail"));
 
-        String result = adminService.updateHikeDetails(request);
+        CompanyException exception = assertThrows(CompanyException.class, () -> {
+            adminService.updateHikeDetails(request);
+        });
 
-        verify(pdfService, times(1)).generateHikeLetter(any(), any(),anyString());
+        assertEquals(ResCodes.EMAIL_FAILED, exception.getResCodes());
+        verify(pdfService).generateHikeLetter(any(), any(), anyString());
     }
     @Test
     void testUpdateHikeDetails_hikeAlreadyApproved() throws IOException, JRException {
         String empID="EMP001";
-
+        String resultStr="Mail sent Successfully";
         HikeUpdateRequest request = new HikeUpdateRequest();
         request.setEmployeeId(empID);
         request.setNewPosition("New");
@@ -652,19 +769,24 @@ class AdminServiceImplTest {
         request.setPercentage("10");
         request.setEffectiveDate("2023-05-01");
         request.setApprovedBy("EMP002");
+        request.setIssuedDate("12-Feb-2024");
         Employee employee = getEmployee();
         employee.setEmployeeID(request.getEmployeeId());
         Employee approvedBy = getEmployee();
         approvedBy.setEmployeeID(request.getApprovedBy());
         HikeEntity hike = getHikeEntity();
-
+        hike.setIsApproved(true);
+        hike.setIsPromoted(true);
 
         when(employeeRepository.findById(eq(empID))).thenReturn(Optional.of(employee));
         when(employeeRepository.findById(eq(request.getApprovedBy()))).thenReturn(Optional.of(approvedBy));
-        when(hikeRepository.findByStatusAndEmployee(anyBoolean(), any())).thenReturn(Optional.empty());
+        when(hikeRepository.findByStatusAndEmployee(anyBoolean(),any())).thenReturn(Optional.of(hike));
 
-        assertThrows(CompanyException.class, () -> adminService.updateHikeDetails(request));
-        verify(hikeRepository).findByStatusAndEmployee(anyBoolean(), any());
+        CompanyException exception = assertThrows(CompanyException.class, () -> {
+            adminService.updateHikeDetails(request);
+        });
+
+        assertEquals(ResCodes.HIKE_APPROVED_ALREADY, exception.getResCodes());
     }
 
 
@@ -702,6 +824,80 @@ class AdminServiceImplTest {
         verify(pdfService).generateHikeLetter(any(), any(),anyString());
     }
 
+    @Test
+    void testGiveHike_employeeNotFound() throws IOException, JRException {
+        String empID = "EMP001";
+        HikeUpdateRequest request = new HikeUpdateRequest();
+        request.setEmployeeId(empID);
+        request.setNewPosition("New");
+        request.setReason("Performance Excellence");
+        request.setPercentage("10");
+        request.setEffectiveDate("2023-05-01");
+        request.setApprovedBy("EMP002");
+        request.setIssuedDate("2023-05-01");
+        request.setApprovedDate("2023-05-01");
+
+        when(employeeRepository.findById(anyString())).thenReturn(Optional.empty());
+
+        assertThrows(CompanyException.class ,()->adminService.giveHike(request));
+    }
+    @Test
+    void testGiveHike_approvedEmployeeNotFound() throws IOException, JRException {
+        String empID = "EMP001";
+        HikeUpdateRequest request = new HikeUpdateRequest();
+        request.setEmployeeId(empID);
+        request.setNewPosition("New");
+        request.setReason("Performance Excellence");
+        request.setPercentage("10");
+        request.setEffectiveDate("2023-05-01");
+        request.setApprovedBy("EMP002");
+        request.setIssuedDate("2023-05-01");
+        request.setApprovedDate("2023-05-01");
+        Employee employee = getEmployee();
+        employee.setEmployeeID(request.getEmployeeId());
+        Employee approvedBy = getEmployee();
+        approvedBy.setEmployeeID(request.getApprovedBy());
+
+        when(employeeRepository.findById(anyString())).thenReturn(Optional.of(employee));
+        when(employeeRepository.findById(eq(approvedBy.getEmployeeID()))).thenReturn(Optional.empty());
+
+        assertThrows(CompanyException.class ,()->adminService.giveHike(request));
+
+    }
+    @Test
+    void testGiveHike_catchBlock() throws IOException, JRException {
+        String empID = "EMP001";
+        HikeUpdateRequest request = new HikeUpdateRequest();
+        request.setEmployeeId(empID);
+        request.setNewPosition("New");
+        request.setReason("Performance Excellence");
+        request.setPercentage("10");
+        request.setEffectiveDate("2023-05-01");
+        request.setApprovedBy("EMP002");
+        request.setIssuedDate("2023-05-01");
+        request.setApprovedDate("2023-05-01");
+        Employee employee = getEmployee();
+        employee.setEmployeeID(request.getEmployeeId());
+        Employee approvedBy = getEmployee();
+        approvedBy.setEmployeeID(request.getApprovedBy());
+        HikeEntity hike = getHikeEntity();
+        hike.setIsApproved(true);
+        hike.setApprovedBy(approvedBy);
+
+        when(employeeRepository.findById(anyString())).thenReturn(Optional.of(employee));
+        when(employeeRepository.findById((anyString()))).thenReturn(Optional.of(approvedBy));
+        when(dateTimeConverter.stringToLocalDateTimeConverter(anyString())).thenReturn(new Date());
+        when(hikeRepository.save(any())).thenReturn(hike);
+        when(mapper.convertToEmployeeDTO(any())).thenReturn(new EmployeeDTO());
+        doThrow(new RuntimeException("Something went wrong")).when(pdfService).generateHikeLetter(any(), any(), anyString());
+        when(mapper.convertToHikeEntityDto(any())).thenReturn(new HikeEntityDTO());
+
+        HikeEntityDTO result= adminService.giveHike(request);
+
+        assertNotNull(result);
+
+        verify(pdfService, times(1)).generateHikeLetter(any(), any(),anyString());
+    }
 
     @Test
     public void testSendHikeLetter_Success() throws JRException, IOException {
@@ -741,6 +937,27 @@ class AdminServiceImplTest {
 
         assertThrows(CompanyException.class,()->  adminService.sendHikeLetter(1L));
         verify(employeeRepository).findById(anyString());
+    }
+
+    @Test
+    public void testSendHikeLetter_CatchBlock() throws JRException, IOException {
+        HikeEntity hike = getHikeEntity();
+        hike.setId(1L);
+
+        Employee employee = getEmployee();
+        employee.setEmployeeID("EMP01");
+        employee.setEmail("test@example.com");
+        hike.setEmployee(employee);
+        EmployeeDTO employeeDTO=getEmployeeDTO();
+
+        when(hikeRepository.findById(1L)).thenReturn(Optional.of(hike));
+        when(employeeRepository.findById("EMP01")).thenReturn(Optional.of(employee));
+        when(pdfService.generateHikeLetter(any(),any(),anyString())).thenThrow(new RuntimeException("Something went wrong"));
+
+        String result = adminService.sendHikeLetter(1L);
+        assertEquals("Something went wrong", result);
+
+        verify(pdfService, times(1)).generateHikeLetter(any(), any(),anyString());
     }
 
     @Test
@@ -834,6 +1051,14 @@ class AdminServiceImplTest {
     }
     @Test
     public void testEditHikeLetter_approvedEmployeeNotFound() {
+
+        HikeEntity hike = getHikeEntity();
+        Employee employee = getEmployee();
+        Employee approvedBy=getEmployee();
+        approvedBy.setEmployeeID("EMP02");
+        employee.setEmployeeID("EMP01");
+        hike.setEmployee(employee);
+        hike.setApprovedBy(approvedBy);
         HikeEntityDTO hikeEntityDTO=new HikeEntityDTO();
         hikeEntityDTO.setId(1L);
         hikeEntityDTO.setHikePercentage("25");
@@ -843,19 +1068,12 @@ class AdminServiceImplTest {
         hikeEntityDTO.setPrevPosition("Old");
         hikeEntityDTO.setPrevSalary("100000");
         hikeEntityDTO.setNewSalary("140000");
-
-        HikeEntity hike = getHikeEntity();
-
-        Employee employee = getEmployee();
-        Employee approvedBy=getEmployee();
-        approvedBy.setEmployeeID("EMP02");
-        employee.setEmployeeID("EMP01");
-
-        hike.setEmployee(employee);
-        hike.setApprovedBy(approvedBy);
+        hikeEntityDTO.setEmployeeId(employee.getEmployeeID());
+        hikeEntityDTO.setApprovedBy(approvedBy.getEmployeeID());
 
         when(hikeRepository.findById(any())).thenReturn(Optional.of(hike));
-        when(employeeRepository.findById(eq(hikeEntityDTO.getApprovedBy()))).thenReturn(Optional.empty());
+        when(employeeRepository.findById(anyString())).thenReturn(Optional.of(employee));
+        when(employeeRepository.findById(eq(approvedBy.getEmployeeID()))).thenReturn(Optional.empty());
 
         assertThrows(CompanyException.class,()->adminService.editHikeLetter(hikeEntityDTO));
     }
@@ -1008,14 +1226,121 @@ class AdminServiceImplTest {
         when(payrollRepository.save(any(Payroll.class))).thenReturn(new Payroll());
         when(mapper.convertToEmployeeDTO(any())).thenReturn(employeeDTO);
         when(mapper.convertToPayRollDTO(any())).thenReturn(payrollDTO);
-        when(pdfService.generatePaySlipPdf(any())).thenReturn(paySlipPDF);
-        doNothing().when(emailSenderService).sendEmailWithAttachment(anyString(), anyString(), anyString(), eq(paySlipPDF));
+        when(pdfService.generatePaySlipPdf(any())).thenThrow(new JRException("Problem in sending mail"));
 
-        String result=adminService.addMonthlyPayRoll(request);
+        CompanyException exception = assertThrows(CompanyException.class, () -> {
+            adminService.addMonthlyPayRoll(request);
+        });
 
-        assertEquals(resultStr+employee.getEmail(),result);
+        assertEquals(ResCodes.EMAIL_FAILED, exception.getResCodes());
         verify(payrollRepository).save(any(Payroll.class));
-        verify(emailSenderService).sendEmailWithAttachment(anyString(), anyString(), anyString(), eq(paySlipPDF));
+        verify(pdfService).generatePaySlipPdf(any());
+    }
+
+    @Test
+    void testPreviewHikeDetails() throws JRException, IOException {
+        byte[] output=new byte[10];
+        String empID = "EMP001";
+        HikeUpdateRequest request = new HikeUpdateRequest();
+        request.setEmployeeId(empID);
+        request.setNewPosition("New");
+        request.setReason("Performance Excellence");
+        request.setPercentage("10");
+        request.setEffectiveDate("2023-05-01");
+        request.setApprovedBy("EMP002");
+        request.setIssuedDate("2023-05-01");
+        request.setApprovedDate("2023-05-01");
+        Employee employee = getEmployee();
+        employee.setEmployeeID(request.getEmployeeId());
+        Employee approvedBy = getEmployee();
+        approvedBy.setEmployeeID(request.getApprovedBy());
+        HikeEntity hike = getHikeEntity();
+        hike.setIsApproved(true);
+        hike.setApprovedBy(approvedBy);
+
+        when(employeeRepository.findById(anyString())).thenReturn(Optional.of(employee));
+        when(employeeRepository.findById((anyString()))).thenReturn(Optional.of(approvedBy));
+        when(dateTimeConverter.stringToLocalDateTimeConverter(anyString())).thenReturn(new Date());
+        when(pdfService.generateHikeLetter(any(), any(),anyString())).thenReturn(new byte[10]);
+
+         byte[] result = adminService.previewHikeDetails(request);
+
+        assertNotNull(result);
+        verify(pdfService).generateHikeLetter(any(), any(),anyString());
 
     }
+    @Test
+    void testPreviewHikeDetails_employeeNotFound() throws JRException, IOException {
+        String empID = "EMP001";
+        HikeUpdateRequest request = new HikeUpdateRequest();
+        request.setEmployeeId(empID);
+        request.setNewPosition("New");
+        request.setReason("Performance Excellence");
+        request.setPercentage("10");
+        request.setEffectiveDate("2023-05-01");
+        request.setApprovedBy("EMP002");
+        request.setIssuedDate("2023-05-01");
+        request.setApprovedDate("2023-05-01");
+
+        when(employeeRepository.findById(anyString())).thenReturn(Optional.empty());
+
+        assertThrows(CompanyException.class,()->adminService.previewHikeDetails(request));
+    }
+    @Test
+    void testPreviewHikeDetails_ApprovedEmployeeNotFound() throws Exception {
+        String empID = "EMP001";
+        HikeUpdateRequest request = new HikeUpdateRequest();
+        request.setEmployeeId(empID);
+        request.setNewPosition("New");
+        request.setReason("Performance Excellence");
+        request.setPercentage("10");
+        request.setEffectiveDate("2023-05-01");
+        request.setApprovedBy("EMP002");
+        request.setIssuedDate("2023-05-01");
+        request.setApprovedDate("2023-05-01");
+        Employee approvedBy = getEmployee();
+        approvedBy.setEmployeeID(request.getApprovedBy());
+
+        when(employeeRepository.findById(anyString())).thenReturn(Optional.of(new Employee()));
+        when(employeeRepository.findById(eq(approvedBy.getEmployeeID()))).thenReturn(Optional.empty());
+
+        assertThrows(CompanyException.class,()->adminService.previewHikeDetails(request));
+    }
+
+    @Test
+    void testPreviewHikeDetails_catchBlock() throws JRException, IOException {
+        {
+            String empID = "EMP001";
+            HikeUpdateRequest request = new HikeUpdateRequest();
+            request.setEmployeeId(empID);
+            request.setNewPosition("New");
+            request.setReason("Performance Excellence");
+            request.setPercentage("10");
+            request.setEffectiveDate("2023-05-01");
+            request.setApprovedBy("EMP002");
+            request.setIssuedDate("2023-05-01");
+            request.setApprovedDate("2023-05-01");
+            Employee employee = getEmployee();
+            employee.setEmployeeID(request.getEmployeeId());
+            Employee approvedBy = getEmployee();
+            approvedBy.setEmployeeID(request.getApprovedBy());
+            HikeEntity hike = getHikeEntity();
+            hike.setIsApproved(true);
+            hike.setApprovedBy(approvedBy);
+
+            when(employeeRepository.findById(anyString())).thenReturn(Optional.of(employee));
+            when(employeeRepository.findById((anyString()))).thenReturn(Optional.of(approvedBy));
+            when(dateTimeConverter.stringToLocalDateTimeConverter(anyString())).thenReturn(new Date());
+            when(pdfService.generateHikeLetter(any(), any(), anyString())).thenThrow(new JRException("Error in generating Hike letter"));
+
+            CompanyException exception = assertThrows(CompanyException.class, () -> {
+                adminService.previewHikeDetails(request);
+            });
+
+            assertEquals(ResCodes.SOMETHING_WENT_WRONG, exception.getResCodes());
+            verify(pdfService).generateHikeLetter(any(), any(), anyString());
+
+        }
+    }
+
 }

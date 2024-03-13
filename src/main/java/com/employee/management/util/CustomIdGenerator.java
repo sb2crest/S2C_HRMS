@@ -16,7 +16,7 @@ public class CustomIdGenerator implements IdentifierGenerator {
 
     @Override
     public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
-        String query = "SELECT MAX(employee_id) FROM Employees";
+        String query = "SELECT MAX(employee_id) FROM employees";
         Connection connection = null;
         try {
             connection = session.getJdbcConnectionAccess().obtainConnection();
