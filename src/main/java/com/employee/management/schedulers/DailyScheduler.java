@@ -114,7 +114,7 @@ public class DailyScheduler {
                 "Employee ID: "+employee.getEmployeeID()+" \n" +
                 "Designation: "+employee.getDesignation()+" \n" +
                 "Location: "+employee.getLocation()+" \n" +
-                "Date of Joining: "+employee.getDateOfJoin().toInstant().atZone(ZoneId.systemDefault()).toLocalDate() +" \n" +
+                "Date of Joining: "+employee.getDateOfJoin() +" \n" +
                 "Please review the employee's performance and make the necessary arrangements for the hike as per the company's policies.";
     }
 

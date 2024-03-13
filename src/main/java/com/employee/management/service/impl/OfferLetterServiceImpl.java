@@ -30,7 +30,7 @@ public class OfferLetterServiceImpl implements OfferLetterService {
 
     @Override
     public CtcData preview(String grossSalary){
-        return calculator.compensationDetails(formatters.convertStringToDoubleAmount(grossSalary));
+        return calculator.compensationDetails(Formatters.convertStringToDoubleAmount(grossSalary));
     }
 
     @Override

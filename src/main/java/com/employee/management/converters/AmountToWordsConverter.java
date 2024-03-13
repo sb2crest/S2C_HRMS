@@ -9,6 +9,8 @@ import java.util.HashMap;
 public class AmountToWordsConverter {
 
     public  String convertToIndianCurrency(String amount) {
+        if(amount==null)
+            return "";
         amount=amount.replace(",","");
         double v = Double.parseDouble(amount);
         BigDecimal bd = new BigDecimal(String.valueOf(v));
