@@ -37,16 +37,8 @@ public class EmployeeController {
         else throw new CompanyException(ResCodes.NOT_AUTHORIZED);
     }
 
-    @GetMapping("/testing")
-    public ResponseEntity<String> test(HttpServletRequest request) {
-        String ipAddress = request.getRemoteAddr();
-        System.out.println("Client IP Address: " + ipAddress);
-        String text = "successful";
-        return new ResponseEntity<>(text, HttpStatus.OK);
-    }
-
-    @GetMapping("/get-by-id/{empId}")
-    public ResponseEntity<EmployeeNameDTO> getEmployeeName(@PathVariable String empId) {
+    @GetMapping("/get-by-id")
+    public ResponseEntity<EmployeeNameDTO> getEmployeeName(@RequestParam String empId) {
         return new ResponseEntity<>(employeeService.getEmployeeNameById(empId), HttpStatus.OK);
     }
 }

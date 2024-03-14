@@ -82,8 +82,6 @@ public class PayrollUpdater {
         Integer totalLeaves= attendanceRepository.getNoOfAbsence(employeeID, firstDay,currentDate );
         YearMonth currentYearMonth = YearMonth.now();
         Integer numberOfDaysInMonth = currentYearMonth.lengthOfMonth();
-//        YearMonth december2023 = YearMonth.of(2024, Month.JANUARY);
-//        int numberOfDaysInMonth = december2023.lengthOfMonth();
         if(totalLeaves==0){
             payroll.setTotalPaidDays(numberOfDaysInMonth-totalLeaves);
             payroll.setTotalLopDays(totalLeaves);

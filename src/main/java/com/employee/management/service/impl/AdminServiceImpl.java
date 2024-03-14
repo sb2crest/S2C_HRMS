@@ -50,7 +50,7 @@ public class AdminServiceImpl implements AdminService {
                             Mapper mapper, EmailSenderService emailSenderService,
                             PasswordEncoder passwordEncoder, PDFService pdfService,
                             EmailBodyBuilder emailBodyBuilder, CtcCalculator calculator,
-                            Formatters formatters, AmountToWordsConverter converter) {
+                            AmountToWordsConverter converter) {
         this.employeeRepository = employeeRepository;
         this.roleRepository = roleRepository;
         this.payrollRepository = payrollRepository;
@@ -263,7 +263,7 @@ public class AdminServiceImpl implements AdminService {
 
         if(!hike.getIsApproved()) {
             hike.setIsApproved(true);
-            hike.setIsPromoted(request.getNewPosition() != null || !request.getNewPosition().equals("None"));
+            hike.setIsPromoted(request.getNewPosition() != null && !request.getNewPosition().equals("None"));
 
             hike.setHikePercentage(Double.valueOf(request.getPercentage()));
             hike.setApprovedBy(approvedBy);

@@ -374,6 +374,47 @@ class AdminControllerTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    void testGetPayrollDetails() throws Exception {
+        String empId= "EMP01";
+        when(payRollService.getPayrollDetails(eq(empId))).thenReturn(new CtcData());
+
+        mockMvc.perform(get("/admin/view-payroll-by-id")
+                        .param("empId", empId)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void testPreviewNewPayRoll() throws Exception {
+        PayrollDTO dto = new PayrollDTO();
+        dto.setEmployeeId("1");
+        EmployeeDTO employeeDto = new EmployeeDTO();
+        byte[] data = new byte[10];
+        PaySlip paySlip = new PaySlip();
+        paySlip.setPayrollDTO(dto);
+        paySlip.setEmployeeDTO(employeeDto);
+
+        when(employeeService.getEmployee(any())).thenReturn(employeeDto);
+        when(pdfService.generatePaySlipPdf(any(PaySlip.class))).thenReturn(data);
 
 
+        mockMvc.perform(post("/admin/preview-payslip")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"employeeId\":1}"))
+               .andExpect(status().isOk());
+    }
+
+    @Test
+    void testPreviewMonthlyPayroll() throws Exception {
+        AddMonthlyPayRollRequest request = new AddMonthlyPayRollRequest();
+        byte[] data = new byte[10];
+
+        when(adminService.previewPayslipPdf(any(AddMonthlyPayRollRequest.class))).thenReturn(data);
+
+        mockMvc.perform(post("/admin/preview-new-payslip")
+                       .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"propertyName\":\"value\"}"))
+              .andExpect(status().isOk());
+    }
 }

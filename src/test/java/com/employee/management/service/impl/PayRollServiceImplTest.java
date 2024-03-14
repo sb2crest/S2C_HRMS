@@ -10,17 +10,26 @@ import com.employee.management.models.Employee;
 import com.employee.management.models.Payroll;
 import com.employee.management.repository.EmployeeRepository;
 import com.employee.management.repository.PayrollRepository;
+import com.employee.management.util.CtcCalculator;
+import com.employee.management.util.Formatters;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.MockBeans;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(SpringExtension.class)
 class PayRollServiceImplTest {
 
     @Mock
@@ -77,9 +86,10 @@ class PayRollServiceImplTest {
         employee.setEmployeeID(empId);
         when(employeeRepository.findById(empId)).thenReturn(Optional.empty());
 
-        assertThrows(CompanyException.class,() ->payRollService.getPaySlip(empId,payPeriod));
-        verify(employeeRepository,times(1)).findById(empId);
+        assertThrows(CompanyException.class, () -> payRollService.getPaySlip(empId, payPeriod));
+        verify(employeeRepository, times(1)).findById(empId);
     }
+
     @Test
     void testGetPaySlip_throwsSalarySlipExists() {
         String empId = "1";
@@ -90,12 +100,12 @@ class PayRollServiceImplTest {
         when(payrollRepository.getPayPeriodDetails(payPeriod, employee)).thenReturn(Optional.empty());
 
 
-        assertThrows(CompanyException.class,() ->payRollService.getPaySlip(empId,payPeriod));
-        verify(employeeRepository,times(1)).findById(empId);
+        assertThrows(CompanyException.class, () -> payRollService.getPaySlip(empId, payPeriod));
+        verify(employeeRepository, times(1)).findById(empId);
     }
 
     @Test
-    void testGetPayRollDetails(){
+    void testGetPayRollDetails() {
         String empId = "S2C01";
         Employee employee = new Employee();
         employee.setEmployeeID(empId);
@@ -105,18 +115,19 @@ class PayRollServiceImplTest {
         CtcData result = payRollService.getPayrollDetails(empId);
 
         assertNotNull(result);
-        assertEquals(result.getYearlyGrossCtc(),"100000.00");
+        assertEquals(result.getYearlyGrossCtc(), "1,00,000.00");
         verify(employeeRepository, times(1)).findById(empId);
     }
+
     @Test
-    void testGetPayRollDetailsWithException(){
+    void testGetPayRollDetailsWithException() {
         String empId = "S2C01";
         Employee employee = new Employee();
         employee.setEmployeeID(empId);
         employee.setGrossSalary(100000D);
         when(employeeRepository.findById(empId)).thenReturn(Optional.empty());
 
-        assertThrows(CompanyException.class,()-> payRollService.getPayrollDetails(empId));
+        assertThrows(CompanyException.class, () -> payRollService.getPayrollDetails(empId));
         verify(employeeRepository, times(1)).findById(empId);
     }
 }

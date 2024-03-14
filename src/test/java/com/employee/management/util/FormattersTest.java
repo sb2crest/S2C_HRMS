@@ -26,7 +26,7 @@ class FormattersTest {
 
         assertEquals("", formatters.formatAmountWithCommas(null));
 
-        assertEquals("0", formatters.formatAmountWithCommas(0.0));
+        assertEquals("0.00", formatters.formatAmountWithCommas(0.0));
 
         assertEquals("200.00", formatters.formatAmountWithCommas(200D));
     }

@@ -23,10 +23,6 @@ public class Mapper {
     @Autowired
     DateTimeConverter dateConverter;
     @Autowired
-    Formatters formatter;
-    @Autowired
-    DateTimeConverter dateTimeConverter;
-    @Autowired
     CtcCalculator calculator;
     @Autowired
     Util util;
@@ -50,7 +46,7 @@ public class Mapper {
             employeeDTO.setDepartment(employee.getDepartment());
             employeeDTO.setUanNumber(employee.getUanNumber());
             employeeDTO.setDateOfJoin(dateConverter.localDateTimeToStringConverter(employee.getDateOfJoin()));
-            employeeDTO.setGrossSalary(formatter.formatAmountWithCommas(employee.getGrossSalary()));
+            employeeDTO.setGrossSalary(Formatters.formatAmountWithCommas(employee.getGrossSalary()));
             employeeDTO.setNextHikeDate(dateConverter.localDateTimeToStringConverter(employee.getNextHikeDate()));
         }
         return employeeDTO;
@@ -61,19 +57,19 @@ public class Mapper {
         dto.setPayPeriod(payroll.getPayPeriod());
         dto.setPayDate(dateConverter.localDateTimeToStringConverter(payroll.getPayDate()));
         dto.setEmployeeId(payroll.getEmployee().getEmployeeID());
-        dto.setBasic(formatter.formatAmountWithCommas(payroll.getBasic()));
-        dto.setHouseRentAllowance(formatter.formatAmountWithCommas(payroll.getHouseRentAllowance()));
-        dto.setMedicalAllowance(formatter.formatAmountWithCommas(payroll.getMedicalAllowance()));
-        dto.setOtherAllowance(formatter.formatAmountWithCommas(payroll.getOtherAllowance()));
-        dto.setGrossEarnings(formatter.formatAmountWithCommas(payroll.getGrossEarnings()));
-        dto.setProvidentFund(formatter.formatAmountWithCommas(payroll.getProvidentFund()));
-        dto.setTotalDeductions(formatter.formatAmountWithCommas(payroll.getTotalDeductions()));
-        dto.setTotalNetPayable(formatter.formatAmountWithCommas((double) Math.round(payroll.getTotalNetPayable())));
-        dto.setProfessionalTax(formatter.formatAmountWithCommas(payroll.getProfessionalTax()));
+        dto.setBasic(Formatters.formatAmountWithCommas(payroll.getBasic()));
+        dto.setHouseRentAllowance(Formatters.formatAmountWithCommas(payroll.getHouseRentAllowance()));
+        dto.setMedicalAllowance(Formatters.formatAmountWithCommas(payroll.getMedicalAllowance()));
+        dto.setOtherAllowance(Formatters.formatAmountWithCommas(payroll.getOtherAllowance()));
+        dto.setGrossEarnings(Formatters.formatAmountWithCommas(payroll.getGrossEarnings()));
+        dto.setProvidentFund(Formatters.formatAmountWithCommas(payroll.getProvidentFund()));
+        dto.setTotalDeductions(Formatters.formatAmountWithCommas(payroll.getTotalDeductions()));
+        dto.setTotalNetPayable(Formatters.formatAmountWithCommas((double) Math.round(payroll.getTotalNetPayable())));
+        dto.setProfessionalTax(Formatters.formatAmountWithCommas(payroll.getProfessionalTax()));
         dto.setTotalDaysPaid(payroll.getTotalPaidDays());
-        dto.setIncomeTax(formatter.formatAmountWithCommas(payroll.getIncomeTax()));
+        dto.setIncomeTax(Formatters.formatAmountWithCommas(payroll.getIncomeTax()));
         dto.setTotalLopDays(payroll.getTotalLopDays());
-        dto.setLeaveDeduction(formatter.formatAmountWithCommas(payroll.getLeaveDeduction()));
+        dto.setLeaveDeduction(Formatters.formatAmountWithCommas(payroll.getLeaveDeduction()));
         return dto;
     }
 
@@ -82,19 +78,19 @@ public class Mapper {
         if(payrollDTO !=null) {
             payroll.setPayDate(dateConverter.stringToLocalDateTimeConverter(payrollDTO.getPayDate()));
             payroll.setPayPeriod(payrollDTO.getPayPeriod());
-            payroll.setBasic(formatter.convertStringToDoubleAmount(payrollDTO.getBasic()));
-            payroll.setHouseRentAllowance(formatter.convertStringToDoubleAmount(payrollDTO.getHouseRentAllowance()));
-            payroll.setMedicalAllowance(formatter.convertStringToDoubleAmount(payrollDTO.getMedicalAllowance()));
-            payroll.setOtherAllowance(formatter.convertStringToDoubleAmount(payrollDTO.getOtherAllowance()));
-            payroll.setGrossEarnings(formatter.convertStringToDoubleAmount(payrollDTO.getGrossEarnings()));
-            payroll.setLeaveDeduction(formatter.convertStringToDoubleAmount(payrollDTO.getLeaveDeduction()));
-            payroll.setProfessionalTax(formatter.convertStringToDoubleAmount(payrollDTO.getProfessionalTax()));
-            payroll.setProvidentFund(formatter.convertStringToDoubleAmount(payrollDTO.getProvidentFund()));
-            payroll.setTotalDeductions(formatter.convertStringToDoubleAmount(payrollDTO.getTotalDeductions()));
-            payroll.setTotalNetPayable(formatter.convertStringToDoubleAmount(payrollDTO.getTotalNetPayable()));
+            payroll.setBasic(Formatters.convertStringToDoubleAmount(payrollDTO.getBasic()));
+            payroll.setHouseRentAllowance(Formatters.convertStringToDoubleAmount(payrollDTO.getHouseRentAllowance()));
+            payroll.setMedicalAllowance(Formatters.convertStringToDoubleAmount(payrollDTO.getMedicalAllowance()));
+            payroll.setOtherAllowance(Formatters.convertStringToDoubleAmount(payrollDTO.getOtherAllowance()));
+            payroll.setGrossEarnings(Formatters.convertStringToDoubleAmount(payrollDTO.getGrossEarnings()));
+            payroll.setLeaveDeduction(Formatters.convertStringToDoubleAmount(payrollDTO.getLeaveDeduction()));
+            payroll.setProfessionalTax(Formatters.convertStringToDoubleAmount(payrollDTO.getProfessionalTax()));
+            payroll.setProvidentFund(Formatters.convertStringToDoubleAmount(payrollDTO.getProvidentFund()));
+            payroll.setTotalDeductions(Formatters.convertStringToDoubleAmount(payrollDTO.getTotalDeductions()));
+            payroll.setTotalNetPayable(Formatters.convertStringToDoubleAmount(payrollDTO.getTotalNetPayable()));
             payroll.setTotalPaidDays(payrollDTO.getTotalDaysPaid());
             payroll.setTotalLopDays(payrollDTO.getTotalLopDays());
-            payroll.setIncomeTax(formatter.convertStringToDoubleAmount(payrollDTO.getIncomeTax()));
+            payroll.setIncomeTax(Formatters.convertStringToDoubleAmount(payrollDTO.getIncomeTax()));
             return payroll;
         }
         return payroll;
@@ -105,22 +101,22 @@ public class Mapper {
             Payroll payroll=new Payroll();
             payroll.setEmployee(employee);
             payroll.setTotalLopDays(request.getLopDays() != null?Integer.parseInt(request.getLopDays()):0);
-            payroll.setPayDate(dateTimeConverter.stringToLocalDateTimeConverter(request.getPayDate()));
+            payroll.setPayDate(dateConverter.stringToLocalDateTimeConverter(request.getPayDate()));
             payroll.setPayPeriod(request.getPayPeriod());
-            payroll.setBasic(formatter.convertStringToDoubleAmount(ctcData.getMonthlyBasic()));
-            payroll.setHouseRentAllowance(formatter.convertStringToDoubleAmount(ctcData.getMonthlyHRA()));
-            payroll.setMedicalAllowance(formatter.convertStringToDoubleAmount(ctcData.getMonthlyMedAllowance()));
-            payroll.setOtherAllowance(formatter.convertStringToDoubleAmount(ctcData.getMonthlyOtherAllowance()));
-            payroll.setGrossEarnings(formatter.convertStringToDoubleAmount(ctcData.getMonthlyGrossCtc()));
+            payroll.setBasic(Formatters.convertStringToDoubleAmount(ctcData.getMonthlyBasic()));
+            payroll.setHouseRentAllowance(Formatters.convertStringToDoubleAmount(ctcData.getMonthlyHRA()));
+            payroll.setMedicalAllowance(Formatters.convertStringToDoubleAmount(ctcData.getMonthlyMedAllowance()));
+            payroll.setOtherAllowance(Formatters.convertStringToDoubleAmount(ctcData.getMonthlyOtherAllowance()));
+            payroll.setGrossEarnings(Formatters.convertStringToDoubleAmount(ctcData.getMonthlyGrossCtc()));
 
-            payroll.setIncomeTax(formatter.convertStringToDoubleAmount(ctcData.getMonthlyIncomeTax()));
-            payroll.setProfessionalTax(formatter.convertStringToDoubleAmount(ctcData.getMonthlyProfessionalTax()));
-            payroll.setProvidentFund(formatter.convertStringToDoubleAmount(ctcData.getMonthlyProvidentFund()));
+            payroll.setIncomeTax(Formatters.convertStringToDoubleAmount(ctcData.getMonthlyIncomeTax()));
+            payroll.setProfessionalTax(Formatters.convertStringToDoubleAmount(ctcData.getMonthlyProfessionalTax()));
+            payroll.setProvidentFund(Formatters.convertStringToDoubleAmount(ctcData.getMonthlyProvidentFund()));
             double regularNetPayable= payroll.getGrossEarnings()-(payroll.getIncomeTax()+payroll.getProfessionalTax()+payroll.getProvidentFund());
             long leaveDeductions=Math.round (regularNetPayable/30)*payroll.getTotalLopDays();
             payroll.setLeaveDeduction((double) leaveDeductions);
-            payroll.setTotalDeductions(formatter.convertStringToDoubleAmount(ctcData.getMonthlyTotalDeduction())+payroll.getLeaveDeduction());
-            payroll.setTotalNetPayable(formatter.convertStringToDoubleAmount(ctcData.getMonthlyGrossCtc())-payroll.getTotalDeductions());
+            payroll.setTotalDeductions(Formatters.convertStringToDoubleAmount(ctcData.getMonthlyTotalDeduction())+payroll.getLeaveDeduction());
+            payroll.setTotalNetPayable(Formatters.convertStringToDoubleAmount(ctcData.getMonthlyGrossCtc())-payroll.getTotalDeductions());
             payroll.setTotalPaidDays(util.getNumberOfDaysInMonth(payroll.getPayPeriod())-payroll.getTotalLopDays());
             return payroll;
         }
@@ -148,7 +144,7 @@ public class Mapper {
         nextHikeDate = cal.getTime();
         employee.setNextHikeDate(nextHikeDate);
 
-        employee.setGrossSalary(formatter.convertStringToDoubleAmount(employeeDTO.getGrossSalary()));
+        employee.setGrossSalary(Formatters.convertStringToDoubleAmount(employeeDTO.getGrossSalary()));
         employee.setPfNumber(employeeDTO.getPfNumber());
         employee.setUanNumber(employeeDTO.getUanNumber());
         return employee;
@@ -157,7 +153,7 @@ public class Mapper {
     public OfferLetterEntity convertToOfferLetterEntity(OfferLetterDTO offerLetterDTO){
         OfferLetterEntity offerLetter=new OfferLetterEntity();
         if(offerLetterDTO!=null){
-            offerLetter.setCtc(formatter.convertStringToDoubleAmount(offerLetterDTO.getCtc()));
+            offerLetter.setCtc(Formatters.convertStringToDoubleAmount(offerLetterDTO.getCtc()));
             offerLetter.setFullName(offerLetterDTO.getFullName());
             offerLetter.setEmail(offerLetterDTO.getEmail());
             offerLetter.setJoiningDate(dateConverter
@@ -173,7 +169,7 @@ public class Mapper {
 
     public OfferLetterDTO convertToOfferLetterDto(OfferLetterEntity entity){
         OfferLetterDTO offerLetterDTO=new OfferLetterDTO();
-        offerLetterDTO.setCtc(formatter.formatAmountWithCommas(entity.getCtc()));
+        offerLetterDTO.setCtc(Formatters.formatAmountWithCommas(entity.getCtc()));
         offerLetterDTO.setIssuedDate(dateConverter.localDateTimeToStringConverter(entity.getIssuedDate()));
         offerLetterDTO.setJoiningDate(dateConverter.localDateTimeToStringConverter(entity.getJoiningDate()));
         offerLetterDTO.setFullName(entity.getFullName());
@@ -193,8 +189,8 @@ public class Mapper {
         hikeEntityDTO.setEmployeeId(hike.getEmployee().getEmployeeID());
         hikeEntityDTO.setReason(hike.getReason());
         hikeEntityDTO.setApprovedDate(dateConverter.localDateTimeToStringConverter(hike.getApprovedDate()));
-        hikeEntityDTO.setNewSalary(formatter.formatAmountWithCommas(hike.getNewSalary()));
-        hikeEntityDTO.setPrevSalary(formatter.formatAmountWithCommas(hike.getPrevSalary()));
+        hikeEntityDTO.setNewSalary(Formatters.formatAmountWithCommas(hike.getNewSalary()));
+        hikeEntityDTO.setPrevSalary(Formatters.formatAmountWithCommas(hike.getPrevSalary()));
         hikeEntityDTO.setStatus(hike.getIsApproved());
         hikeEntityDTO.setNewPosition(hike.getNewPosition());
         hikeEntityDTO.setPrevPosition(hike.getPrevPosition());
@@ -205,14 +201,14 @@ public class Mapper {
 
     public CalendarDTO getCalendarDTO(CalendarEntity calendarEntity){
         CalendarDTO calendarDTO=new CalendarDTO();
-        calendarDTO.setDate(dateTimeConverter.localDateTimeToStringConverter(calendarEntity.getDate()));
+        calendarDTO.setDate(dateConverter.localDateTimeToStringConverter(calendarEntity.getDate()));
         calendarDTO.setEvent(calendarEntity.getEvent());
         calendarDTO.setPeriod(formatMonthYear(calendarEntity.getDate()));
         return calendarDTO;
     }
     public CalendarEntity getCalendarEntity(CalendarDTO calendarDTO){
         CalendarEntity calendarEntity=new CalendarEntity();
-        calendarEntity.setDate(dateTimeConverter.stringToLocalDateTimeConverter(calendarDTO.getDate()));
+        calendarEntity.setDate(dateConverter.stringToLocalDateTimeConverter(calendarDTO.getDate()));
         calendarEntity.setEvent(calendarDTO.getEvent());
         calendarEntity.setPeriod(formatMonthYear(calendarEntity.getDate()));
         return calendarEntity;

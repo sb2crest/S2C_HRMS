@@ -2,6 +2,7 @@ package com.employee.management.service.impl;
 
 import com.employee.management.DTO.ChangePasswordRequest;
 import com.employee.management.DTO.EmployeeDTO;
+import com.employee.management.DTO.EmployeeNameDTO;
 import com.employee.management.DTO.ForgetPasswordRequest;
 import com.employee.management.converters.Mapper;
 import com.employee.management.exception.CompanyException;
@@ -259,5 +260,38 @@ class EmployeeServiceImplTest {
 
         assertThrows(CompanyException.class, () -> employeeService.forgetPassword(request));
         verify(verification,times(1)).verifyOtp(request.getEmpId(),request.getOtp());
+    }
+
+    @Test
+    void testGetEmployeeNameById() {
+        String id = "1";
+
+        Employee employee=new Employee();
+        employee.setEmployeeID(id);
+        employee.setEmployeeName("John Doe");
+
+        when(employeeRepository.findById(anyString())).thenReturn(Optional.of(employee));
+        EmployeeNameDTO employeeNameDTO = new EmployeeNameDTO();
+        employeeNameDTO.setEmployeeName("John Doe");
+
+        EmployeeNameDTO result = employeeService.getEmployeeNameById(id);
+
+        assertEquals(employeeNameDTO, result);
+        verify(employeeRepository, times(1)).findById(id);
+    }
+    @Test
+    void testGetEmployeeNameById_employeeNotFound() {
+        String id = "1";
+
+        Employee employee=new Employee();
+        employee.setEmployeeID(id);
+        employee.setEmployeeName("John Doe");
+
+        when(employeeRepository.findById(anyString())).thenReturn(Optional.empty());
+        EmployeeNameDTO employeeNameDTO = new EmployeeNameDTO();
+        employeeNameDTO.setEmployeeName("John Doe");
+
+        assertThrows(CompanyException.class ,()-> employeeService.getEmployeeNameById(id));
+
     }
 }

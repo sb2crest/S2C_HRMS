@@ -59,19 +59,18 @@ class OfferLetterServiceImplTest {
         verify(mapper, times(1)).convertToOfferLetterDto(savedOfferLetterEntity);
     }
 
+
     @Test
     void testPreview() {
         String grossSalary = "10000";
         double grossSalaryDouble = 10000.0;
         CtcData ctcData = new CtcData();
 
-        when(formatters.convertStringToDoubleAmount(grossSalary)).thenReturn(grossSalaryDouble);
         when(calculator.compensationDetails(grossSalaryDouble)).thenReturn(ctcData);
 
         CtcData result = offerLetterService.preview(grossSalary);
 
         assertEquals(ctcData, result);
-        verify(formatters, times(1)).convertStringToDoubleAmount(grossSalary);
         verify(calculator, times(1)).compensationDetails(grossSalaryDouble);
     }
 

@@ -20,10 +20,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-
 class CtcCalculatorTest {
-    @Mock
-    private Formatters formatters;
     @InjectMocks
     private CtcCalculator ctcCalculator;
 
@@ -35,24 +32,23 @@ class CtcCalculatorTest {
 
     @Test
     void testCompensationDetails_Below500000() {
-        CtcData data = new CtcData();
         Double grossSalary = 400000.0;
-        when(ctcCalculator.compensationDetails(eq(grossSalary))).thenReturn(data);
-        data.setYearlyGrossCtc(formatters.formatAmountWithCommas(grossSalary));
+        CtcData data=ctcCalculator.compensationDetails(grossSalary);
         assertEquals("4,00,000.00", data.getYearlyGrossCtc());
         assertEquals("33,333.00", data.getMonthlyGrossCtc());
-
+        assertEquals("0.00", data.getMonthlyIncomeTax());
     }
     @Test
     void testCompensationDetails_Above500000() {
         CtcData data = ctcCalculator.compensationDetails(500001.0);
         assertEquals("5,00,001.00", data.getYearlyGrossCtc());
         assertEquals("41,667.00", data.getMonthlyGrossCtc());
+        assertEquals("24,996.00", data.getYearlyIncomeTax());
 
     }
     @Test
     void testCompensationDetails_Above1000000() {
-        Double grossSalary = 400000.0;
+        Double grossSalary = 1000001D;
         CtcData data = ctcCalculator.compensationDetails(grossSalary);
 
         assertEquals("10,00,001.00", data.getYearlyGrossCtc());
