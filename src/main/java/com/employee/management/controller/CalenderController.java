@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/calendar")
+@CrossOrigin(origins = "http://localhost:3000")
 public class CalenderController {
     @Autowired
     private CalendarService calendarService;

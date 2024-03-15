@@ -64,31 +64,31 @@
         <band height="73" splitType="Stretch">
             <property name="com.jaspersoft.studio.unit.height" value="px"/>
             <frame>
-                <reportElement x="0" y="0" width="555" height="73" uuid="46625392-fd20-4db6-8b6d-2a77e8be00e0"/>
+                <reportElement x="0" y="0" width="555" height="73" uuid="b41b0a8e-cec1-4613-997b-1f6f44e1bb29"/>
                 <image>
-                    <reportElement x="10" y="-7" width="80" height="68" uuid="b462cd17-434c-4ca4-b8cc-e3704ed92bc4"/>
+                    <reportElement x="10" y="-7" width="80" height="68" uuid="1f2ad98d-ed94-444a-8518-a878adaeb1b5"/>
                     <imageExpression><![CDATA["images/seabed2crest.jpg"]]></imageExpression>
                 </image>
-                <staticText>
-                    <reportElement x="109" y="1" width="389" height="36" uuid="c9855341-1612-47d1-8b73-8077c7ffa8ef"/>
-                    <textElement textAlignment="Center" verticalAlignment="Middle">
+                <textField>
+                    <reportElement x="110" y="3" width="389" height="42" uuid="d47f8477-a689-4b53-876a-b870622455c6"/>
+                    <textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
                         <font fontName="Arial" size="20"/>
                     </textElement>
-                    <text><![CDATA[Seabed2Crest Technologies Pvt Ltd]]></text>
-                </staticText>
+                    <textFieldExpression><![CDATA["<font color='#fbac04'>"+"Seabed2Crest"+"</font>"+"<font color='#4aa6c2'>"+" Technologies Pvt Ltd"+"</font>"]]></textFieldExpression>
+                </textField>
+                <line>
+                    <reportElement x="2" y="64" width="545" height="1" forecolor="#4271C2" uuid="1f21e3f2-8b94-4801-bce3-85ff5ea3c9d0"/>
+                </line>
+                <line>
+                    <reportElement x="2" y="66" width="545" height="1" forecolor="#EBC107" uuid="993a6070-3b96-424e-8e7f-c3de709dffc0"/>
+                </line>
                 <staticText>
-                    <reportElement x="96" y="34" width="418" height="16" uuid="775fc7d4-03ce-4eb8-8f06-728a0fc9e3bc"/>
+                    <reportElement x="96" y="34" width="418" height="16" uuid="364d5aa0-fb30-4b75-98b1-516a9afd086b"/>
                     <textElement textAlignment="Center">
                         <font fontName="Times New Roman"/>
                     </textElement>
                     <text><![CDATA[ 1st floor, R D Rajanna Complex, Rajanukunte,  Yelehanka Taluk Bengaluru, Karnataka 560064]]></text>
                 </staticText>
-                <line>
-                    <reportElement x="2" y="64" width="545" height="1" forecolor="#4271C2" uuid="1d75c5bf-fffc-4f62-8527-79c31c136f04"/>
-                </line>
-                <line>
-                    <reportElement x="2" y="66" width="545" height="1" forecolor="#EBC107" uuid="5d54939c-5201-47a0-b49f-d77f285ab4bf"/>
-                </line>
             </frame>
         </band>
     </title>

@@ -14,4 +14,14 @@ public class EmailBodyBuilder {
                 "If you have any questions, feel free to contact us." + "\n\n" +
                 "Best regards,\nThe HR Team";
     }
+
+    public String getBodyForHikeLetter(String name){
+        return "Dear "+name+",\n" +
+                "\n" +
+                "Congratulations on your Salary Hike. We wanted to extend our heartfelt congratulations on your Salary Hike! Your dedication, perseverance, and adventurous spirit have not only taken you to new heights \n" +
+                "in your personal journey but also in your professional career. Here's to celebrating your achievements and looking forward to even greater successes ahead! \n" +
+                "\n\n" +
+                "Thanks and Regards,\n" +
+                "Seabed2crest Technologies Pvt Ltd.";
+    }
 }
