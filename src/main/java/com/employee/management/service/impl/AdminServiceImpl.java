@@ -378,7 +378,6 @@ public class AdminServiceImpl implements AdminService {
         return mapper.convertToHikeEntityDto(save);
     }
 
-
     private void sendHikeLetterMail(byte [] pdf,String to) throws MessagingException, IOException {
         emailSenderService.sendEmailWithAttachment(to,"Salary Hike Updation ","Update",pdf);
     }
