@@ -11,6 +11,10 @@ public class AmountToWordsConverter {
     public  String convertToIndianCurrency(String amount) {
         if(amount==null)
             return "";
+        else if (amount.isEmpty())
+            return "";
+        else if (amount.equals("0"))
+            return "Rupees Zero Only";
         amount=amount.replace(",","");
         double v = Double.parseDouble(amount);
         BigDecimal bd = new BigDecimal(String.valueOf(v));

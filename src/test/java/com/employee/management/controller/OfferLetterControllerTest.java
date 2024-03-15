@@ -8,21 +8,28 @@ import com.employee.management.service.EmailSenderService;
 import com.employee.management.service.OfferLetterService;
 import com.employee.management.service.JWTService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import net.sf.jasperreports.engine.JRException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -44,6 +51,9 @@ public class OfferLetterControllerTest {
     private PDFService pdfService;
     @MockBean
     JWTService jwtService;
+    @InjectMocks
+    OfferLetterController offerLetterController;
+
     @MockBean
     JWTAuthFilter jwtFilter;
     @Autowired
@@ -70,29 +80,23 @@ public class OfferLetterControllerTest {
         mockMvc.perform(post("/offer-letter/send")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(offerLetterDTO)))
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
 
         verify(emailSenderService, times(1)).sendEmailWithAttachment(anyString(), anyString(), anyString(), any(byte[].class));
     }
-//    @Test
-//    public void testIssueOfferLetterWithException() throws Exception {
-//        OfferLetterDTO offerLetterDTO = new OfferLetterDTO();
-//        offerLetterDTO.setFullName("Vijay Pradhan");
-//        offerLetterDTO.setEmail("vijay@seabed2crest.com");
-//        offerLetterDTO.setPhoneNumber("+1234567890");
-//        offerLetterDTO.setDesignation("Software Engineer");
-//        offerLetterDTO.setDepartment("IT");
-//        offerLetterDTO.setJoiningDate("29-Feb-2024");
-//        offerLetterDTO.setCtc("2,16,000");
-//        when(offerLetterService.issueNewOfferLetter(any())).thenReturn(Optional.empty());
-//
-//        mockMvc.perform(post("/offer-letter/send")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(new ObjectMapper().writeValueAsString(offerLetterDTO)))
-//                .andExpect(status().isInternalServerError());
-//
-//    }
 
+    @Test
+    public void testIssueOfferLetter_Failure() throws Exception {
+        // Mock your service methods to simulate an exception
+        when(offerLetterService.issueNewOfferLetter(any())).thenThrow(new RuntimeException("Some error"));
+
+        // Perform the test
+        ResponseEntity<String> response = offerLetterController.issueOfferLetter(new OfferLetterDTO());
+
+        // Verify interactions and assert the response
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+        assertEquals("Failed to send email", response.getBody());
+    }
 
     @Test
     public void testPreviewCompensationDetails() throws Exception {

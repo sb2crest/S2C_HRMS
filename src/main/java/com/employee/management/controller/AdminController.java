@@ -115,6 +115,10 @@ public class AdminController {
         return pdfService.generatePdfPreviewResponse(adminService.previewPayslipPdf(request));
     }
 
+    @GetMapping("/leave-deduction")
+    public ResponseEntity<CtcData>payDetailsWithLeaveDeduction(@RequestBody AddMonthlyPayRollRequest request){
+        return new ResponseEntity<>(payRollService.getPayrollDetailsWithLeaveDeduction(request),HttpStatus.OK);
+    }
 
 
     //----------------------------------------------------------------

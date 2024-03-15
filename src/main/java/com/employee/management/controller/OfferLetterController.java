@@ -21,17 +21,19 @@ public class OfferLetterController {
     EmailSenderService emailSenderService;
     @Autowired
     PDFService pdfService;
+
     @PostMapping("/send")
-    public ResponseEntity<String> issueOfferLetter(@RequestBody OfferLetterDTO offerLetterDTO) throws JRException, IOException {
-        OfferLetterDTO letterDTO=offerLetterService.issueNewOfferLetter(offerLetterDTO);
+    public ResponseEntity<String> issueOfferLetter(@RequestBody OfferLetterDTO offerLetterDTO) {
         try {
+            OfferLetterDTO letterDTO = offerLetterService.issueNewOfferLetter(offerLetterDTO);
             byte[] pdfBytes = pdfService.generateMergedOfferReport(letterDTO);
-            emailSenderService.sendEmailWithAttachment(letterDTO.getEmail(),"Offer and Appointment Letter ","Congratulations",pdfBytes);
-            return new ResponseEntity<>("Email sent successfully",HttpStatus.OK);
+            emailSenderService.sendEmailWithAttachment(letterDTO.getEmail(), "Offer and Appointment Letter ", "Congratulations", pdfBytes);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Email sent successfully");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to send email");
         }
     }
+
 
     @PostMapping("/preview-compensation-details")
     public ResponseEntity<CtcData> preview(@RequestBody OfferLetterDTO offerLetterDTO){

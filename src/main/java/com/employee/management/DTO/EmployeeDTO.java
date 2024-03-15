@@ -23,4 +23,6 @@ public class EmployeeDTO {
     private String pfNumber;
     private String grossSalary;
     private String nextHikeDate;
+
+
 }
