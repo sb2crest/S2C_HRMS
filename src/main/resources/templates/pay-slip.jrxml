@@ -84,13 +84,13 @@
                 <reportElement x="-9" y="-6" width="70" height="61" backcolor="#000000" uuid="568e2568-ed94-4908-94d0-8fe09a186089"/>
                 <imageExpression><![CDATA["src/main/resources/images/seabed2crest.jpg"]]></imageExpression>
             </image>
-            <staticText>
+            <textField>
                 <reportElement x="71" y="4" width="360" height="30" uuid="49a6538e-28c6-47a2-8c44-71fd3848d6d6"/>
-                <textElement>
-                    <font fontName="Dialog" size="20" isBold="true"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle" markup="html">
+                    <font fontName="Arial" size="20"/>
                 </textElement>
-                <text><![CDATA[Seabed2Crest Technologies Pvt Ltd]]></text>
-            </staticText>
+                <textFieldExpression><![CDATA["<font color='#fbac04'>"+"Seabed2Crest"+"</font>"+"<font color='#4aa6c2'>"+" Technologies Pvt Ltd"+"</font>"]]></textFieldExpression>
+            </textField>
             <staticText>
                 <reportElement x="81" y="31" width="298" height="24" uuid="2743c57f-a6f5-4e86-8cfa-78a87f7c3ebc"/>
                 <textElement textAlignment="Center">

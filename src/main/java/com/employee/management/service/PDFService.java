@@ -85,6 +85,7 @@ public class PDFService {
         parameters2.put("employee", employee);
         parameters2.put("prevSalaryDetails", calculator.compensationDetails(hike.getPrevSalary()));
         parameters2.put("newSalaryDetails", calculator.compensationDetails(hike.getNewSalary()));
+        parameters2.put("updatedDesignation",hike.getIsPromoted()? mapper.convertToHikeEntityDto(hike).getNewPosition():employee.getDesignation());
 
         JasperPrint jasperPrint1 = JasperFillManager.fillReport(template1, parameters1, new JREmptyDataSource());
         JasperPrint jasperPrint2 = JasperFillManager.fillReport(template2, parameters2, new JREmptyDataSource());

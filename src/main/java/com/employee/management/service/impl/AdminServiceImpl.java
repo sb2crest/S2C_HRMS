@@ -274,7 +274,7 @@ public class AdminServiceImpl implements AdminService {
             hike.setNewPosition(hike.getIsPromoted()?request.getNewPosition():null);
             HikeEntity savedHike = hikeRepository.save(hike);
             try{
-                sendHikeLetterMail(pdfService.generateHikeLetter(mapper.convertToEmployeeDTO(employee),savedHike,request.getIssuedDate()),employee.getEmail());
+                sendHikeLetterMail(pdfService.generateHikeLetter(mapper.convertToEmployeeDTO(employee),savedHike,request.getIssuedDate()),employee.getEmail(),employee.getEmployeeName());
                 return "Mail sent Successfully";
             }catch (Exception e){
                 System.out.println(e);
@@ -301,11 +301,11 @@ public class AdminServiceImpl implements AdminService {
         hike.setNewPosition(request.getNewPosition());
         hike.setPrevSalary(employee.getGrossSalary());
         hike.setNewSalary((hike.getPrevSalary() * (hike.getHikePercentage() / 100)) + hike.getPrevSalary());
-        hike.setIsPromoted(request.getNewPosition() != null && !request.getNewPosition().equals("None"));
+        hike.setIsPromoted(request.getNewPosition() != null && !request.getNewPosition().equals("None") && !request.getNewPosition().isEmpty());
         hike.setApprovedDate(new Date());
         HikeEntity savedHike = hikeRepository.save(hike);
         try{
-            sendHikeLetterMail(pdfService.generateHikeLetter(mapper.convertToEmployeeDTO(employee),savedHike, request.getIssuedDate()),employee.getEmail());
+            sendHikeLetterMail(pdfService.generateHikeLetter(mapper.convertToEmployeeDTO(employee),savedHike, request.getIssuedDate()),employee.getEmail(),employee.getEmployeeName());
         }catch (Exception e){
             System.out.println(e);
         }
@@ -319,6 +319,7 @@ public class AdminServiceImpl implements AdminService {
         Employee approvedBy=employeeRepository.findById(request.getApprovedBy())
                 .orElseThrow(()->new CompanyException(ResCodes.EMPLOYEE_NOT_FOUND));
         HikeEntity hike=new HikeEntity();
+        System.err.println(request.getNewPosition());
         hike.setEmployee(employee);
         hike.setApprovedBy(approvedBy);
         hike.setIsApproved(true);
@@ -329,11 +330,12 @@ public class AdminServiceImpl implements AdminService {
         hike.setNewPosition(request.getNewPosition());
         hike.setPrevSalary(employee.getGrossSalary());
         hike.setNewSalary((hike.getPrevSalary() * (hike.getHikePercentage() / 100)) + hike.getPrevSalary());
-        hike.setIsPromoted(request.getNewPosition() != null && !request.getNewPosition().equals("None"));
+        hike.setIsPromoted(request.getNewPosition() != null && !request.getNewPosition().equals("None") && !request.getNewPosition().isEmpty());
         hike.setApprovedDate(dateTimeConverter.stringToLocalDateTimeConverter(request.getApprovedDate()));
         try {
             return pdfService.generateHikeLetter(mapper.convertToEmployeeDTO(employee), hike,request.getIssuedDate());
         }catch (Exception e){
+            System.out.println(e);
             throw new CompanyException(ResCodes.SOMETHING_WENT_WRONG);
         }
 
@@ -349,7 +351,7 @@ public class AdminServiceImpl implements AdminService {
         String formattedDate = currentDate.format(formatter);
 
         try{
-            sendHikeLetterMail(pdfService.generateHikeLetter(mapper.convertToEmployeeDTO(employee),hike,formattedDate),employee.getEmail());
+            sendHikeLetterMail(pdfService.generateHikeLetter(mapper.convertToEmployeeDTO(employee),hike,formattedDate),employee.getEmail(),employee.getEmployeeName());
             return "Email send Successfully";
         }catch (Exception e){
             System.out.println(e);
@@ -378,8 +380,9 @@ public class AdminServiceImpl implements AdminService {
         return mapper.convertToHikeEntityDto(save);
     }
 
-    private void sendHikeLetterMail(byte [] pdf,String to) throws MessagingException, IOException {
-        emailSenderService.sendEmailWithAttachment(to,"Salary Hike Updation ","Update",pdf);
+    private void sendHikeLetterMail(byte [] pdf,String to,String name) throws MessagingException, IOException {
+        emailSenderService.sendEmailWithAttachment(to,"Salary Hike Letter ",emailBodyBuilder.getBodyForHikeLetter(name),pdf);
     }
+
 
 }

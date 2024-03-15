@@ -14,6 +14,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/offer-letter")
+@CrossOrigin(origins = "http://localhost:3000")
 public class OfferLetterController {
     @Autowired
     OfferLetterService offerLetterService;

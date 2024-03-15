@@ -17,7 +17,7 @@ import java.util.Date;
 
 @SpringBootApplication
 @EnableScheduling
-@EnableTransactionManagement
+
 public class ManagementApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ManagementApplication.class, args);

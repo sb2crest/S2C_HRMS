@@ -4,6 +4,7 @@
     <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
     <property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (2)"/>
     <parameter name="employee" class="com.employee.management.DTO.EmployeeDTO"/>
+    <parameter name="updatedDesignation" class="java.lang.String"/>
     <parameter name="prevSalaryDetails" class="com.employee.management.DTO.CtcData"/>
     <parameter name="newSalaryDetails" class="com.employee.management.DTO.CtcData"/>
     <queryString language="SQL">
@@ -59,26 +60,26 @@
         <band height="73" splitType="Stretch">
             <property name="com.jaspersoft.studio.unit.height" value="px"/>
             <frame>
-                <reportElement x="0" y="0" width="555" height="73" uuid="22628884-66c8-469c-a09f-21aa901f3882"/>
-                <staticText>
-                    <reportElement x="109" y="1" width="389" height="36" uuid="0817a7d6-0e8d-4922-9f0c-37e20f610cfe"/>
-                    <textElement textAlignment="Center" verticalAlignment="Middle">
-                        <font fontName="Arial" size="20"/>
-                    </textElement>
-                    <text><![CDATA[Seabed2Crest Technologies Pvt Ltd]]></text>
-                </staticText>
-                <line>
-                    <reportElement x="2" y="64" width="545" height="1" forecolor="#4271C2" uuid="6afea05e-58ab-42b6-ad78-f145e681ba60"/>
-                </line>
-                <line>
-                    <reportElement x="2" y="66" width="545" height="1" forecolor="#EBC107" uuid="a2b15ceb-b78b-43ab-a6c7-7950f15e6e3a"/>
-                </line>
+                <reportElement x="0" y="0" width="555" height="73" uuid="b41b0a8e-cec1-4613-997b-1f6f44e1bb29"/>
                 <image>
-                    <reportElement x="10" y="-7" width="80" height="68" uuid="22ffd55e-0a22-4855-8ca7-6e03cd237649"/>
+                    <reportElement x="10" y="-7" width="80" height="68" uuid="1f2ad98d-ed94-444a-8518-a878adaeb1b5"/>
                     <imageExpression><![CDATA["images/seabed2crest.jpg"]]></imageExpression>
                 </image>
+                <textField>
+                    <reportElement x="110" y="3" width="389" height="42" uuid="d47f8477-a689-4b53-876a-b870622455c6"/>
+                    <textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+                        <font fontName="Arial" size="20"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA["<font color='#fbac04'>"+"Seabed2Crest"+"</font>"+"<font color='#4aa6c2'>"+" Technologies Pvt Ltd"+"</font>"]]></textFieldExpression>
+                </textField>
+                <line>
+                    <reportElement x="2" y="64" width="545" height="1" forecolor="#4271C2" uuid="1f21e3f2-8b94-4801-bce3-85ff5ea3c9d0"/>
+                </line>
+                <line>
+                    <reportElement x="2" y="66" width="545" height="1" forecolor="#EBC107" uuid="993a6070-3b96-424e-8e7f-c3de709dffc0"/>
+                </line>
                 <staticText>
-                    <reportElement x="96" y="34" width="418" height="16" uuid="3dfb90ee-271a-4eb1-abb9-7ddb449ea1e3"/>
+                    <reportElement x="96" y="34" width="418" height="16" uuid="364d5aa0-fb30-4b75-98b1-516a9afd086b"/>
                     <textElement textAlignment="Center">
                         <font fontName="Times New Roman"/>
                     </textElement>
@@ -574,7 +575,7 @@
                 <textElement verticalAlignment="Middle" markup="html">
                     <font fontName="Times New Roman" size="14" isBold="true"/>
                 </textElement>
-                <textFieldExpression><![CDATA[$P{employee}.getDesignation()]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$P{updatedDesignation}]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="89" y="100" width="158" height="24" uuid="81d7735b-d94a-4bb0-acd5-460df6b694cc"/>
@@ -595,7 +596,7 @@
                 <textElement textAlignment="Center">
                     <font fontName="Times New Roman" size="14" isBold="true"/>
                 </textElement>
-                <textFieldExpression><![CDATA[$P{employee}.getDesignation()]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$P{updatedDesignation}]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="9" y="597" width="133" height="41" uuid="558ea8c8-6ed2-4c9a-b612-ecdf5d5f0309"/>
