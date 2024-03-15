@@ -5,6 +5,7 @@ import com.employee.management.service.PDFService;
 import com.employee.management.service.EmailSenderService;
 import com.employee.management.service.EmployeeService;
 import com.employee.management.service.PayRollService;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -31,6 +32,12 @@ public class PayRollController {
 //    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
     public ResponseEntity<PaySlip> getPaySlip(@RequestParam("employeeId") String empId, @RequestParam("payPeriod") String payPeriod) {
         return new ResponseEntity<>(payRollService.getPaySlip(empId, payPeriod), HttpStatus.OK);
+    }
+    @GetMapping("/payslip-pdf")
+//    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
+    public ResponseEntity<byte[]> getPaySlipPreviewPdf(@RequestParam("employeeId") String empId, @RequestParam("payPeriod") String payPeriod) throws JRException {
+        PaySlip paySlip = payRollService.getPaySlip(empId, payPeriod);
+        return (pdfService.generatePdfPreviewResponse(pdfService.generatePaySlipPdf(paySlip)));
     }
     @GetMapping("/download")
 //    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
