@@ -107,4 +107,20 @@ class PayRollControllerTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    void testPreviewPayslipPdf() throws Exception {
+        String empId = "123";
+        String payPeriod = "Feb 2023";
+        PaySlip paySlip = new PaySlip();
+        paySlip.setEmployeeDTO(new EmployeeDTO());
+        paySlip.setPayrollDTO(new PayrollDTO());
+        when(payRollService.getPaySlip(empId, payPeriod)).thenReturn(paySlip);
+
+        mockMvc.perform(get("/salary/payslip-pdf")
+                      .param("employeeId", empId)
+                      .param("payPeriod", payPeriod)
+                      .contentType("application/json"))
+              .andExpect(status().isOk());
+    }
+
 }

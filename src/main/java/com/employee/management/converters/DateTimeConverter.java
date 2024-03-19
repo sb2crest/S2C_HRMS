@@ -14,6 +14,8 @@ import java.util.Locale;
 @Component
 public class DateTimeConverter {
     public static LocalDateTime convertDateToLocalDateTime(Date date) {
+        if(date==null)
+            return null;
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
             String dateString = dateFormat.format(date);

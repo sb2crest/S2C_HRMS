@@ -3,6 +3,8 @@ package com.employee.management.service.impl;
 import com.employee.management.DTO.CalendarDTO;
 import com.employee.management.converters.DateTimeConverter;
 import com.employee.management.converters.Mapper;
+import com.employee.management.exception.CompanyException;
+import com.employee.management.exception.ResCodes;
 import com.employee.management.models.CalendarEntity;
 import com.employee.management.repository.CalendarRepository;
 import com.employee.management.service.CalendarService;
@@ -35,7 +37,9 @@ public class CalendarServiceImpl implements CalendarService {
     @Override
     public List<CalendarDTO> getEvents() {
         List<CalendarEntity> calendarEntities = calendarRepository.findAll();
-
+        if (calendarEntities.isEmpty()) {
+            throw new CompanyException(ResCodes.EVENT_NOT_FOUND);
+        }
         return calendarEntities
                 .stream()
                 .filter(Objects::nonNull)
@@ -45,6 +49,8 @@ public class CalendarServiceImpl implements CalendarService {
     @Override
     public List<CalendarDTO> getEventsByMonth(String month){
         List<CalendarEntity> calendarEntities=calendarRepository.findAll();
+        if (calendarEntities.isEmpty())
+            throw new CompanyException(ResCodes.EVENT_NOT_FOUND);
 
         return calendarEntities
                 .stream()

@@ -414,7 +414,20 @@ class AdminControllerTest {
 
         mockMvc.perform(post("/admin/preview-new-payslip")
                        .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"propertyName\":\"value\"}"))
+                        .content("{\"employeeId\":\"EMP001\"}"))
               .andExpect(status().isOk());
+    }
+    @Test
+    void payDetailsWithLeaveDeduction() throws Exception {
+        AddMonthlyPayRollRequest request = new AddMonthlyPayRollRequest();
+        request.setEmployeeId("EMP001");
+        request.setPayPeriod("2020-01-01");
+        CtcData ctcData = new CtcData();
+        when(payRollService.getPayrollDetailsWithLeaveDeduction(any())).thenReturn(ctcData);
+
+        mockMvc.perform(get("/admin/leave-deduction")
+                      .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"employeeId\":\"EMP001\"}"))
+             .andExpect(status().isOk());
     }
 }

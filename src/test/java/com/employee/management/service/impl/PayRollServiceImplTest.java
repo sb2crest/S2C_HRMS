@@ -1,9 +1,6 @@
 package com.employee.management.service.impl;
 
-import com.employee.management.DTO.CtcData;
-import com.employee.management.DTO.EmployeeDTO;
-import com.employee.management.DTO.PaySlip;
-import com.employee.management.DTO.PayrollDTO;
+import com.employee.management.DTO.*;
 import com.employee.management.converters.Mapper;
 import com.employee.management.exception.CompanyException;
 import com.employee.management.models.Employee;
@@ -40,6 +37,9 @@ class PayRollServiceImplTest {
 
     @Mock
     Mapper mapper;
+
+    @MockBean
+    CtcCalculator ctcCalculator;
 
     @InjectMocks
     PayRollServiceImpl payRollService;
@@ -130,4 +130,38 @@ class PayRollServiceImplTest {
         assertThrows(CompanyException.class, () -> payRollService.getPayrollDetails(empId));
         verify(employeeRepository, times(1)).findById(empId);
     }
+    @Test
+    void testGetPayrollDetailsWithLeaveDeduction_Success() {
+        // Arrange
+        AddMonthlyPayRollRequest request = new AddMonthlyPayRollRequest();
+        request.setEmployeeId("1");
+        request.setLopDays("5");
+
+        Employee employee = new Employee();
+        employee.setGrossSalary(100000D);
+
+        CtcData ctcData = new CtcData();
+        ctcData.setMonthlyTotalDeduction("1,000.00");
+        ctcData.setMonthlyNetPayable("9,000.00");
+
+        when(employeeRepository.findById(anyString())).thenReturn(Optional.of(employee));
+        when(ctcCalculator.compensationDetails(anyDouble())).thenReturn(ctcData);
+
+        // Act
+        CtcData result = payRollService.getPayrollDetailsWithLeaveDeduction(request);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(result.getMonthlyTotalDeduction(),"2,589.00");
+    }
+    @Test
+    void testGetPayrollDetailsWithLeaveDeduction_Exception() {
+        AddMonthlyPayRollRequest request = new AddMonthlyPayRollRequest();
+        request.setEmployeeId("1");
+        request.setLopDays("5");
+        when(employeeRepository.findById(anyString())).thenReturn(Optional.empty());
+
+        assertThrows(CompanyException.class, () -> payRollService.getPayrollDetailsWithLeaveDeduction(request));
+    }
+
 }

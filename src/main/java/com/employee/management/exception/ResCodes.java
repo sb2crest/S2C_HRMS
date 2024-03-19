@@ -21,7 +21,8 @@ public enum ResCodes {
     HIKE_APPROVED_ALREADY("1013","Hike already approved for the employee"),
     HIKE_DATA_NOT_FOUND("1014","Hike data not found"),
     SOMETHING_WENT_WRONG("1015","Error in generating Hike letter"),
-    EMAIL_FAILED("1016","Problem in sending mail")
+    EMAIL_FAILED("1016","Problem in sending mail"),
+    EVENT_NOT_FOUND("1017","Event Details not found"),
     ;
 
     private final String errorCode;
