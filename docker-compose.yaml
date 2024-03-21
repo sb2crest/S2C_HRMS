@@ -19,11 +19,11 @@ services:
     image: 'sb2crest/hrm-service:${TAG_NAME:-latest}'
     container_name: app
     depends_on:
-      - mdb
+      - mariadb
     ports:
       - "8081:8081"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mdb:3306/employees_db?useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mariadb:3306/employees_db?useSSL=false&allowPublicKeyRetrieval=true  # Updated datasource URL to point to mariadb
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=Hithika@09
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
