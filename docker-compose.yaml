@@ -25,7 +25,7 @@ services:
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://mariadb:3306/employees_db?useSSL=false&allowPublicKeyRetrieval=true  # Updated datasource URL to point to mariadb
       - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=Hithika@09
+      - SPRING_DATASOURCE_PASSWORD=root
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - SPRING_JPA_SHOW_SQL=true
       - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQLDialect
@@ -41,7 +41,7 @@ services:
     image: 'mysql:8.0'
     container_name: mdb
     environment:
-      - MYSQL_ROOT_PASSWORD=Hithika@09
+      - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=employees_db
     ports:
       - "3306:3306"
