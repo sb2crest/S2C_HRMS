@@ -2,9 +2,8 @@
 FROM openjdk:17-jdk-alpine
 
 # Install libfreetype to resolve the UnsatisfiedLinkError
-RUN apk add --no-cache freetype
-RUN apk add --no-cache ttf-dejavu
-RUN apk add --no-cache freetype ttf-dejavu
+RUN apk add --no-cache freetype ttf-freefont
+
 # Set the working directory inside the container
 WORKDIR /app
 
