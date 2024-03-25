@@ -81,7 +81,7 @@
                 <staticText>
                     <reportElement x="96" y="34" width="418" height="16" uuid="364d5aa0-fb30-4b75-98b1-516a9afd086b"/>
                     <textElement textAlignment="Center">
-                        <font fontName="Times New Roman"/>
+                        <font fontName="Serif"/>
                     </textElement>
                     <text><![CDATA[ 1st floor, R D Rajanna Complex, Rajanukunte,  Yelehanka Taluk Bengaluru, Karnataka 560064]]></text>
                 </staticText>
@@ -538,63 +538,63 @@
             <staticText>
                 <reportElement x="143" y="13" width="275" height="20" uuid="03be23d6-207a-432d-86bb-73db96ad042e"/>
                 <textElement textAlignment="Center">
-                    <font fontName="Times New Roman" size="16" isBold="true" isUnderline="true"/>
+                    <font fontName="Serif" size="16" isBold="true" isUnderline="true"/>
                 </textElement>
                 <text><![CDATA[Updated Compensation Details]]></text>
             </staticText>
             <staticText>
                 <reportElement x="6" y="64" width="89" height="25" uuid="10d9fd64-3495-4856-93ed-25187688c764"/>
                 <textElement>
-                    <font fontName="Times New Roman" size="13" isBold="true"/>
+                    <font fontName="Serif" size="13" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Name           :]]></text>
             </staticText>
             <staticText>
                 <reportElement x="6" y="84" width="89" height="25" uuid="d24c94cf-9afc-47a9-8441-eacc2b163794"/>
                 <textElement>
-                    <font fontName="Times New Roman" size="13" isBold="true"/>
+                    <font fontName="Serif" size="13" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Role             :]]></text>
             </staticText>
             <staticText>
                 <reportElement x="6" y="103" width="89" height="25" uuid="f56afc96-eb44-4ac8-a42e-c3f47945226d"/>
                 <textElement>
-                    <font fontName="Times New Roman" size="13" isBold="true"/>
+                    <font fontName="Serif" size="13" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Department :]]></text>
             </staticText>
             <textField>
                 <reportElement x="89" y="61" width="160" height="24" uuid="b5ea8c6d-ebcb-4143-88df-6aa52bee8fb1"/>
                 <textElement verticalAlignment="Middle" markup="html">
-                    <font fontName="Times New Roman" size="14" isBold="true"/>
+                    <font fontName="Serif" size="14" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{employee}.getEmployeeName()]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="89" y="80" width="160" height="24" uuid="88652848-88c2-4fa9-97cb-a3f394143048"/>
                 <textElement verticalAlignment="Middle" markup="html">
-                    <font fontName="Times New Roman" size="14" isBold="true"/>
+                    <font fontName="Serif" size="14" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{updatedDesignation}]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="89" y="100" width="158" height="24" uuid="81d7735b-d94a-4bb0-acd5-460df6b694cc"/>
                 <textElement verticalAlignment="Middle" markup="html">
-                    <font fontName="Times New Roman" size="14" isBold="true"/>
+                    <font fontName="Serif" size="14" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{employee}.getDepartment()]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="356" y="597" width="198" height="20" uuid="a023bb43-519b-486b-9239-07fbe9ea724d"/>
                 <textElement textAlignment="Center">
-                    <font fontName="Times New Roman" size="14" isBold="true"/>
+                    <font fontName="Serif" size="14" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{employee}.getEmployeeName()]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="356" y="615" width="198" height="20" uuid="6eb30a8a-0246-49b3-a3dc-166008be9245"/>
                 <textElement textAlignment="Center">
-                    <font fontName="Times New Roman" size="14" isBold="true"/>
+                    <font fontName="Serif" size="14" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{updatedDesignation}]]></textFieldExpression>
             </textField>

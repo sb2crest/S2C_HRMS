@@ -72,7 +72,7 @@
                 <staticText>
                     <reportElement x="96" y="34" width="418" height="16" uuid="364d5aa0-fb30-4b75-98b1-516a9afd086b"/>
                     <textElement textAlignment="Center">
-                        <font fontName="Times New Roman"/>
+                        <font fontName="Serif"/>
                     </textElement>
                     <text><![CDATA[ 1st floor, R D Rajanna Complex, Rajanukunte,  Yelehanka Taluk Bengaluru, Karnataka 560064]]></text>
                 </staticText>
@@ -90,7 +90,7 @@
                     <property name="com.jaspersoft.studio.unit.x" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Left">
-                    <font fontName="Times New Roman" size="14" isBold="true" isUnderline="false"/>
+                    <font fontName="Serif" size="14" isBold="true" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[TERMS & CONDITIONS]]></text>
             </staticText>
@@ -99,7 +99,7 @@
                     <property name="com.jaspersoft.studio.unit.x" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Left">
-                    <font fontName="Times New Roman" size="12" isBold="false" isUnderline="false"/>
+                    <font fontName="Serif" size="12" isBold="false" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[This letter contains broad terms and conditions of service governing this appointment which are subject to change from time to time and subject to the Company's employment rules. You are requested to contact the Human Resources for policies/rules/regulations, which are applicable to you. We expect you to keep the salary details confidential at all times. In addition to the terms contained herein, you will at all times during your employment with the company be bound by the policies/rules/regulations of the company.]]></text>
             </staticText>
@@ -108,7 +108,7 @@
                     <property name="com.jaspersoft.studio.unit.x" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Left">
-                    <font fontName="Times New Roman" size="12" isBold="false" isUnderline="false"/>
+                    <font fontName="Serif" size="12" isBold="false" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[This offer is made on the clear understanding that your employment is on whole time basis and that you will not undertake any other part time/full-time work/or independent assignments, without the written consent of the company.]]></text>
             </staticText>
@@ -117,7 +117,7 @@
                     <property name="com.jaspersoft.studio.unit.x" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Left">
-                    <font fontName="Times New Roman" size="14" isBold="true" isUnderline="false"/>
+                    <font fontName="Serif" size="14" isBold="true" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[NATURE OF EMPLOYMENT]]></text>
             </staticText>
@@ -126,7 +126,7 @@
                     <property name="com.jaspersoft.studio.unit.x" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Left">
-                    <font fontName="Times New Roman" size="14" isBold="true" isUnderline="false"/>
+                    <font fontName="Serif" size="14" isBold="true" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[BACKGROUND CHECK]]></text>
             </staticText>
@@ -135,7 +135,7 @@
                     <property name="com.jaspersoft.studio.unit.x" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Left">
-                    <font fontName="Times New Roman" size="12" isBold="false" isUnderline="false"/>
+                    <font fontName="Serif" size="12" isBold="false" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[The company conducts background checks of its candidates / employees by an authorized agency as a normal procedure. By accepting this offer, you acknowledge that you have no objection in the company conducting such background checks. Further this offer is valid subject to successful completion of background check and reference check, if any.]]></text>
             </staticText>
@@ -144,7 +144,7 @@
                     <property name="com.jaspersoft.studio.unit.x" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Left">
-                    <font fontName="Times New Roman" size="12" isBold="false" isUnderline="false"/>
+                    <font fontName="Serif" size="12" isBold="false" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[You will undergo a (6) months probation period from your date of joining, subject to possible extension by the company if your performance falls below expected standards. At the end of this period, your services will be confirmed unless the company provides a written extension within the initial six-month timeframe.
 
@@ -155,7 +155,7 @@ During the probation period, either party may terminate your services with fifte
                     <property name="com.jaspersoft.studio.unit.x" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Left">
-                    <font fontName="Times New Roman" size="14" isBold="true" isUnderline="false"/>
+                    <font fontName="Serif" size="14" isBold="true" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[PROBATION]]></text>
             </staticText>
@@ -164,7 +164,7 @@ During the probation period, either party may terminate your services with fifte
                     <property name="com.jaspersoft.studio.unit.x" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Left">
-                    <font fontName="Times New Roman" size="12" isBold="false" isUnderline="false"/>
+                    <font fontName="Serif" size="12" isBold="false" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[You will be undergoing both external and in-house professional enhancement training that would include on job development program from time to time. In order to help you to acquire specialized skills and enhanced technical knowledge, the company may, at the company's sole discretion, offer to finance the cost of such specialized courses and training at the company's own training establishments or at the training facilities of third parties, within India, from time to time during the term of your employment.]]></text>
             </staticText>
@@ -173,7 +173,7 @@ During the probation period, either party may terminate your services with fifte
                     <property name="com.jaspersoft.studio.unit.x" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Left">
-                    <font fontName="Times New Roman" size="14" isBold="true" isUnderline="false"/>
+                    <font fontName="Serif" size="14" isBold="true" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[TRAINING & DEVELOPMENT
 ]]></text>

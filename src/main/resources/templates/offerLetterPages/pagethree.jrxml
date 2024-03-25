@@ -70,7 +70,7 @@
                 <staticText>
                     <reportElement x="96" y="34" width="418" height="16" uuid="364d5aa0-fb30-4b75-98b1-516a9afd086b"/>
                     <textElement textAlignment="Center">
-                        <font fontName="Times New Roman"/>
+                        <font fontName="Serif"/>
                     </textElement>
                     <text><![CDATA[ 1st floor, R D Rajanna Complex, Rajanukunte,  Yelehanka Taluk Bengaluru, Karnataka 560064]]></text>
                 </staticText>
@@ -87,7 +87,7 @@
             <staticText>
                 <reportElement x="15" y="50" width="528" height="50" forecolor="#635E5D" uuid="9d8f35b7-cf5c-46a3-b6a5-9cedc1e534dd"/>
                 <textElement textAlignment="Justified">
-                    <font fontName="Times New Roman" size="12" isBold="false" isUnderline="false"/>
+                    <font fontName="Serif" size="12" isBold="false" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[Seabed2Crest Technologies Pvt Ltd has a code of conduct, confidentiality and noncompete / nondisclosure agreements, primarily to address working standards and business interests of the company and its clients. You are expected to sign your acceptance and adhere to these norms once you join the company.]]></text>
             </staticText>
@@ -96,14 +96,14 @@
                     <property name="com.jaspersoft.studio.unit.x" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Left">
-                    <font fontName="Times New Roman" size="14" isBold="true" isUnderline="false"/>
+                    <font fontName="Serif" size="14" isBold="true" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[CODE OF CONDUCT]]></text>
             </staticText>
             <staticText>
                 <reportElement x="15" y="152" width="528" height="58" forecolor="#635E5D" uuid="01d32b21-5792-47ce-99ec-868c12e35621"/>
                 <textElement textAlignment="Justified">
-                    <font fontName="Times New Roman" size="12" isBold="false" isUnderline="false"/>
+                    <font fontName="Serif" size="12" isBold="false" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[You will not give anyone by word of mouth, writing, facsimile, electronic devices and media or otherwise any particulars or details, which you acquire during the course of your employment of our working systems, technical know-how, security arrangements, administrative and or organization matters of our and our clients whether confidential, secret or otherwise, either during your employment with company or afterwards.]]></text>
             </staticText>
@@ -112,14 +112,14 @@
                     <property name="com.jaspersoft.studio.unit.x" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Left">
-                    <font fontName="Times New Roman" size="14" isBold="true" isUnderline="false"/>
+                    <font fontName="Serif" size="14" isBold="true" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[SECRECY AND CONFIDENTIALITY]]></text>
             </staticText>
             <staticText>
                 <reportElement x="15" y="261" width="528" height="69" forecolor="#635E5D" uuid="4554158b-72f7-4240-98a8-45554fa44f3a"/>
                 <textElement textAlignment="Justified">
-                    <font fontName="Times New Roman" size="12" isBold="false" isUnderline="false"/>
+                    <font fontName="Serif" size="12" isBold="false" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[After confirmation, your employment may be terminated by either party giving 30 days' written notice. The company reserves the right to terminate your employment without notice or payment in lieu of notice if you breach the terms of employment in a manner that adversely affects the company's reputation, involves any cost implication, or constitutes gross negligence, misrepresentation, persistent misconduct, or a criminal offense.]]></text>
             </staticText>
@@ -128,14 +128,14 @@
                     <property name="com.jaspersoft.studio.unit.x" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Left">
-                    <font fontName="Times New Roman" size="14" isBold="true" isUnderline="false"/>
+                    <font fontName="Serif" size="14" isBold="true" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[TERMINATION]]></text>
             </staticText>
             <staticText>
                 <reportElement x="15" y="397" width="528" height="65" forecolor="#635E5D" uuid="833fe6d1-5180-429d-9b68-9a058cb3eb33"/>
                 <textElement textAlignment="Justified">
-                    <font fontName="Times New Roman" size="12" isBold="false" isUnderline="false"/>
+                    <font fontName="Serif" size="12" isBold="false" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[If you abscond from duties or remain absent without leave or permission for (5) consecutive working days it will be deemed that you have voluntarily resigned from the services of the company. In such a case you acknowledge that the company may remove your name from the master roll of the company without assigning any reason what so ever]]></text>
             </staticText>
@@ -144,14 +144,14 @@
                     <property name="com.jaspersoft.studio.unit.x" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Left">
-                    <font fontName="Times New Roman" size="14" isBold="true" isUnderline="false"/>
+                    <font fontName="Serif" size="14" isBold="true" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[VOLUNTARY ABANDONMENT OF SERVICE]]></text>
             </staticText>
             <staticText>
                 <reportElement x="15" y="521" width="528" height="71" forecolor="#635E5D" uuid="e6f69153-92bb-4671-b23c-0c5015691adc"/>
                 <textElement textAlignment="Justified">
-                    <font fontName="Times New Roman" size="12" isBold="false" isUnderline="false"/>
+                    <font fontName="Serif" size="12" isBold="false" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[You need to submit the following documents.
 1. Two Photocopies and Originals  of your Educational Certificates(10th Passing Certificate, 12th Passing Certificate, Graduation Passing Certificate, Post-Graduation Passing Certificate)
@@ -162,7 +162,7 @@
                     <property name="com.jaspersoft.studio.unit.x" value="px"/>
                 </reportElement>
                 <textElement textAlignment="Left">
-                    <font fontName="Times New Roman" size="14" isBold="true" isUnderline="false"/>
+                    <font fontName="Serif" size="14" isBold="true" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[SUBMISSION OF DOCUMENTS]]></text>
             </staticText>

@@ -85,7 +85,7 @@
                 <staticText>
                     <reportElement x="96" y="34" width="418" height="16" uuid="364d5aa0-fb30-4b75-98b1-516a9afd086b"/>
                     <textElement textAlignment="Center">
-                        <font fontName="Times New Roman"/>
+                        <font fontName="Serif"/>
                     </textElement>
                     <text><![CDATA[ 1st floor, R D Rajanna Complex, Rajanukunte,  Yelehanka Taluk Bengaluru, Karnataka 560064]]></text>
                 </staticText>
@@ -106,91 +106,91 @@
             <staticText>
                 <reportElement x="157" y="36" width="260" height="26" uuid="f5b0ae0f-785e-434f-86ea-8710c5be8b0a"/>
                 <textElement textAlignment="Center">
-                    <font fontName="Times New Roman" size="16" isBold="true" isUnderline="true"/>
+                    <font fontName="Serif" size="16" isBold="true" isUnderline="true"/>
                 </textElement>
                 <text><![CDATA[HIKE AND PROMOTION LETTER]]></text>
             </staticText>
             <staticText>
                 <reportElement x="15" y="96" width="26" height="20" uuid="f16bef05-2a3b-44fe-bdd2-3705ab5c42cc"/>
                 <textElement textAlignment="Left">
-                    <font fontName="Times New Roman" size="14" isBold="true" isUnderline="false"/>
+                    <font fontName="Serif" size="14" isBold="true" isUnderline="false"/>
                 </textElement>
                 <text><![CDATA[To]]></text>
             </staticText>
             <textField>
                 <reportElement x="24" y="115" width="162" height="24" uuid="b22f970e-604e-4591-8982-63cde5148e43"/>
                 <textElement verticalAlignment="Middle" markup="html">
-                    <font fontName="Times New Roman" size="13" isBold="true"/>
+                    <font fontName="Serif" size="13" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{employee}.getEmployeeName()]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="24" y="132" width="162" height="24" uuid="dabdf57d-0919-424f-9e82-0f40ba4f2a23"/>
                 <textElement verticalAlignment="Middle" markup="html">
-                    <font fontName="Times New Roman" size="13" isBold="true"/>
+                    <font fontName="Serif" size="13" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA["<font color='#635E5D'>Id:</font> " + $P{employee}.getEmployeeID()]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="24" y="148" width="230" height="24" uuid="07d971bc-0b10-4a62-b94b-af8350466735"/>
                 <textElement verticalAlignment="Middle" markup="html">
-                    <font fontName="Times New Roman" size="13" isBold="true"/>
+                    <font fontName="Serif" size="13" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA["<font color='#635E5D'>Designation:</font> " + $P{hikeDetails}.getNewPosition()]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="430" y="88" width="125" height="19" forecolor="#635E5D" uuid="5797e0a2-4e6b-416c-b28e-fbedce886cc4"/>
                 <textElement verticalAlignment="Middle" markup="html">
-                    <font fontName="Times New Roman" size="13" isBold="true"/>
+                    <font fontName="Serif" size="13" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA["Date : "+"<font color='#000000'><style isBold='true'>"+$P{currentDate}+"</style></font>"]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="15" y="182" width="185" height="25" forecolor="#635E5D" uuid="9ab9bfa9-8fa9-4990-9273-d78ee7850ae8"/>
                 <textElement verticalAlignment="Middle" markup="html">
-                    <font fontName="Times New Roman" size="13" isBold="true"/>
+                    <font fontName="Serif" size="13" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA["Dear "+"<font color='#000000'><style isBold='true'>"+$P{employee}.getEmployeeName()+"</style></font>"+","]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="15" y="213" width="528" height="31" forecolor="#635E5D" uuid="bc01b85a-42c0-4e23-b085-57449bf96cb8"/>
                 <textElement textAlignment="Justified" verticalAlignment="Top" markup="html">
-                    <font fontName="Times New Roman" size="12" isBold="false"/>
+                    <font fontName="Serif" size="12" isBold="false"/>
                 </textElement>
                 <textFieldExpression><![CDATA["We are delighted to inform you that your hard work and dedication have been recognized, and as a result, we are pleased to offer you a salary hike, effective from <font color='#000000'><style isBold='true'>"+$P{hikeDetails}.getEffectiveDate()+"</style></font>."]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="15" y="308" width="168" height="26" forecolor="#242323" uuid="cf723835-eb37-42e1-b0a8-df72a6e120f8"/>
                 <textElement textAlignment="Justified" verticalAlignment="Top" markup="html">
-                    <font fontName="Times New Roman" size="14" isBold="false"/>
+                    <font fontName="Serif" size="14" isBold="false"/>
                 </textElement>
                 <textFieldExpression><![CDATA["Details of the hike:"]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="19" y="333" width="235" height="18" forecolor="#242323" uuid="3d7876d3-8417-4374-aa47-5e268526f3ee"/>
                 <textElement textAlignment="Justified" verticalAlignment="Top" markup="html">
-                    <font fontName="Times New Roman" size="12" isBold="false"/>
+                    <font fontName="Serif" size="12" isBold="false"/>
                 </textElement>
                 <textFieldExpression><![CDATA["- Previous Salary:  "+$P{hikeDetails}.getPrevSalary()]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="19" y="352" width="208" height="17" forecolor="#242323" uuid="8a3c1f5b-0f5e-46e8-a804-f011439f5517"/>
                 <textElement textAlignment="Justified" verticalAlignment="Top" markup="html">
-                    <font fontName="Times New Roman" size="12" isBold="false"/>
+                    <font fontName="Serif" size="12" isBold="false"/>
                 </textElement>
                 <textFieldExpression><![CDATA["- New Salary:   "+$P{hikeDetails}.getNewSalary()]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="19" y="370" width="301" height="17" forecolor="#242323" uuid="87959b47-c942-4309-b789-773c59f0bc30"/>
                 <textElement textAlignment="Justified" verticalAlignment="Top" markup="html">
-                    <font fontName="Times New Roman" size="12" isBold="false"/>
+                    <font fontName="Serif" size="12" isBold="false"/>
                 </textElement>
                 <textFieldExpression><![CDATA["- Hike Amount:   "+$P{hikeAmount}]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="15" y="398" width="528" height="132" forecolor="#635E5D" uuid="c8f02a3d-b0fd-430c-a342-192598a279a8"/>
                 <textElement textAlignment="Justified" verticalAlignment="Top" markup="html">
-                    <font fontName="Times New Roman" size="12" isBold="false"/>
+                    <font fontName="Serif" size="12" isBold="false"/>
                 </textElement>
                 <textFieldExpression><![CDATA["Your new salary will be reflected in your next paycheck. We believe that this increase is a testament to your valuable contributions and the impact you have made on our organization.<br/><br/>" +
 "As we continue to grow and succeed, we are grateful to have team members like you who are dedicated to our shared goals. Your professionalism and positive attitude inspire us all.<br/><br/>" +
@@ -201,7 +201,7 @@
             <staticText>
                 <reportElement x="15" y="539" width="75" height="31" forecolor="#635E5D" uuid="365fc5f1-0804-41d2-87d8-b7be55f02d33"/>
                 <textElement>
-                    <font fontName="Times New Roman" size="12"/>
+                    <font fontName="Serif" size="12"/>
                 </textElement>
                 <text><![CDATA[
 Best regards,]]></text>
@@ -209,7 +209,7 @@ Best regards,]]></text>
             <staticText>
                 <reportElement x="9" y="613" width="127" height="32" uuid="f1078ca4-11c9-4b63-94ec-6ef130c73451"/>
                 <textElement textAlignment="Center">
-                    <font fontName="Times New Roman" size="13" isBold="true"/>
+                    <font fontName="Serif" size="13" isBold="true"/>
                 </textElement>
                 <text><![CDATA[NANDU KASARAM
 Founder & CEO]]></text>
@@ -217,7 +217,7 @@ Founder & CEO]]></text>
             <textField>
                 <reportElement x="15" y="249" width="528" height="42" forecolor="#635E5D" uuid="bfcbda1f-44ec-45a0-9f88-acc1ab41c0ec"/>
                 <textElement textAlignment="Justified" verticalAlignment="Top" markup="html">
-                    <font fontName="Times New Roman" size="12" isBold="false"/>
+                    <font fontName="Serif" size="12" isBold="false"/>
                 </textElement>
                 <textFieldExpression><![CDATA["Additionally, we are pleased to announce your promotion from <font color='#000000'><style isBold='true'>"+$P{hikeDetails}.getPrevPosition()+"</style></font> to <font color='#000000'><style isBold='true'>"+$P{hikeDetails}.getNewPosition()+"</style></font>, effective from <font color='#000000'><style isBold='true'>"+$P{hikeDetails}.getEffectiveDate()+"</style></font>. This promotion is a testament to your exceptional performance and contributions to our organization."]]></textFieldExpression>
             </textField>

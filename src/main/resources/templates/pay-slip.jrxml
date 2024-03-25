@@ -87,7 +87,7 @@
             <textField>
                 <reportElement x="71" y="4" width="360" height="30" uuid="49a6538e-28c6-47a2-8c44-71fd3848d6d6"/>
                 <textElement textAlignment="Left" verticalAlignment="Middle" markup="html">
-                    <font fontName="Times New Roman" size="20"/>
+                    <font fontName="Serif" size="20"/>
                 </textElement>
                 <textFieldExpression><![CDATA["<font color='#fbac04'>"+"Seabed2Crest"+"</font>"+"<font color='#4aa6c2'>"+" Technologies Pvt Ltd"+"</font>"]]></textFieldExpression>
             </textField>
