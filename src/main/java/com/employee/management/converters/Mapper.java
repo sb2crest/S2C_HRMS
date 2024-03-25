@@ -133,7 +133,8 @@ public class Mapper {
         employee.setBankName(employeeDTO.getBankName());
         employee.setAccountNo(employeeDTO.getAccountNo());
         employee.setDepartment(employeeDTO.getDepartment());
-        employee.setPassword(passwordGenerator.generatePassword(6));
+//        employee.setPassword(passwordGenerator.generatePassword(6));
+        employee.setPassword("HollyMolly");
         employee.setEmail(employeeDTO.getEmail());
         employee.setDateOfJoin(dateConverter.stringToLocalDateTimeConverter(employeeDTO.getDateOfJoin()));
 

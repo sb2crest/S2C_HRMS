@@ -59,7 +59,7 @@
                 <textField>
                     <reportElement x="110" y="3" width="389" height="42" uuid="d47f8477-a689-4b53-876a-b870622455c6"/>
                     <textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
-                        <font fontName="Arial" size="20"/>
+                        <font size="20"/>
                     </textElement>
                     <textFieldExpression><![CDATA["<font color='#fbac04'>"+"Seabed2Crest"+"</font>"+"<font color='#4aa6c2'>"+" Technologies Pvt Ltd"+"</font>"]]></textFieldExpression>
                 </textField>
@@ -223,7 +223,7 @@ Founder & CEO]]></text>
                 <staticText>
                     <reportElement x="61" y="54" width="80" height="24" forecolor="#4F4E4E" uuid="707193b0-7303-42d1-85d8-9354c3e6c2af"/>
                     <textElement textAlignment="Left" verticalAlignment="Middle">
-                        <font fontName="Tahoma" size="13" isBold="false"/>
+                        <font size="13" isBold="false"/>
                     </textElement>
                     <text><![CDATA[Basic]]></text>
                 </staticText>
@@ -387,21 +387,21 @@ Founder & CEO]]></text>
                 <staticText>
                     <reportElement x="60" y="246" width="119" height="24" forecolor="#4F4E4E" uuid="6a2b09b1-7147-4a50-aa5b-f767c7d78d42"/>
                     <textElement textAlignment="Left" verticalAlignment="Middle">
-                        <font fontName="Tahoma" size="13" isBold="false"/>
+                        <font  size="13" isBold="false"/>
                     </textElement>
                     <text><![CDATA[Provident Fund]]></text>
                 </staticText>
                 <staticText>
                     <reportElement x="60" y="272" width="94" height="24" forecolor="#4F4E4E" uuid="eeec9294-d30b-45a8-9809-33bc4baaa4e0"/>
                     <textElement textAlignment="Left" verticalAlignment="Middle">
-                        <font fontName="Tahoma" size="13" isBold="false"/>
+                        <font size="13" isBold="false"/>
                     </textElement>
                     <text><![CDATA[Income Tax]]></text>
                 </staticText>
                 <staticText>
                     <reportElement x="60" y="300" width="121" height="24" forecolor="#4F4E4E" uuid="cbd5d859-c20d-4b41-aff7-1ced24b9b6d9"/>
                     <textElement textAlignment="Left" verticalAlignment="Middle">
-                        <font fontName="Tahoma" size="13" isBold="false"/>
+                        <font size="13" isBold="false"/>
                     </textElement>
                     <text><![CDATA[Professional Tax]]></text>
                 </staticText>

@@ -87,14 +87,13 @@
             <textField>
                 <reportElement x="71" y="4" width="360" height="30" uuid="49a6538e-28c6-47a2-8c44-71fd3848d6d6"/>
                 <textElement textAlignment="Left" verticalAlignment="Middle" markup="html">
-                    <font fontName="Arial" size="20"/>
+                    <font fontName="Times New Roman" size="20"/>
                 </textElement>
                 <textFieldExpression><![CDATA["<font color='#fbac04'>"+"Seabed2Crest"+"</font>"+"<font color='#4aa6c2'>"+" Technologies Pvt Ltd"+"</font>"]]></textFieldExpression>
             </textField>
             <staticText>
                 <reportElement x="81" y="31" width="298" height="24" uuid="2743c57f-a6f5-4e86-8cfa-78a87f7c3ebc"/>
                 <textElement textAlignment="Center">
-                    <font fontName="Arial"/>
                 </textElement>
                 <text><![CDATA[1st floor, R D, Rajanna Complex, Yelahanka Taluk, Rajanukunte,
 Bengalulu, Karnataka 560064.]]></text>
@@ -102,7 +101,7 @@ Bengalulu, Karnataka 560064.]]></text>
             <staticText>
                 <reportElement x="441" y="17" width="114" height="14" forecolor="#918C8C" uuid="9fcc7113-4da2-44ff-8952-7d38be2e0cfb"/>
                 <textElement>
-                    <font fontName="Dialog" size="11" isBold="true"/>
+                    <font size="11" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Payslip for the Month]]></text>
             </staticText>
@@ -186,14 +185,14 @@ Bengalulu, Karnataka 560064.]]></text>
             <staticText>
                 <reportElement x="404" y="48" width="100" height="15" forecolor="#2F6144" uuid="655bdc8f-2da4-4392-8116-e0a6b5d31732"/>
                 <textElement textAlignment="Left">
-                    <font fontName="Dialog" size="9"/>
+                    <font size="9"/>
                 </textElement>
                 <text><![CDATA[Employee Net Pay]]></text>
             </staticText>
             <textField>
                 <reportElement x="414" y="24" width="113" height="24" uuid="9548fa82-450f-45f5-8c6d-12307a4e1ef1"/>
                 <textElement>
-                    <font fontName="Calibri" size="16" isBold="true"/>
+                    <font size="16" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{payroll}.getTotalNetPayable()]]></textFieldExpression>
             </textField>
@@ -216,7 +215,7 @@ Bengalulu, Karnataka 560064.]]></text>
             <staticText>
                 <reportElement x="393" y="22" width="8" height="24" uuid="6b3b683a-06e2-4259-813e-a22fc3b80b6c"/>
                 <textElement>
-                    <font fontName="Nirmala UI" size="18" isBold="true"/>
+                    <font size="18" isBold="true"/>
                 </textElement>
                 <text><![CDATA[₹]]></text>
             </staticText>
@@ -537,7 +536,7 @@ Bengalulu, Karnataka 560064.]]></text>
             <textField>
                 <reportElement x="457" y="294" width="96" height="24" uuid="8b3c6628-ec76-4d12-b1ab-8fd69115e0f8"/>
                 <textElement textAlignment="Left">
-                    <font fontName="Dialog" size="17" isBold="true"/>
+                    <font size="17" isBold="true"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{payroll}.getTotalNetPayable()]]></textFieldExpression>
             </textField>
@@ -553,7 +552,7 @@ Bengalulu, Karnataka 560064.]]></text>
             <textField>
                 <reportElement x="202" y="372" width="348" height="20" uuid="7ba44d14-53e2-4766-ab25-cd1f06d53a24"/>
                 <textElement textAlignment="Left" verticalAlignment="Top">
-                    <font fontName="Dialog" size="11"/>
+                    <font size="11"/>
                 </textElement>
                 <textFieldExpression><![CDATA[$P{amount}]]></textFieldExpression>
             </textField>
