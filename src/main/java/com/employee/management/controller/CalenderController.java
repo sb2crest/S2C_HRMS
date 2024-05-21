@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/calendar")
-@CrossOrigin(origins = "https://hrm-service-fe-16185511.ap-south-1.elb.amazonaws.com/")
+@CrossOrigin(origins = "http://hrm-service-fe-16185511.ap-south-1.elb.amazonaws.com/")
 public class CalenderController {
     @Autowired
     private CalendarService calendarService;

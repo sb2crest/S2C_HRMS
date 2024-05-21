@@ -18,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
-@CrossOrigin(origins = "https://hrm-service-fe-16185511.ap-south-1.elb.amazonaws.com/")
+@CrossOrigin(origins = "http://hrm-service-fe-16185511.ap-south-1.elb.amazonaws.com/")
 public class AdminController {
     @Autowired
     AdminService adminService;

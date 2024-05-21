@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/salary")
-@CrossOrigin(origins = "https://hrm-service-fe-16185511.ap-south-1.elb.amazonaws.com/")
+@CrossOrigin(origins = "http://hrm-service-fe-16185511.ap-south-1.elb.amazonaws.com/")
 public class PayRollController {
     @Autowired
     PayRollService payRollService;
