@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://hrm-service-fe-16185511.ap-south-1.elb.amazonaws.com/")
 public class Auth {
     @Autowired
     private AuthenticationManager authenticationManager;

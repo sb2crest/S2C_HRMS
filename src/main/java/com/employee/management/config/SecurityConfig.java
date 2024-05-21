@@ -36,7 +36,6 @@ public class SecurityConfig{
                 .authorizeHttpRequests()
                 .requestMatchers("/auth/**","/admin/**","/offer-letter/**","/salary/download","/calendar/**","/swagger-ui/**","/v2/**","/employee/**","/salary/**").permitAll()
                 .and()
-
                 .authorizeHttpRequests()
                 .requestMatchers("/salary/download").authenticated()
                 .and()

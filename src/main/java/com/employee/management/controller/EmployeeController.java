@@ -7,28 +7,24 @@ import com.employee.management.exception.ResCodes;
 import com.employee.management.service.AttendanceService;
 import com.employee.management.service.EmployeeService;
 import com.employee.management.service.JWTService;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/employee")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://hrm-service-fe-16185511.ap-south-1.elb.amazonaws.com/")
 public class EmployeeController {
     @Autowired
     private JWTService jwtService;
     @Autowired
     EmployeeService employeeService;
-    @Autowired
-    AttendanceService attendanceService;
 
 
     @GetMapping("/get")
-//    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public ResponseEntity<EmployeeDTO>getEmployee(@RequestParam("empId")String id, @RequestHeader("Authorization")String jwtToken){
         System.out.println("Token :"+jwtToken);
         String token=jwtToken.substring(7);

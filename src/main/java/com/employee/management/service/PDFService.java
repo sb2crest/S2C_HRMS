@@ -35,12 +35,10 @@ import java.util.Map;
 public class PDFService {
    private final Mapper mapper;
    private final CtcCalculator calculator;
-   private final Formatters formatters;
    private final AmountToWordsConverter converter;
-   PDFService(Mapper mapper,CtcCalculator calculator,Formatters formatters,AmountToWordsConverter converter){
+   PDFService(Mapper mapper,CtcCalculator calculator,AmountToWordsConverter converter){
        this.mapper=mapper;
        this.calculator=calculator;
-       this.formatters=formatters;
        this.converter=converter;
    }
 
@@ -76,7 +74,7 @@ public class PDFService {
         Map<String, Object> parameters1 = new HashMap<>();
         parameters1.put("employee", employee);
         parameters1.put("hikeDetails", mapper.convertToHikeEntityDto(hike));
-        parameters1.put("hikeAmount", formatters.formatAmountWithCommas((hike.getNewSalary() - hike.getPrevSalary())));
+        parameters1.put("hikeAmount", Formatters.formatAmountWithCommas((hike.getNewSalary() - hike.getPrevSalary())));
         parameters1.put("currentDate", issuedDate);
 
 
@@ -112,7 +110,7 @@ public class PDFService {
     }
 
     public byte[] generateMergedOfferReport(OfferLetterDTO offerLetterDTO) throws IOException, JRException {
-        CtcData data=calculator.compensationDetails(formatters.convertStringToDoubleAmount(offerLetterDTO.getCtc()));
+        CtcData data=calculator.compensationDetails(Formatters.convertStringToDoubleAmount(offerLetterDTO.getCtc()));
 
         JasperReport report1 = JasperCompileManager.compileReport(new ClassPathResource("/templates/offerLetterPages/pageone.jrxml").getInputStream());
         JasperReport report2 = JasperCompileManager.compileReport(new ClassPathResource("/templates/offerLetterPages/pagetwo.jrxml").getInputStream());
